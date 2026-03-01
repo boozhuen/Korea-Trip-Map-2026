@@ -37,24 +37,30 @@
     }
     button.primary { border-color: #cfcfcf; background: #f1f1f1; }
     button.active { background: #111; color: #fff; border-color: #111; }
-    #dayBar { margin-top: 10px; display: flex; gap: 8px; flex-wrap: wrap; }
+
+    #tabBar { margin-top: 10px; display: flex; gap: 8px; flex-wrap: wrap; }
+
     #results {
-      margin-top: 10px; max-height: 200px; overflow: auto;
+      margin-top: 10px; max-height: 220px; overflow: auto;
       border: 1px solid #eee; border-radius: 10px; padding: 6px; display: none;
     }
     .item { padding: 10px; border-radius: 10px; cursor: pointer; }
     .item:hover { background: #f4f4f4; }
+
     .meta { color: #666; font-size: 13px; margin-top: 2px; }
-    .pill { display:inline-block; padding:2px 8px; border:1px solid #ddd; border-radius: 999px; font-size:12px; margin-left:6px; color:#444;}
-    #map { height: calc(100vh - 150px); }
+    .pill {
+      display:inline-block; padding:2px 8px; border:1px solid #ddd;
+      border-radius: 999px; font-size:12px; margin-left:6px; color:#444;
+      background: #fff;
+    }
+    #map { height: calc(100vh - 170px); }
 
     /* Emoji marker bubble */
     .emoji-marker {
-      width: 30px; height: 30px;
+      width: 32px; height: 32px;
       display: grid; place-items: center;
       border-radius: 999px;
-      border: 1px solid #ddd;
-      background: white;
+      border: 2px solid rgba(0,0,0,0.12);
       box-shadow: 0 1px 6px rgba(0,0,0,0.12);
       font-size: 18px;
     }
@@ -64,12 +70,12 @@
 <body>
   <header>
     <div class="row">
-      <input id="q" type="search" placeholder="Search your saved places (name / notes / category)..." />
-      <button id="nearBtn" class="primary" title="Use GPS to show distances">Near me</button>
-      <button id="clearBtn" title="Clear filters & search">Clear</button>
+      <input id="q" type="search" placeholder="Search places (name / notes / category)..." />
+      <button id="nearBtn" class="primary">Near me</button>
+      <button id="clearBtn">Clear</button>
     </div>
 
-    <div id="dayBar"></div>
+    <div id="tabBar"></div>
     <div id="results"></div>
   </header>
 
@@ -77,12 +83,64 @@
 
   <script>
     // -----------------------------
+    // Map init
+    // -----------------------------
+    const map = L.map("map", { zoomControl: true }).setView([37.5665, 126.9780], 12);
+
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 19,
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    // -----------------------------
+    // Constants / state
+    // -----------------------------
+    const DAYS = ["Day 1", "Day 2", "Day 3", "Day 4"];
+    let activeDay = "Day 1";
+
+    const PINK   = "#ff7bbd";  // aunt
+    const PURPLE = "#8a5cff";  // you
+
+    const CAT_ICON = {
+      "Airport": "✈️",
+      "Stay": "🏠",
+      "Cafe": "☕️",
+      "Food": "🍜",
+      "Sight": "🏛️",
+      "Nature": "🌸",
+      "Shopping": "🛍️",
+      "Clinic": "🏥",
+      "Concert": "🎤",
+      "Other": "📍"
+    };
+
+    let allPoints = [];
+    let overlapKeys = new Set();     // day__normalizedName keys that appear in both sets
+    let userLocation = null;         // {lat, lng}
+    let userMarker = null;
+
+    let markers = [];                // Leaflet markers
+    let renderToken = 0;             // prevents stale async rendering
+
+    const qEl = document.getElementById("q");
+    const resultsEl = document.getElementById("results");
+    const tabBarEl = document.getElementById("tabBar");
+
+    // -----------------------------
     // Helpers
     // -----------------------------
     function escapeHtml(str) {
       return String(str ?? "").replace(/[&<>"']/g, s => ({
         "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
       }[s]));
+    }
+
+    function normName(s) {
+      return String(s || "").trim().toLowerCase().replace(/\s+/g, " ");
+    }
+
+    function pointKey(p) {
+      return `${p.day}__${normName(p.name)}`;
     }
 
     function haversineKm(lat1, lon1, lat2, lon2) {
@@ -102,78 +160,139 @@
     }
 
     function kakaoMapLink(lat, lng, name) {
-      // KakaoMap deep link style
       return `https://map.kakao.com/link/map/${encodeURIComponent(name || "Pinned Place")},${lat},${lng}`;
     }
 
-    // Category -> emoji (easy + free, works everywhere)
-    const CAT_ICON = {
-      "Cafe": "☕️",
-      "Food": "🍜",
-      "Sight": "🏛️",
-      "Nature": "🌸",
-      "Shopping": "🛍️",
-      "Hotel": "🛏️",
-      "Transport": "🚆",
-      "Other": "📍"
-    };
-
-    function iconForCategory(cat) {
-      const emoji = CAT_ICON[cat] || CAT_ICON["Other"];
+    function iconEmoji(emoji, bgColor) {
       return L.divIcon({
         className: "",
-        html: `<div class="emoji-marker">${emoji}</div>`,
-        iconSize: [30, 30],
-        iconAnchor: [15, 30],
-        popupAnchor: [0, -28]
+        html: `<div class="emoji-marker" style="background:${bgColor};">${emoji}</div>`,
+        iconSize: [32, 32],
+        iconAnchor: [16, 32],
+        popupAnchor: [0, -30]
       });
     }
 
-    // -----------------------------
-    // Map init
-    // -----------------------------
-    const map = L.map("map", { zoomControl: true }).setView([37.5665, 126.9780], 12);
+    function markerColor(p) {
+      // Overlap always pink
+      if (overlapKeys.has(pointKey(p))) return PINK;
+      return (p.who === "me") ? PURPLE : PINK;
+    }
 
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      maxZoom: 19,
-      attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(map);
+    function whoLabel(p) {
+      if (overlapKeys.has(pointKey(p))) return "Overlap (pink)";
+      return p.who === "me" ? "You (purple)" : "Aunt (pink)";
+    }
+
+    function computeOverlap(points) {
+      const seen = new Map(); // key -> Set(who)
+      for (const p of points) {
+        const k = pointKey(p);
+        if (!seen.has(k)) seen.set(k, new Set());
+        seen.get(k).add(p.who);
+      }
+      const overlaps = new Set();
+      for (const [k, s] of seen.entries()) {
+        if (s.has("aunt") && s.has("me")) overlaps.add(k);
+      }
+      return overlaps;
+    }
 
     // -----------------------------
-    // State
+    // Free geocoding (no API key)
+    // Uses OpenStreetMap Nominatim.
+    // Caches results in localStorage to avoid repeated calls.
     // -----------------------------
-    let allPoints = [];
-    let filteredPoints = [];
-    let markers = []; // { point, marker }
-    let activeDay = "All";
-    let userLocation = null; // {lat, lng}
-    let userMarker = null;
+    const GEO_CACHE_KEY = "koreaTripGeoCache_v1";
+    const geoCache = JSON.parse(localStorage.getItem(GEO_CACHE_KEY) || "{}");
 
-    const resultsEl = document.getElementById("results");
-    const dayBarEl = document.getElementById("dayBar");
-    const qEl = document.getElementById("q");
+    // Simple queue to throttle requests (1 at a time, ~1.2s delay)
+    let geoQueue = Promise.resolve();
+
+    function saveGeoCache() {
+      localStorage.setItem(GEO_CACHE_KEY, JSON.stringify(geoCache));
+    }
+
+    function buildGeocodeQuery(p) {
+      // Prefer full address; fallback to name + Seoul
+      if (p.address && p.address.trim()) return p.address;
+      return `${p.name}, Seoul, South Korea`;
+    }
+
+    async function geocodePoint(p) {
+      // Already has coordinates
+      if (typeof p.lat === "number" && typeof p.lng === "number") return { lat: p.lat, lng: p.lng };
+
+      const cacheKey = buildGeocodeQuery(p);
+      if (geoCache[cacheKey]) return geoCache[cacheKey];
+
+      // Throttle via queue
+      geoQueue = geoQueue.then(async () => {
+        const q = buildGeocodeQuery(p);
+        const url =
+          "https://nominatim.openstreetmap.org/search?format=json&limit=1&q=" +
+          encodeURIComponent(q);
+
+        const resp = await fetch(url);
+        if (!resp.ok) throw new Error("Geocode failed");
+        const data = await resp.json();
+
+        if (!data || !data.length) throw new Error("No geocode result");
+
+        const lat = Number(data[0].lat);
+        const lng = Number(data[0].lon);
+        const coords = { lat, lng };
+
+        geoCache[cacheKey] = coords;
+        saveGeoCache();
+
+        // polite delay
+        await new Promise(r => setTimeout(r, 1200));
+
+        return coords;
+      });
+
+      return geoQueue;
+    }
 
     // -----------------------------
     // Rendering
     // -----------------------------
-    function buildPopup(point) {
-      const name = escapeHtml(point.name || "Unnamed");
-      const day = escapeHtml(point.day || "Unassigned");
-      const cat = escapeHtml(point.category || "Other");
-      const notes = point.notes ? `<div class="meta">${escapeHtml(point.notes)}</div>` : "";
+    function clearMarkers() {
+      markers.forEach(m => map.removeLayer(m));
+      markers = [];
+    }
+
+    function fitToMarkers() {
+      if (!markers.length) return;
+      const latlngs = markers.map(m => m.getLatLng());
+      const bounds = L.latLngBounds(latlngs);
+      map.fitBounds(bounds.pad(0.18));
+    }
+
+    function buildPopup(p, coords) {
+      const name = escapeHtml(p.name);
+      const day = escapeHtml(p.day);
+      const cat = escapeHtml(p.category || "Other");
+      const notes = p.notes ? `<div class="meta">${escapeHtml(p.notes)}</div>` : "";
+      const who = `<div class="meta">${escapeHtml(whoLabel(p))}</div>`;
 
       let distLine = "";
       if (userLocation) {
-        const km = haversineKm(userLocation.lat, userLocation.lng, point.lat, point.lng);
+        const km = haversineKm(userLocation.lat, userLocation.lng, coords.lat, coords.lng);
         distLine = `<div class="meta">Distance: <strong>${km.toFixed(2)} km</strong></div>`;
       }
 
-      const g = googleMapsLink(point.lat, point.lng);
-      const k = kakaoMapLink(point.lat, point.lng, point.name);
+      const g = googleMapsLink(coords.lat, coords.lng);
+      const k = kakaoMapLink(coords.lat, coords.lng, p.name);
 
       return `
         <div>
-          <div><strong>${name}</strong><span class="pill">${cat}</span><span class="pill">${day}</span></div>
+          <div><strong>${name}</strong>
+            <span class="pill">${cat}</span>
+            <span class="pill">${day}</span>
+          </div>
+          ${who}
           ${notes}
           ${distLine}
           <div style="margin-top:8px;">
@@ -185,94 +304,16 @@
       `;
     }
 
-    function clearMarkers() {
-      markers.forEach(m => map.removeLayer(m.marker));
-      markers = [];
-    }
-
-    function addMarkers(points) {
-      clearMarkers();
-      points.forEach(p => {
-        const marker = L.marker([p.lat, p.lng], { icon: iconForCategory(p.category) }).addTo(map);
-        marker.bindPopup(buildPopup(p));
-        markers.push({ point: p, marker });
-      });
-    }
-
-    function fitTo(points) {
-      if (!points.length) return;
-      const bounds = L.latLngBounds(points.map(p => [p.lat, p.lng]));
-      map.fitBounds(bounds.pad(0.15));
-    }
-
-    function renderDayButtons() {
-      const days = Array.from(new Set(allPoints.map(p => p.day || "Unassigned"))).sort((a,b) => a.localeCompare(b));
-      const full = ["All", ...days];
-
-      dayBarEl.innerHTML = full.map(d => `
-        <button class="${d === activeDay ? "active" : ""}" data-day="${escapeHtml(d)}">${escapeHtml(d)}</button>
+    function renderTabs() {
+      tabBarEl.innerHTML = DAYS.map(d => `
+        <button class="${d === activeDay ? "active" : ""}" data-day="${d}">${d}</button>
       `).join("");
 
-      dayBarEl.querySelectorAll("button").forEach(btn => {
+      tabBarEl.querySelectorAll("button").forEach(btn => {
         btn.addEventListener("click", () => {
           activeDay = btn.getAttribute("data-day");
           applyFilters();
-          renderDayButtons();
-        });
-      });
-    }
-
-    function showResults(list) {
-      if (!qEl.value.trim() && activeDay === "All" && !userLocation) {
-        resultsEl.style.display = "none";
-        resultsEl.innerHTML = "";
-        return;
-      }
-
-      resultsEl.style.display = "block";
-
-      if (!list.length) {
-        resultsEl.innerHTML = `<div class="item"><strong>No matches</strong><div class="meta">Try a different keyword or day.</div></div>`;
-        return;
-      }
-
-      // If near-me is active, sort by distance
-      let sorted = list.slice();
-      if (userLocation) {
-        sorted.sort((a,b) => {
-          const da = haversineKm(userLocation.lat, userLocation.lng, a.lat, a.lng);
-          const db = haversineKm(userLocation.lat, userLocation.lng, b.lat, b.lng);
-          return da - db;
-        });
-      }
-
-      resultsEl.innerHTML = sorted.map(p => {
-        const name = escapeHtml(p.name || "Unnamed");
-        const cat = escapeHtml(p.category || "Other");
-        const day = escapeHtml(p.day || "Unassigned");
-        let dist = "";
-        if (userLocation) {
-          const km = haversineKm(userLocation.lat, userLocation.lng, p.lat, p.lng);
-          dist = `<span class="pill">${km.toFixed(2)} km</span>`;
-        }
-        return `
-          <div class="item" data-name="${name}">
-            <strong>${name}</strong>
-            <span class="pill">${cat}</span>
-            <span class="pill">${day}</span>
-            ${dist}
-            <div class="meta">${escapeHtml((p.notes || "").slice(0, 80))}</div>
-          </div>
-        `;
-      }).join("");
-
-      resultsEl.querySelectorAll(".item").forEach(el => {
-        el.addEventListener("click", () => {
-          const name = el.getAttribute("data-name");
-          const point = sorted.find(x => (x.name || "Unnamed") === name) || sorted[0];
-          map.setView([point.lat, point.lng], 16, { animate: true });
-          const m = markers.find(mm => mm.point === point);
-          if (m) m.marker.openPopup();
+          renderTabs();
         });
       });
     }
@@ -281,41 +322,137 @@
       const q = query.trim().toLowerCase();
       if (!q) return points;
       return points.filter(p => {
-        const hay = `${p.name ?? ""} ${p.category ?? ""} ${p.notes ?? ""} ${p.day ?? ""}`.toLowerCase();
+        const hay = `${p.name ?? ""} ${p.category ?? ""} ${p.notes ?? ""} ${p.address ?? ""}`.toLowerCase();
         return hay.includes(q);
       });
     }
 
+    function showResults(list) {
+      // show results panel whenever there's a day tab (always) – but keep tidy when empty
+      resultsEl.style.display = "block";
+
+      if (!list.length) {
+        resultsEl.innerHTML = `<div class="item"><strong>No matches</strong><div class="meta">Try a different keyword.</div></div>`;
+        return;
+      }
+
+      let sorted = list.slice();
+      if (userLocation) {
+        // sort by distance (if geocoded in cache, else keep order)
+        sorted.sort((a, b) => {
+          const qa = buildGeocodeQuery(a);
+          const qb = buildGeocodeQuery(b);
+          const ca = geoCache[qa];
+          const cb = geoCache[qb];
+          if (!ca || !cb) return 0;
+          const da = haversineKm(userLocation.lat, userLocation.lng, ca.lat, ca.lng);
+          const db = haversineKm(userLocation.lat, userLocation.lng, cb.lat, cb.lng);
+          return da - db;
+        });
+      }
+
+      resultsEl.innerHTML = sorted.map(p => {
+        const cat = escapeHtml(p.category || "Other");
+        const emoji = CAT_ICON[p.category] || CAT_ICON["Other"];
+        const label = escapeHtml(whoLabel(p));
+        let dist = "";
+
+        if (userLocation) {
+          const q = buildGeocodeQuery(p);
+          const c = geoCache[q];
+          if (c) {
+            const km = haversineKm(userLocation.lat, userLocation.lng, c.lat, c.lng);
+            dist = `<span class="pill">${km.toFixed(2)} km</span>`;
+          }
+        }
+
+        return `
+          <div class="item" data-id="${escapeHtml(p.id)}">
+            <strong>${escapeHtml(p.name)}</strong>
+            <span class="pill">${emoji} ${cat}</span>
+            <span class="pill">${label}</span>
+            ${dist}
+            <div class="meta">${escapeHtml((p.notes || p.address || "").slice(0, 90))}</div>
+          </div>
+        `;
+      }).join("");
+
+      resultsEl.querySelectorAll(".item").forEach(el => {
+        el.addEventListener("click", async () => {
+          const id = el.getAttribute("data-id");
+          const p = list.find(x => x.id === id);
+          if (!p) return;
+
+          try {
+            const coords = await geocodePoint(p);
+            map.setView([coords.lat, coords.lng], 16, { animate: true });
+
+            // Try to open popup if marker exists
+            const mk = markers.find(m => m.options && m.options.__pointId === p.id);
+            if (mk) mk.openPopup();
+          } catch {
+            alert("Could not find this place on the map yet. Try again later or refine the address in points.json.");
+          }
+        });
+      });
+    }
+
+    function dedupeForDay(pointsForDay) {
+      // If overlap: keep aunt (pink) only
+      const best = new Map(); // key -> point
+      for (const p of pointsForDay) {
+        const k = pointKey(p);
+        if (!best.has(k)) best.set(k, p);
+        else {
+          // prefer aunt if same key
+          if (p.who === "aunt") best.set(k, p);
+        }
+      }
+      return Array.from(best.values());
+    }
+
+    async function drawPoints(points) {
+      clearMarkers();
+
+      const token = ++renderToken;
+      const list = points.slice();
+
+      // Add markers as geocodes resolve (so user sees them appearing)
+      for (const p of list) {
+        if (token !== renderToken) return; // stale render
+
+        try {
+          const coords = await geocodePoint(p);
+          if (token !== renderToken) return;
+
+          const emoji = CAT_ICON[p.category] || CAT_ICON["Other"];
+          const color = markerColor(p);
+          const marker = L.marker([coords.lat, coords.lng], { icon: iconEmoji(emoji, color) }).addTo(map);
+          marker.options.__pointId = p.id; // internal hook
+          marker.bindPopup(buildPopup(p, coords));
+          markers.push(marker);
+        } catch {
+          // Skip marker if geocode fails
+        }
+      }
+
+      // Fit view after markers appear
+      if (token === renderToken) fitToMarkers();
+    }
+
     function applyFilters() {
-      // Day filter
-      let base = allPoints.slice();
-      if (activeDay !== "All") {
-        base = base.filter(p => (p.day || "Unassigned") === activeDay);
-      }
+      const dayPoints = allPoints.filter(p => p.day === activeDay);
+      const deduped = dedupeForDay(dayPoints);
+      const filtered = searchWithin(deduped, qEl.value);
 
-      // Search filter
-      const q = qEl.value;
-      filteredPoints = searchWithin(base, q);
-
-      addMarkers(filteredPoints);
-
-      // Fit logic: if user location exists, keep current view; otherwise fit
-      if (!userLocation) {
-        fitTo(filteredPoints.length ? filteredPoints : base.length ? base : allPoints);
-      }
-
-      showResults(filteredPoints);
-    }
-
-    function refreshPopups() {
-      // rebuild popups to include distances after Near Me
-      markers.forEach(m => m.marker.setPopupContent(buildPopup(m.point)));
+      showResults(filtered);
+      drawPoints(filtered);
     }
 
     // -----------------------------
-    // Near me (GPS)
+    // Near me
     // -----------------------------
-    async function activateNearMe() {
+    function activateNearMe() {
       if (!navigator.geolocation) {
         alert("Your browser doesn’t support GPS location.");
         return;
@@ -325,23 +462,19 @@
         (pos) => {
           userLocation = { lat: pos.coords.latitude, lng: pos.coords.longitude };
 
-          // show user marker
           if (userMarker) map.removeLayer(userMarker);
           userMarker = L.circleMarker([userLocation.lat, userLocation.lng], {
             radius: 8,
             weight: 2
           }).addTo(map).bindPopup("<strong>You are here</strong>");
 
-          // refresh distances in results + popups
-          refreshPopups();
-          applyFilters();
-
-          // optionally center to user
           map.setView([userLocation.lat, userLocation.lng], 14, { animate: true });
+
+          // Refresh UI (distances show if cached; popups updated when reopened)
+          applyFilters();
         },
-        (err) => {
-          alert("Could not get your location. Please allow location permission in your browser settings.");
-          console.error(err);
+        () => {
+          alert("Could not get your location. Please allow location permissions in your browser.");
         },
         { enableHighAccuracy: true, timeout: 10000 }
       );
@@ -354,10 +487,8 @@
 
     document.getElementById("clearBtn").addEventListener("click", () => {
       qEl.value = "";
-      activeDay = "All";
       userLocation = null;
       if (userMarker) { map.removeLayer(userMarker); userMarker = null; }
-      renderDayButtons();
       applyFilters();
       qEl.focus();
     });
@@ -365,29 +496,32 @@
     qEl.addEventListener("input", applyFilters);
 
     // -----------------------------
-    // Load points
+    // Load points.json
     // -----------------------------
     fetch("./points.json")
       .then(r => r.json())
       .then(points => {
-        allPoints = points
-          .filter(p => typeof p.lat === "number" && typeof p.lng === "number")
-          .map(p => ({
-            name: p.name ?? "Unnamed",
-            day: p.day ?? "Unassigned",
-            category: p.category ?? "Other",
-            notes: p.notes ?? "",
-            lat: p.lat,
-            lng: p.lng
-          }));
+        // Add stable IDs (for click handling)
+        allPoints = points.map((p, idx) => ({
+          id: String(p.id ?? `${idx}`),
+          name: p.name,
+          day: p.day,
+          who: p.who,                 // "aunt" | "me"
+          category: p.category || "Other",
+          notes: p.notes || "",
+          address: p.address || "",
+          lat: (typeof p.lat === "number") ? p.lat : undefined,
+          lng: (typeof p.lng === "number") ? p.lng : undefined
+        }));
 
-        renderDayButtons();
+        overlapKeys = computeOverlap(allPoints);
+
+        renderTabs();
         applyFilters();
-        if (allPoints.length) fitTo(allPoints);
       })
       .catch(err => {
-        alert("Could not load points.json. Check the file name and JSON format.");
         console.error(err);
+        alert("Could not load points.json. Check file name and JSON format.");
       });
   </script>
 </body>
