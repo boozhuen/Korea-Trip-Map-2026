@@ -15,7 +15,9 @@
     "who": "aunt",
     "category": "Stay",
     "notes": "Drop off luggage and check-in",
-    "address": "South Korea, Seoul, Mapo-gu, Yeonnam-dong, 224-5 1층"
+    "address": "South Korea, Seoul, Mapo-gu, Yeonnam-dong, 224-5 1층",
+    "lat": 37.56447992707814, 
+    "long": 126.92663960756279
   },
   {
     "id": "a1_sandstone",
