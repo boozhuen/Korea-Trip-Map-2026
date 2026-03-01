@@ -42,6 +42,7 @@
     #results {
       margin-top: 10px; max-height: 240px; overflow: auto;
       border: 1px solid #eee; border-radius: 10px; padding: 6px;
+      display: block; /* toggled by JS */
     }
     .item { padding: 10px; border-radius: 10px; cursor: pointer; }
     .item:hover { background: #f4f4f4; }
@@ -64,6 +65,12 @@
       box-shadow: 0 1px 6px rgba(0,0,0,0.12);
       font-size: 18px;
     }
+
+    .status {
+      margin-top: 8px;
+      color: #666;
+      font-size: 13px;
+    }
   </style>
 </head>
 
@@ -76,7 +83,8 @@
     </div>
 
     <div id="tabBar"></div>
-    <div class="hint">Tip: tap a place in the list to pin it on the map (this avoids geocoding limits).</div>
+    <div class="hint">Tap a place in the list to zoom to it. All places for the selected day will be pinned automatically.</div>
+    <div id="status" class="status"></div>
     <div id="results"></div>
   </header>
 
@@ -119,12 +127,25 @@
     let userLocation = null;
     let userMarker = null;
 
-    // pointId -> Leaflet marker
-    const markerById = new Map();
+    // Marker maps
+    const markerById = new Map();     // pointId -> marker (all pinned markers that exist)
+    const dayMarkerIds = new Set();   // pointIds currently pinned for active day
+
+    // Geocode abort/cancel token for day changes
+    let pinRunToken = 0;
 
     const qEl = document.getElementById("q");
     const resultsEl = document.getElementById("results");
     const tabBarEl = document.getElementById("tabBar");
+    const statusEl = document.getElementById("status");
+
+    function setResultsVisible(isVisible) {
+      resultsEl.style.display = isVisible ? "block" : "none";
+    }
+
+    function setStatus(msg) {
+      statusEl.textContent = msg || "";
+    }
 
     // -----------------------------
     // Helpers
@@ -211,7 +232,6 @@
     }
 
     function cleanAddress(addr) {
-      // Removes parentheses content + extra spaces (helps geocoding)
       return String(addr || "")
         .replace(/\([^)]*\)/g, "")
         .replace(/\s+/g, " ")
@@ -222,21 +242,18 @@
       const attempts = [];
       const addr = cleanAddress(p.address || "");
       if (addr) attempts.push(addr);
-      // Sometimes name-only works better
       attempts.push(`${p.name}, Seoul, South Korea`);
       attempts.push(`${p.name}, South Korea`);
-      // Last resort: just name
       attempts.push(`${p.name}`);
-      // remove duplicates
       return Array.from(new Set(attempts));
     }
 
     // -----------------------------
-    // Geocoding (on-demand)
+    // Geocoding (on-demand / throttled)
     // -----------------------------
-    const GEO_CACHE_KEY = "koreaTripGeoCache_v2";
+    const GEO_CACHE_KEY = "koreaTripGeoCache_v3";
     const geoCache = JSON.parse(localStorage.getItem(GEO_CACHE_KEY) || "{}");
-    let geoQueue = Promise.resolve(); // throttle
+    let geoQueue = Promise.resolve(); // throttle chain
 
     function saveGeoCache() {
       localStorage.setItem(GEO_CACHE_KEY, JSON.stringify(geoCache));
@@ -255,14 +272,11 @@
     }
 
     async function ensureCoords(p) {
-      // already has coords
       if (typeof p.lat === "number" && typeof p.lng === "number") return { lat: p.lat, lng: p.lng };
 
-      // cache key: best guess (address if present else name+seoul)
       const primaryKey = (cleanAddress(p.address || "") || `${p.name}, Seoul, South Korea`);
       if (geoCache[primaryKey]) return geoCache[primaryKey];
 
-      // throttle: 1 request at a time + delay
       geoQueue = geoQueue.then(async () => {
         const attempts = buildGeocodeAttempts(p);
 
@@ -272,7 +286,6 @@
             const coords = await geocodeWithNominatim(q);
             geoCache[primaryKey] = coords;
             saveGeoCache();
-            // polite delay
             await new Promise(r => setTimeout(r, 1200));
             return coords;
           } catch (e) {
@@ -288,7 +301,7 @@
     }
 
     // -----------------------------
-    // Marker / popup creation
+    // Popup + markers
     // -----------------------------
     function buildPopup(p, coords) {
       const emoji = CAT_ICON[p.category] || CAT_ICON["Other"];
@@ -326,16 +339,10 @@
       `;
     }
 
-    async function pinAndOpen(p) {
-      // If already pinned, just open
-      if (markerById.has(p.id)) {
-        const m = markerById.get(p.id);
-        map.setView(m.getLatLng(), 16, { animate: true });
-        m.openPopup();
-        return;
-      }
+    async function createMarkerForPoint(p) {
+      // If already created, just return it
+      if (markerById.has(p.id)) return markerById.get(p.id);
 
-      // Otherwise geocode on-demand
       const coords = await ensureCoords(p);
 
       const emoji = CAT_ICON[p.category] || CAT_ICON["Other"];
@@ -347,8 +354,67 @@
 
       marker.bindPopup(buildPopup(p, coords));
       markerById.set(p.id, marker);
+      return marker;
+    }
 
-      map.setView([coords.lat, coords.lng], 16, { animate: true });
+    function clearDayMarkers() {
+      for (const id of dayMarkerIds) {
+        const m = markerById.get(id);
+        if (m) {
+          map.removeLayer(m);
+          markerById.delete(id);
+        }
+      }
+      dayMarkerIds.clear();
+    }
+
+    async function pinAllForActiveDay(pointsForDay) {
+      // cancel previous run
+      const myToken = ++pinRunToken;
+
+      setStatus(`Pinning ${pointsForDay.length} places for ${activeDay}...`);
+      let pinned = 0;
+      let failed = 0;
+
+      for (const p of pointsForDay) {
+        if (myToken !== pinRunToken) return; // aborted due to day switch
+
+        try {
+          const m = await createMarkerForPoint(p);
+          dayMarkerIds.add(p.id);
+          pinned++;
+          setStatus(`Pinning ${activeDay}: ${pinned}/${pointsForDay.length} pinned${failed ? ` (${failed} failed)` : ""}...`);
+        } catch {
+          failed++;
+          setStatus(`Pinning ${activeDay}: ${pinned}/${pointsForDay.length} pinned (${failed} failed)...`);
+        }
+      }
+
+      if (myToken !== pinRunToken) return;
+
+      if (pinned > 0) {
+        const group = L.featureGroup(Array.from(dayMarkerIds).map(id => markerById.get(id)).filter(Boolean));
+        try { map.fitBounds(group.getBounds().pad(0.15)); } catch {}
+      }
+
+      setStatus(
+        failed
+          ? `Done: pinned ${pinned}/${pointsForDay.length}. (${failed} could not be located — add lat/lng in points.json for those.)`
+          : `Done: pinned all ${pinned} places for ${activeDay}.`
+      );
+    }
+
+    async function zoomToPoint(p) {
+      // Marker should already exist because we pin all for the day,
+      // but handle the case where geocoding failed earlier and user clicks it now.
+      let marker = markerById.get(p.id);
+
+      if (!marker) {
+        marker = await createMarkerForPoint(p);
+        dayMarkerIds.add(p.id);
+      }
+
+      map.setView(marker.getLatLng(), 16, { animate: true });
       marker.openPopup();
     }
 
@@ -361,9 +427,15 @@
       `).join("");
 
       tabBarEl.querySelectorAll("button").forEach(btn => {
-        btn.addEventListener("click", () => {
+        btn.addEventListener("click", async () => {
           activeDay = btn.getAttribute("data-day");
-          applyFilters();
+
+          // Show list again when switching days
+          setResultsVisible(true);
+
+          // Clear old day's pins and pin the new day
+          await switchDayAndPin();
+
           renderTabs();
         });
       });
@@ -378,33 +450,22 @@
       });
     }
 
-    function renderList(points) {
-      if (!points.length) {
+    function renderList(pointsForDayDeduped) {
+      const filtered = searchWithin(pointsForDayDeduped, qEl.value);
+
+      if (!filtered.length) {
         resultsEl.innerHTML = `<div class="item"><strong>No matches</strong><div class="meta">Try a different keyword.</div></div>`;
         return;
       }
 
-      // If user location exists, sort by distance *when cached coords exist*
-      let list = points.slice();
-      if (userLocation) {
-        list.sort((a, b) => {
-          const ka = cleanAddress(a.address || "") || `${a.name}, Seoul, South Korea`;
-          const kb = cleanAddress(b.address || "") || `${b.name}, Seoul, South Korea`;
-          const ca = geoCache[ka];
-          const cb = geoCache[kb];
-          if (!ca || !cb) return 0;
-          const da = haversineKm(userLocation.lat, userLocation.lng, ca.lat, ca.lng);
-          const db = haversineKm(userLocation.lat, userLocation.lng, cb.lat, cb.lng);
-          return da - db;
-        });
-      }
+      let list = filtered.slice();
 
+      // If user location exists, show distance (if coords cached)
       resultsEl.innerHTML = list.map(p => {
         const emoji = CAT_ICON[p.category] || CAT_ICON["Other"];
         const label = escapeHtml(whoLabel(p));
         const cat = escapeHtml(p.category || "Other");
 
-        // distance pill only if coords cached
         let dist = "";
         if (userLocation) {
           const key = cleanAddress(p.address || "") || `${p.name}, Seoul, South Korea`;
@@ -415,15 +476,12 @@
           }
         }
 
-        const pinned = markerById.has(p.id) ? `<span class="pill">Pinned</span>` : "";
-
         return `
           <div class="item" data-id="${escapeHtml(p.id)}">
             <strong>${escapeHtml(p.name)}</strong>
             <span class="pill">${emoji} ${cat}</span>
             <span class="pill">${label}</span>
             ${dist}
-            ${pinned}
             <div class="meta">${escapeHtml((p.notes || cleanAddress(p.address) || "").slice(0, 90))}</div>
           </div>
         `;
@@ -432,32 +490,41 @@
       resultsEl.querySelectorAll(".item").forEach(el => {
         el.addEventListener("click", async () => {
           const id = el.getAttribute("data-id");
-          const p = points.find(x => x.id === id);
+          const p = pointsForDayDeduped.find(x => x.id === id);
           if (!p) return;
 
           try {
-            await pinAndOpen(p);
-            // refresh list to show "Pinned" + distance updates
-            applyFilters(false);
+            await zoomToPoint(p);
+
+            // Hide list after selecting a point so it doesn't block the map
+            setResultsVisible(false);
+
+            // Keep list content ready (so when it reappears, it’s correct)
+            // No need to re-pin; markers stay on the map for the day.
           } catch {
-            alert("Could not locate this place automatically. Try editing its address in points.json (make it more specific).");
+            alert("Could not locate this place automatically. Add lat/lng in points.json for this place.");
           }
         });
       });
     }
 
-    // applyFilters optionally recenters or not
-    function applyFilters(recenter = true) {
-      const dayPointsRaw = allPoints.filter(p => p.day === activeDay);
-      const dayPoints = dedupePreferAunt(dayPointsRaw);
-      const filtered = searchWithin(dayPoints, qEl.value);
+    function getDayPointsDeduped(day) {
+      const dayPointsRaw = allPoints.filter(p => p.day === day);
+      return dedupePreferAunt(dayPointsRaw);
+    }
 
-      renderList(filtered);
+    async function switchDayAndPin() {
+      // stop any ongoing pin run + remove previous day markers
+      ++pinRunToken;
+      clearDayMarkers();
 
-      if (recenter && markerById.size === 0) {
-        // No pinned markers yet: just keep Seoul view
-        map.setView([37.5665, 126.9780], 12);
-      }
+      const dayPoints = getDayPointsDeduped(activeDay);
+
+      // Always render the list immediately (even while pins are loading)
+      renderList(dayPoints);
+
+      // Pin all for the day in the background (still in this same session, just sequential)
+      await pinAllForActiveDay(dayPoints);
     }
 
     // -----------------------------
@@ -481,8 +548,8 @@
 
           map.setView([userLocation.lat, userLocation.lng], 14, { animate: true });
 
-          // Refresh list (distance pills appear for cached coords)
-          applyFilters(false);
+          // Refresh list to show distance pills where cached coords exist
+          renderList(getDayPointsDeduped(activeDay));
         },
         () => {
           alert("Could not get your location. Please allow location permissions in your browser.");
@@ -500,18 +567,22 @@
       qEl.value = "";
       userLocation = null;
       if (userMarker) { map.removeLayer(userMarker); userMarker = null; }
-      applyFilters(false);
+      setResultsVisible(true);
+      renderList(getDayPointsDeduped(activeDay));
       qEl.focus();
     });
 
-    qEl.addEventListener("input", () => applyFilters(false));
+    qEl.addEventListener("input", () => {
+      setResultsVisible(true);
+      renderList(getDayPointsDeduped(activeDay));
+    });
 
     // -----------------------------
     // Load points.json
     // -----------------------------
     fetch("./points.json")
       .then(r => r.json())
-      .then(points => {
+      .then(async points => {
         allPoints = points.map((p, idx) => ({
           id: String(p.id ?? `${idx}`),
           name: p.name,
@@ -527,7 +598,10 @@
         overlapKeys = computeOverlap(allPoints);
 
         renderTabs();
-        applyFilters();
+        setResultsVisible(true);
+
+        // Start on Day 1, pin all points for Day 1 automatically
+        await switchDayAndPin();
       })
       .catch(err => {
         console.error(err);
