@@ -82,7 +82,9 @@
     "who": "me",
     "category": "Stay",
     "notes": "Drop off luggage",
-    "address": "10-5 Donggyo-ro 52-gil, Mapo-gu, Seoul (연남동 224-5)"
+    "address": "10-5 Donggyo-ro 52-gil, Mapo-gu, Seoul, South Korea",
+    "lat": 37.56447992707814, 
+    "long": 126.92663960756279
   },
   {
     "id": "m1_sandstone",
@@ -138,7 +140,9 @@
     "who": "aunt",
     "category": "Stay",
     "notes": "Start of day",
-    "address": "10-5 Donggyo-ro 52-gil, Mapo-gu, Seoul (연남동 224-5)"
+    "address": "10-5 Donggyo-ro 52-gil, Mapo-gu, Seoul, South Korea",
+    "lat": 37.56447992707814, 
+    "long": 126.92663960756279
   },
   {
     "id": "a2_coffee_company",
@@ -194,7 +198,9 @@
     "who": "me",
     "category": "Stay",
     "notes": "Start of day",
-    "address": "10-5 Donggyo-ro 52-gil, Mapo-gu, Seoul (연남동 224-5)"
+    "address": "10-5 Donggyo-ro 52-gil, Mapo-gu, Seoul, South Korea",
+    "lat": 37.56447992707814, 
+    "long": 126.92663960756279
   },
   {
     "id": "m2_mrkim",
@@ -277,7 +283,9 @@
     "who": "aunt",
     "category": "Stay",
     "notes": "Start of day",
-    "address": "10-5 Donggyo-ro 52-gil, Mapo-gu, Seoul (연남동 224-5)"
+    "address": "10-5 Donggyo-ro 52-gil, Mapo-gu, Seoul, South Korea",
+    "lat": 37.56447992707814, 
+    "long": 126.92663960756279
   },
   {
     "id": "a3_onion",
@@ -342,7 +350,9 @@
     "who": "me",
     "category": "Stay",
     "notes": "Start of day",
-    "address": "10-5 Donggyo-ro 52-gil, Mapo-gu, Seoul (연남동 224-5)"
+    "address": "10-5 Donggyo-ro 52-gil, Mapo-gu, Seoul, South Korea",
+    "lat": 37.56447992707814, 
+    "long": 126.92663960756279
   },
   {
     "id": "m3_onion_dotori",
@@ -407,7 +417,9 @@
     "who": "aunt",
     "category": "Stay",
     "notes": "Start of day",
-    "address": "10-5 Donggyo-ro 52-gil, Mapo-gu, Seoul (연남동 224-5)"
+    "address": "10-5 Donggyo-ro 52-gil, Mapo-gu, Seoul, South Korea",
+    "lat": 37.56447992707814, 
+    "long": 126.92663960756279
   },
   {
     "id": "a4_paris",
@@ -481,7 +493,9 @@
     "who": "me",
     "category": "Stay",
     "notes": "Start of day",
-    "address": "10-5 Donggyo-ro 52-gil, Mapo-gu, Seoul (연남동 224-5)"
+    "address": "10-5 Donggyo-ro 52-gil, Mapo-gu, Seoul, South Korea",
+    "lat": 37.56447992707814, 
+    "long": 126.92663960756279
   },
   {
     "id": "m4_paris",
