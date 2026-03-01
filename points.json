@@ -7,19 +7,19 @@
     "id": "a1_airport",
     "name": "Incheon International Airport T1",
     "day": "Day 1",
-    "who": "aunt",
+    "who": "Everybody",
     "category": "Airport",
     "notes": "Purchase T-Money",
-    "address": "Incheon International Airport Terminal 1, Incheon, South Korea"
+    "address": "272 Gonghang-ro, Jung-gu, Incheon, South Korea"
   },
   {
     "id": "a1_airbnb",
     "name": "AirBNB (Yeonnam-dong)",
     "day": "Day 1",
-    "who": "aunt",
+    "who": "Everybody",
     "category": "Stay",
-    "notes": "Drop off luggage / Check-in later",
-    "address": "10-5 Donggyo-ro 52-gil, Mapo-gu, Seoul (연남동 224-5)"
+    "notes": "Drop off luggage and check-in",
+    "address": "South Korea, Seoul, Mapo-gu, Yeonnam-dong, 224-5 1층"
   },
   {
     "id": "a1_sandstone",
