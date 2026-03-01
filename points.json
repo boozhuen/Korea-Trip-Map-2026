@@ -1,8 +1,4 @@
 [
-  /* =========================
-     DAY 1 — AUNT (pink)
-     Source: seoul 2026 (8).pdf
-     ========================= */
   {
     "id": "a1_airport",
     "name": "Incheon International Airport T1",
@@ -67,10 +63,7 @@
     "address": "369-20 Yeonnam-dong, Mapo-gu, Seoul"
   },
 
-  /* =========================
-     DAY 1 — YOU (purple)
-     Source: seoul 2026 (7).pdf
-     ========================= */
+ 
   {
     "id": "m1_airport",
     "name": "Incheon International Airport T1",
@@ -135,10 +128,7 @@
     "address": "369-20 Yeonnam-dong, Mapo-gu, Seoul"
   },
 
-  /* =========================
-     DAY 2 — AUNT (pink)
-     Source: seoul 2026 (8).pdf
-     ========================= */
+
   {
     "id": "a2_airbnb",
     "name": "AirBNB (Yeonnam-dong)",
@@ -194,10 +184,7 @@
     "address": "Banpo Hangang Park, Seoul, South Korea"
   },
 
-  /* =========================
-     DAY 2 — YOU (purple)
-     Source: seoul 2026 (7).pdf
-     ========================= */
+  
   {
     "id": "m2_airbnb",
     "name": "AirBNB (Yeonnam-dong)",
@@ -280,10 +267,7 @@
     "address": "Banpo Hangang Park, Seoul, South Korea"
   },
 
-  /* =========================
-     DAY 3 — AUNT (pink)
-     Source: seoul 2026 (8).pdf
-     ========================= */
+  
   {
     "id": "a3_airbnb",
     "name": "AirBNB (Yeonnam-dong)",
@@ -348,10 +332,7 @@
     "address": "44-12 Seoulsup 2-gil, Seongdong-gu, Seoul"
   },
 
-  /* =========================
-     DAY 3 — YOU (purple)
-     Source: seoul 2026 (7).pdf
-     ========================= */
+ 
   {
     "id": "m3_airbnb",
     "name": "AirBNB (Yeonnam-dong)",
@@ -416,10 +397,7 @@
     "address": "44-12 Seoulsup 2-gil, Seongdong-gu, Seoul"
   },
 
-  /* =========================
-     DAY 4 — AUNT (pink)
-     Source: seoul 2026 (8).pdf
-     ========================= */
+  
   {
     "id": "a4_airbnb",
     "name": "AirBNB (Yeonnam-dong)",
@@ -493,10 +471,7 @@
     "address": "88 Changgyeonggung-ro, Jongno-gu, Seoul"
   },
 
-  /* =========================
-     DAY 4 — YOU (purple)
-     Source: seoul 2026 (7).pdf
-     ========================= */
+  
   {
     "id": "m4_airbnb",
     "name": "AirBNB (Yeonnam-dong)",
