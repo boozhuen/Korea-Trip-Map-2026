@@ -3,7 +3,7 @@
     "id": "a1_airport",
     "name": "Incheon International Airport T1",
     "day": "Day 1",
-    "who": "Everybody",
+    "who": "aunt",
     "category": "Airport",
     "notes": "Purchase T-Money",
     "address": "272 Gonghang-ro, Jung-gu, Incheon, South Korea"
@@ -12,7 +12,7 @@
     "id": "a1_airbnb",
     "name": "AirBNB (Yeonnam-dong)",
     "day": "Day 1",
-    "who": "Everybody",
+    "who": "aunt",
     "category": "Stay",
     "notes": "Drop off luggage and check-in",
     "address": "South Korea, Seoul, Mapo-gu, Yeonnam-dong, 224-5 1층"
