@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Korea Trip Map</title>
 
-  <!-- Leaflet -->
   <link
     rel="stylesheet"
     href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -41,8 +40,8 @@
     #tabBar { margin-top: 10px; display: flex; gap: 8px; flex-wrap: wrap; }
 
     #results {
-      margin-top: 10px; max-height: 220px; overflow: auto;
-      border: 1px solid #eee; border-radius: 10px; padding: 6px; display: none;
+      margin-top: 10px; max-height: 240px; overflow: auto;
+      border: 1px solid #eee; border-radius: 10px; padding: 6px;
     }
     .item { padding: 10px; border-radius: 10px; cursor: pointer; }
     .item:hover { background: #f4f4f4; }
@@ -53,9 +52,10 @@
       border-radius: 999px; font-size:12px; margin-left:6px; color:#444;
       background: #fff;
     }
-    #map { height: calc(100vh - 170px); }
+    .hint { color:#666; font-size:13px; margin-top:8px; }
 
-    /* Emoji marker bubble */
+    #map { height: calc(100vh - 185px); }
+
     .emoji-marker {
       width: 32px; height: 32px;
       display: grid; place-items: center;
@@ -76,6 +76,7 @@
     </div>
 
     <div id="tabBar"></div>
+    <div class="hint">Tip: tap a place in the list to pin it on the map (this avoids geocoding limits).</div>
     <div id="results"></div>
   </header>
 
@@ -86,7 +87,6 @@
     // Map init
     // -----------------------------
     const map = L.map("map", { zoomControl: true }).setView([37.5665, 126.9780], 12);
-
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       maxZoom: 19,
       attribution: '&copy; OpenStreetMap contributors'
@@ -115,12 +115,12 @@
     };
 
     let allPoints = [];
-    let overlapKeys = new Set();     // day__normalizedName keys that appear in both sets
-    let userLocation = null;         // {lat, lng}
+    let overlapKeys = new Set();
+    let userLocation = null;
     let userMarker = null;
 
-    let markers = [];                // Leaflet markers
-    let renderToken = 0;             // prevents stale async rendering
+    // pointId -> Leaflet marker
+    const markerById = new Map();
 
     const qEl = document.getElementById("q");
     const resultsEl = document.getElementById("results");
@@ -173,17 +173,6 @@
       });
     }
 
-    function markerColor(p) {
-      // Overlap always pink
-      if (overlapKeys.has(pointKey(p))) return PINK;
-      return (p.who === "me") ? PURPLE : PINK;
-    }
-
-    function whoLabel(p) {
-      if (overlapKeys.has(pointKey(p))) return "Overlap (pink)";
-      return p.who === "me" ? "You (purple)" : "Aunt (pink)";
-    }
-
     function computeOverlap(points) {
       const seen = new Map(); // key -> Set(who)
       for (const p of points) {
@@ -198,83 +187,114 @@
       return overlaps;
     }
 
-    // -----------------------------
-    // Free geocoding (no API key)
-    // Uses OpenStreetMap Nominatim.
-    // Caches results in localStorage to avoid repeated calls.
-    // -----------------------------
-    const GEO_CACHE_KEY = "koreaTripGeoCache_v1";
-    const geoCache = JSON.parse(localStorage.getItem(GEO_CACHE_KEY) || "{}");
+    function markerColor(p) {
+      if (overlapKeys.has(pointKey(p))) return PINK; // overlap => pink
+      return (p.who === "me") ? PURPLE : PINK;
+    }
 
-    // Simple queue to throttle requests (1 at a time, ~1.2s delay)
-    let geoQueue = Promise.resolve();
+    function whoLabel(p) {
+      if (overlapKeys.has(pointKey(p))) return "Overlap (pink)";
+      return p.who === "me" ? "You (purple)" : "Aunt (pink)";
+    }
+
+    // Prefer aunt version when overlapping (so only one marker shown)
+    function dedupePreferAunt(pointsForDay) {
+      const best = new Map(); // key -> point
+      for (const p of pointsForDay) {
+        const k = pointKey(p);
+        if (!best.has(k)) best.set(k, p);
+        else {
+          if (p.who === "aunt") best.set(k, p);
+        }
+      }
+      return Array.from(best.values());
+    }
+
+    function cleanAddress(addr) {
+      // Removes parentheses content + extra spaces (helps geocoding)
+      return String(addr || "")
+        .replace(/\([^)]*\)/g, "")
+        .replace(/\s+/g, " ")
+        .trim();
+    }
+
+    function buildGeocodeAttempts(p) {
+      const attempts = [];
+      const addr = cleanAddress(p.address || "");
+      if (addr) attempts.push(addr);
+      // Sometimes name-only works better
+      attempts.push(`${p.name}, Seoul, South Korea`);
+      attempts.push(`${p.name}, South Korea`);
+      // Last resort: just name
+      attempts.push(`${p.name}`);
+      // remove duplicates
+      return Array.from(new Set(attempts));
+    }
+
+    // -----------------------------
+    // Geocoding (on-demand)
+    // -----------------------------
+    const GEO_CACHE_KEY = "koreaTripGeoCache_v2";
+    const geoCache = JSON.parse(localStorage.getItem(GEO_CACHE_KEY) || "{}");
+    let geoQueue = Promise.resolve(); // throttle
 
     function saveGeoCache() {
       localStorage.setItem(GEO_CACHE_KEY, JSON.stringify(geoCache));
     }
 
-    function buildGeocodeQuery(p) {
-      // Prefer full address; fallback to name + Seoul
-      if (p.address && p.address.trim()) return p.address;
-      return `${p.name}, Seoul, South Korea`;
+    async function geocodeWithNominatim(query) {
+      const url =
+        "https://nominatim.openstreetmap.org/search?format=json&limit=1&addressdetails=0&q=" +
+        encodeURIComponent(query);
+
+      const resp = await fetch(url);
+      if (!resp.ok) throw new Error("Geocode failed");
+      const data = await resp.json();
+      if (!data || !data.length) throw new Error("No result");
+      return { lat: Number(data[0].lat), lng: Number(data[0].lon) };
     }
 
-    async function geocodePoint(p) {
-      // Already has coordinates
+    async function ensureCoords(p) {
+      // already has coords
       if (typeof p.lat === "number" && typeof p.lng === "number") return { lat: p.lat, lng: p.lng };
 
-      const cacheKey = buildGeocodeQuery(p);
-      if (geoCache[cacheKey]) return geoCache[cacheKey];
+      // cache key: best guess (address if present else name+seoul)
+      const primaryKey = (cleanAddress(p.address || "") || `${p.name}, Seoul, South Korea`);
+      if (geoCache[primaryKey]) return geoCache[primaryKey];
 
-      // Throttle via queue
+      // throttle: 1 request at a time + delay
       geoQueue = geoQueue.then(async () => {
-        const q = buildGeocodeQuery(p);
-        const url =
-          "https://nominatim.openstreetmap.org/search?format=json&limit=1&q=" +
-          encodeURIComponent(q);
+        const attempts = buildGeocodeAttempts(p);
 
-        const resp = await fetch(url);
-        if (!resp.ok) throw new Error("Geocode failed");
-        const data = await resp.json();
+        let lastErr = null;
+        for (const q of attempts) {
+          try {
+            const coords = await geocodeWithNominatim(q);
+            geoCache[primaryKey] = coords;
+            saveGeoCache();
+            // polite delay
+            await new Promise(r => setTimeout(r, 1200));
+            return coords;
+          } catch (e) {
+            lastErr = e;
+          }
+        }
 
-        if (!data || !data.length) throw new Error("No geocode result");
-
-        const lat = Number(data[0].lat);
-        const lng = Number(data[0].lon);
-        const coords = { lat, lng };
-
-        geoCache[cacheKey] = coords;
-        saveGeoCache();
-
-        // polite delay
         await new Promise(r => setTimeout(r, 1200));
-
-        return coords;
+        throw lastErr || new Error("No geocode result");
       });
 
       return geoQueue;
     }
 
     // -----------------------------
-    // Rendering
+    // Marker / popup creation
     // -----------------------------
-    function clearMarkers() {
-      markers.forEach(m => map.removeLayer(m));
-      markers = [];
-    }
-
-    function fitToMarkers() {
-      if (!markers.length) return;
-      const latlngs = markers.map(m => m.getLatLng());
-      const bounds = L.latLngBounds(latlngs);
-      map.fitBounds(bounds.pad(0.18));
-    }
-
     function buildPopup(p, coords) {
-      const name = escapeHtml(p.name);
-      const day = escapeHtml(p.day);
+      const emoji = CAT_ICON[p.category] || CAT_ICON["Other"];
       const cat = escapeHtml(p.category || "Other");
       const notes = p.notes ? `<div class="meta">${escapeHtml(p.notes)}</div>` : "";
+      const addr = p.address ? `<div class="meta">${escapeHtml(cleanAddress(p.address))}</div>` : "";
       const who = `<div class="meta">${escapeHtml(whoLabel(p))}</div>`;
 
       let distLine = "";
@@ -288,12 +308,14 @@
 
       return `
         <div>
-          <div><strong>${name}</strong>
-            <span class="pill">${cat}</span>
-            <span class="pill">${day}</span>
+          <div>
+            <strong>${escapeHtml(p.name)}</strong>
+            <span class="pill">${emoji} ${cat}</span>
+            <span class="pill">${escapeHtml(p.day)}</span>
           </div>
           ${who}
           ${notes}
+          ${addr}
           ${distLine}
           <div style="margin-top:8px;">
             <a href="${g}" target="_blank" rel="noopener">Open in Google Maps</a>
@@ -304,6 +326,35 @@
       `;
     }
 
+    async function pinAndOpen(p) {
+      // If already pinned, just open
+      if (markerById.has(p.id)) {
+        const m = markerById.get(p.id);
+        map.setView(m.getLatLng(), 16, { animate: true });
+        m.openPopup();
+        return;
+      }
+
+      // Otherwise geocode on-demand
+      const coords = await ensureCoords(p);
+
+      const emoji = CAT_ICON[p.category] || CAT_ICON["Other"];
+      const color = markerColor(p);
+
+      const marker = L.marker([coords.lat, coords.lng], {
+        icon: iconEmoji(emoji, color)
+      }).addTo(map);
+
+      marker.bindPopup(buildPopup(p, coords));
+      markerById.set(p.id, marker);
+
+      map.setView([coords.lat, coords.lng], 16, { animate: true });
+      marker.openPopup();
+    }
+
+    // -----------------------------
+    // Tabs + list rendering
+    // -----------------------------
     function renderTabs() {
       tabBarEl.innerHTML = DAYS.map(d => `
         <button class="${d === activeDay ? "active" : ""}" data-day="${d}">${d}</button>
@@ -327,23 +378,20 @@
       });
     }
 
-    function showResults(list) {
-      // show results panel whenever there's a day tab (always) – but keep tidy when empty
-      resultsEl.style.display = "block";
-
-      if (!list.length) {
+    function renderList(points) {
+      if (!points.length) {
         resultsEl.innerHTML = `<div class="item"><strong>No matches</strong><div class="meta">Try a different keyword.</div></div>`;
         return;
       }
 
-      let sorted = list.slice();
+      // If user location exists, sort by distance *when cached coords exist*
+      let list = points.slice();
       if (userLocation) {
-        // sort by distance (if geocoded in cache, else keep order)
-        sorted.sort((a, b) => {
-          const qa = buildGeocodeQuery(a);
-          const qb = buildGeocodeQuery(b);
-          const ca = geoCache[qa];
-          const cb = geoCache[qb];
+        list.sort((a, b) => {
+          const ka = cleanAddress(a.address || "") || `${a.name}, Seoul, South Korea`;
+          const kb = cleanAddress(b.address || "") || `${b.name}, Seoul, South Korea`;
+          const ca = geoCache[ka];
+          const cb = geoCache[kb];
           if (!ca || !cb) return 0;
           const da = haversineKm(userLocation.lat, userLocation.lng, ca.lat, ca.lng);
           const db = haversineKm(userLocation.lat, userLocation.lng, cb.lat, cb.lng);
@@ -351,20 +399,23 @@
         });
       }
 
-      resultsEl.innerHTML = sorted.map(p => {
-        const cat = escapeHtml(p.category || "Other");
+      resultsEl.innerHTML = list.map(p => {
         const emoji = CAT_ICON[p.category] || CAT_ICON["Other"];
         const label = escapeHtml(whoLabel(p));
-        let dist = "";
+        const cat = escapeHtml(p.category || "Other");
 
+        // distance pill only if coords cached
+        let dist = "";
         if (userLocation) {
-          const q = buildGeocodeQuery(p);
-          const c = geoCache[q];
+          const key = cleanAddress(p.address || "") || `${p.name}, Seoul, South Korea`;
+          const c = geoCache[key];
           if (c) {
             const km = haversineKm(userLocation.lat, userLocation.lng, c.lat, c.lng);
             dist = `<span class="pill">${km.toFixed(2)} km</span>`;
           }
         }
+
+        const pinned = markerById.has(p.id) ? `<span class="pill">Pinned</span>` : "";
 
         return `
           <div class="item" data-id="${escapeHtml(p.id)}">
@@ -372,7 +423,8 @@
             <span class="pill">${emoji} ${cat}</span>
             <span class="pill">${label}</span>
             ${dist}
-            <div class="meta">${escapeHtml((p.notes || p.address || "").slice(0, 90))}</div>
+            ${pinned}
+            <div class="meta">${escapeHtml((p.notes || cleanAddress(p.address) || "").slice(0, 90))}</div>
           </div>
         `;
       }).join("");
@@ -380,73 +432,32 @@
       resultsEl.querySelectorAll(".item").forEach(el => {
         el.addEventListener("click", async () => {
           const id = el.getAttribute("data-id");
-          const p = list.find(x => x.id === id);
+          const p = points.find(x => x.id === id);
           if (!p) return;
 
           try {
-            const coords = await geocodePoint(p);
-            map.setView([coords.lat, coords.lng], 16, { animate: true });
-
-            // Try to open popup if marker exists
-            const mk = markers.find(m => m.options && m.options.__pointId === p.id);
-            if (mk) mk.openPopup();
+            await pinAndOpen(p);
+            // refresh list to show "Pinned" + distance updates
+            applyFilters(false);
           } catch {
-            alert("Could not find this place on the map yet. Try again later or refine the address in points.json.");
+            alert("Could not locate this place automatically. Try editing its address in points.json (make it more specific).");
           }
         });
       });
     }
 
-    function dedupeForDay(pointsForDay) {
-      // If overlap: keep aunt (pink) only
-      const best = new Map(); // key -> point
-      for (const p of pointsForDay) {
-        const k = pointKey(p);
-        if (!best.has(k)) best.set(k, p);
-        else {
-          // prefer aunt if same key
-          if (p.who === "aunt") best.set(k, p);
-        }
+    // applyFilters optionally recenters or not
+    function applyFilters(recenter = true) {
+      const dayPointsRaw = allPoints.filter(p => p.day === activeDay);
+      const dayPoints = dedupePreferAunt(dayPointsRaw);
+      const filtered = searchWithin(dayPoints, qEl.value);
+
+      renderList(filtered);
+
+      if (recenter && markerById.size === 0) {
+        // No pinned markers yet: just keep Seoul view
+        map.setView([37.5665, 126.9780], 12);
       }
-      return Array.from(best.values());
-    }
-
-    async function drawPoints(points) {
-      clearMarkers();
-
-      const token = ++renderToken;
-      const list = points.slice();
-
-      // Add markers as geocodes resolve (so user sees them appearing)
-      for (const p of list) {
-        if (token !== renderToken) return; // stale render
-
-        try {
-          const coords = await geocodePoint(p);
-          if (token !== renderToken) return;
-
-          const emoji = CAT_ICON[p.category] || CAT_ICON["Other"];
-          const color = markerColor(p);
-          const marker = L.marker([coords.lat, coords.lng], { icon: iconEmoji(emoji, color) }).addTo(map);
-          marker.options.__pointId = p.id; // internal hook
-          marker.bindPopup(buildPopup(p, coords));
-          markers.push(marker);
-        } catch {
-          // Skip marker if geocode fails
-        }
-      }
-
-      // Fit view after markers appear
-      if (token === renderToken) fitToMarkers();
-    }
-
-    function applyFilters() {
-      const dayPoints = allPoints.filter(p => p.day === activeDay);
-      const deduped = dedupeForDay(dayPoints);
-      const filtered = searchWithin(deduped, qEl.value);
-
-      showResults(filtered);
-      drawPoints(filtered);
     }
 
     // -----------------------------
@@ -470,8 +481,8 @@
 
           map.setView([userLocation.lat, userLocation.lng], 14, { animate: true });
 
-          // Refresh UI (distances show if cached; popups updated when reopened)
-          applyFilters();
+          // Refresh list (distance pills appear for cached coords)
+          applyFilters(false);
         },
         () => {
           alert("Could not get your location. Please allow location permissions in your browser.");
@@ -489,11 +500,11 @@
       qEl.value = "";
       userLocation = null;
       if (userMarker) { map.removeLayer(userMarker); userMarker = null; }
-      applyFilters();
+      applyFilters(false);
       qEl.focus();
     });
 
-    qEl.addEventListener("input", applyFilters);
+    qEl.addEventListener("input", () => applyFilters(false));
 
     // -----------------------------
     // Load points.json
@@ -501,12 +512,11 @@
     fetch("./points.json")
       .then(r => r.json())
       .then(points => {
-        // Add stable IDs (for click handling)
         allPoints = points.map((p, idx) => ({
           id: String(p.id ?? `${idx}`),
           name: p.name,
           day: p.day,
-          who: p.who,                 // "aunt" | "me"
+          who: p.who,
           category: p.category || "Other",
           notes: p.notes || "",
           address: p.address || "",
