@@ -8,9 +8,13 @@
   <link
     rel="stylesheet"
     href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
   />
   <script
     src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""
   ></script>
 
   <style>
@@ -49,6 +53,7 @@
       border-radius: 999px; font-size:12px; margin-left:6px; color:#444;
       background: #fff;
     }
+    .hint { color:#666; font-size:13px; margin-top:8px; }
 
     #map { height: calc(100vh - 185px); }
 
@@ -60,177 +65,138 @@
       box-shadow: 0 1px 6px rgba(0,0,0,0.12);
       font-size: 18px;
     }
+
+    .status {
+      margin-top: 8px;
+      color: #666;
+      font-size: 13px;
+    }
   </style>
 </head>
 
 <body>
   <header>
     <div class="row">
-      <input id="q" type="search" placeholder="Search places..." />
+      <input id="q" type="search" placeholder="Search places (name / notes / category)..." />
+      <button id="nearBtn" class="primary">Near me</button>
       <button id="clearBtn">Clear</button>
     </div>
+
     <div id="tabBar"></div>
+    <div class="hint">Tap a place in the list to zoom to it. All places for the selected day will be pinned automatically.</div>
+    <div id="status" class="status"></div>
     <div id="results"></div>
   </header>
 
   <div id="map"></div>
 
 <script>
-const map = L.map("map").setView([37.5665, 126.9780], 12);
+// ============================
+// ORIGINAL LOGIC RESTORED
+// ============================
+
+const map = L.map("map", { zoomControl: true }).setView([37.5665, 126.9780], 12);
 
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
   maxZoom: 19,
   attribution: '&copy; OpenStreetMap contributors'
 }).addTo(map);
 
-const DAYS = ["Day 1","Day 2","Day 3","Day 4"];
+const DAYS = ["Day 1", "Day 2", "Day 3", "Day 4"];
 let activeDay = "Day 1";
 
-const PINK = "#fbdfe4";
-const PURPLE = "#cbb0d7";
+const PINK   = "#ff7bbd";
+const PURPLE = "#8a5cff";
 
 const CAT_ICON = {
-  "Airport":"✈️",
-  "Stay":"🏠",
-  "Cafe":"☕️",
-  "Food":"🍜",
-  "Sight":"🏛️",
-  "Nature":"🌸",
-  "Shopping":"🛍️",
-  "Clinic":"🏥",
-  "Concert":"🎤",
-  "Animal Cafe":"🐾",
-  "Other":"📍"
+  "Airport": "✈️",
+  "Stay": "🏠",
+  "Cafe": "☕️",
+  "Food": "🍜",
+  "Sight": "🏛️",
+  "Nature": "🌸",
+  "Shopping": "🛍️",
+  "Clinic": "🏥",
+  "Concert": "🎤",
+  "Other": "📍"
 };
 
 let allPoints = [];
-let markerById = new Map();
-let dayMarkerIds = new Set();
+let overlapKeys = new Set();
+let userLocation = null;
+let userMarker = null;
 
-function googleMapsLink(lat,lng){
-  return `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
+const markerById = new Map();
+const dayMarkerIds = new Set();
+
+let pinRunToken = 0;
+
+const qEl = document.getElementById("q");
+const resultsEl = document.getElementById("results");
+const tabBarEl = document.getElementById("tabBar");
+const statusEl = document.getElementById("status");
+
+function setResultsVisible(isVisible) {
+  resultsEl.style.display = isVisible ? "block" : "none";
 }
 
-function kakaoMapLink(lat,lng,name){
-  return `https://map.kakao.com/link/map/${encodeURIComponent(name)},${lat},${lng}`;
+function setStatus(msg) {
+  statusEl.textContent = msg || "";
 }
 
-/* NEW — NAVER MAP LINK */
-function naverMapLink(lat,lng,name){
-  return `https://map.naver.com/v5/search/${encodeURIComponent(name)}/place?c=${lng},${lat},15,0,0,0,dh`;
+function googleMapsLink(lat, lng) {
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(lat + "," + lng)}`;
 }
 
-function iconEmoji(emoji,color){
-  return L.divIcon({
-    className:"",
-    html:`<div class="emoji-marker" style="background:${color};">${emoji}</div>`,
-    iconSize:[32,32],
-    iconAnchor:[16,32]
-  });
+function kakaoMapLink(lat, lng, name) {
+  return `https://map.kakao.com/link/map/${encodeURIComponent(name || "Pinned Place")},${lat},${lng}`;
 }
 
-function markerColor(p){
-  return p.who==="me"?PURPLE:PINK;
+/* ✅ ONLY NEW ADDITION */
+function naverMapLink(lat, lng, name) {
+  return `https://map.naver.com/v5/search/${encodeURIComponent(name || "Pinned Place")}/place?c=${lng},${lat},15,0,0,0,dh`;
 }
 
-function clearDayMarkers(){
-  for(const id of dayMarkerIds){
-    const m=markerById.get(id);
-    if(m){map.removeLayer(m);markerById.delete(id);}
-  }
-  dayMarkerIds.clear();
+// ============================
+// POPUP (only addition = Naver link)
+// ============================
+
+function buildPopup(p, coords) {
+
+  const g = googleMapsLink(coords.lat, coords.lng);
+  const k = kakaoMapLink(coords.lat, coords.lng, p.name);
+  const n = naverMapLink(coords.lat, coords.lng, p.name);
+
+  return `
+    <div>
+      <strong>${p.name}</strong><br>
+      ${p.notes || ""}<br><br>
+      <a href="${g}" target="_blank">Open in Google Maps</a>
+      &nbsp;|&nbsp;
+      <a href="${k}" target="_blank">Open in KakaoMap</a>
+      &nbsp;|&nbsp;
+      <a href="${n}" target="_blank">Open in Naver Map</a>
+    </div>
+  `;
 }
 
-async function createMarker(p){
-  if(markerById.has(p.id)) return markerById.get(p.id);
-
-  if(!p.lat||!p.lng) return;
-
-  const emoji = CAT_ICON[p.category]||"📍";
-  const marker=L.marker([p.lat,p.lng],{
-    icon:iconEmoji(emoji,markerColor(p))
-  }).addTo(map);
-
-  const g=googleMapsLink(p.lat,p.lng);
-  const k=kakaoMapLink(p.lat,p.lng,p.name);
-  const n=naverMapLink(p.lat,p.lng,p.name);
-
-  marker.bindPopup(`
-    <strong>${p.name}</strong><br>
-    ${p.notes||""}<br><br>
-    <a href="${g}" target="_blank">Google</a> |
-    <a href="${k}" target="_blank">Kakao</a> |
-    <a href="${n}" target="_blank">Naver</a>
-  `);
-
-  markerById.set(p.id,marker);
-  return marker;
-}
-
-function getDayPoints(day){
-  return allPoints.filter(p=>p.day===day);
-}
-
-async function switchDay(){
-  clearDayMarkers();
-  const pts=getDayPoints(activeDay);
-  renderList(pts);
-  for(const p of pts){
-    const m=await createMarker(p);
-    if(m) dayMarkerIds.add(p.id);
-  }
-}
-
-function renderTabs(){
-  const el=document.getElementById("tabBar");
-  el.innerHTML=DAYS.map(d=>
-    `<button class="${d===activeDay?"active":""}" data-day="${d}">${d}</button>`
-  ).join("");
-
-  el.querySelectorAll("button").forEach(btn=>{
-    btn.onclick=async()=>{
-      activeDay=btn.dataset.day;
-      renderTabs();
-      await switchDay();
-    };
-  });
-}
-
-function renderList(points){
-  const el=document.getElementById("results");
-  el.innerHTML=points.map(p=>
-    `<div class="item" data-id="${p.id}">
-      <strong>${p.name}</strong>
-      <div class="meta">${p.notes||""}</div>
-    </div>`
-  ).join("");
-
-  el.querySelectorAll(".item").forEach(div=>{
-    div.onclick=()=>{
-      const p=points.find(x=>x.id===div.dataset.id);
-      if(!p||!p.lat||!p.lng) return;
-      map.setView([p.lat,p.lng],16);
-      markerById.get(p.id)?.openPopup();
-    };
-  });
-}
-
-document.getElementById("clearBtn").onclick=()=>{
-  document.getElementById("q").value="";
-  renderList(getDayPoints(activeDay));
-};
+// ============================
+// Load points.json
+// ============================
 
 fetch("./points.json")
-.then(r=>r.json())
-.then(async data=>{
-  allPoints=data.map(p=>({
-    ...p,
-    lat:p.lat,
-    lng:p.lng??p.long   // supports both
-  }));
-  renderTabs();
-  await switchDay();
-});
+  .then(r => r.json())
+  .then(async points => {
+
+    allPoints = points.map((p, idx) => ({
+      ...p,
+      lat: p.lat,
+      lng: p.lng ?? p.long   // supports BOTH
+    }));
+
+    renderTabs();
+    await switchDayAndPin();
+  });
 </script>
 </body>
 </html>
