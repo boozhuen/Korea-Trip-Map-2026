@@ -207,6 +207,72 @@
     "lng": 126.91375894267475
   },
   {
+    "id": "a1_Shoopen",
+    "name": "Shoopen (Hongdae)",
+    "day": "Day 1",
+    "who": "aunt",
+    "category": "Shopping",
+    "notes": "Shoes/Accessories",
+    "address": "153 Yanghwa-ro, Mapo-gu, Seoul, South Korea",
+    "lat": 37.55658558553619, 
+    "lng": 126.92263649828905
+  },
+  {
+    "id": "a1_Chaakan",
+    "name": "Chaakan (Hongdae)",
+    "day": "Day 1",
+    "who": "aunt",
+    "category": "Shopping",
+    "notes": "Shoes/Accessories",
+    "address": "25 Wausan-ro 29ba-gil, Mapo-gu, Seoul, South Korea",
+    "lat": 37.555206841173465, 
+    "lng": 126.92574069715153
+  },
+  {
+    "id": "a1_IAMJOY",
+    "name": "IAMJOY (Hongdae)",
+    "day": "Day 1",
+    "who": "aunt",
+    "category": "Shopping",
+    "notes": "Shoes/Accessories",
+    "address": "40 Wausan-ro 27-gil, Seogyo-dong, Mapo-gu, Seoul, South Korea",
+    "lat": 37.5547302634893, 
+    "lng": 126.92643431656721
+  },
+  {
+    "id": "a1_BUTTER",
+    "name": "BUTTER (Hongdae)",
+    "day": "Day 1",
+    "who": "aunt",
+    "category": "Shopping",
+    "notes": "Stationary",
+    "address": "South Korea, Seoul, Mapo-gu, 서교동 Yanghwa-ro, 153 지하2층 이랜드 복합관 홍대점",
+    "lat": 37.55644974773364,  
+    "lng": 126.92261186374112
+  },
+  {
+    "id": "a1_MeerkatFriends",
+    "name": "Meerkat Friends (Hongdae)",
+    "day": "Day 1",
+    "who": "aunt",
+    "category": "Animal Cafe",
+    "notes": "Exotic animals cafe",
+    "address": "South Korea, Seoul, Mapo-gu, Wausan-ro 21-gil, 20 미어캣 프랜즈 2층",
+    "lat": 37.55242878072202, 
+    "lng": 126.92297842285936
+  },
+  {
+    "id": "a1_RoofCatMe",
+    "name": "Roof Cat Me (Hongdae)",
+    "day": "Day 1",
+    "who": "aunt",
+    "category": "Animal Cafe",
+    "notes": "Cat cafe",
+    "address": "South Korea, Seoul, Mapo-gu, 162 15 지하 2층",
+    "lat": 37.554915394868914, 
+    "lng": 126.92214563583492
+  },
+  {
     "id": "a1_kyochon",
     "name": "Kyochon Chicken Yeonnam",
     "day": "Day 1",
