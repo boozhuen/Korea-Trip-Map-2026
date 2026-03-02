@@ -42,7 +42,7 @@
     #results {
       margin-top: 10px; max-height: 240px; overflow: auto;
       border: 1px solid #eee; border-radius: 10px; padding: 6px;
-      display: block;
+      display: block; /* toggled by JS */
     }
     .item { padding: 10px; border-radius: 10px; cursor: pointer; }
     .item:hover { background: #f4f4f4; }
@@ -90,113 +90,523 @@
 
   <div id="map"></div>
 
-<script>
-// ============================
-// ORIGINAL LOGIC RESTORED
-// ============================
+  <script>
+    // -----------------------------
+    // Map init
+    // -----------------------------
+    const map = L.map("map", { zoomControl: true }).setView([37.5665, 126.9780], 12);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 19,
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
 
-const map = L.map("map", { zoomControl: true }).setView([37.5665, 126.9780], 12);
+    // -----------------------------
+    // Constants / state
+    // -----------------------------
+    const DAYS = ["Day 1", "Day 2", "Day 3", "Day 4"];
+    let activeDay = "Day 1";
 
-L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-  maxZoom: 19,
-  attribution: '&copy; OpenStreetMap contributors'
-}).addTo(map);
+    const PINK   = "#ff7bbd";  // aunt
+    const PURPLE = "#8a5cff";  // you
 
-const DAYS = ["Day 1", "Day 2", "Day 3", "Day 4"];
-let activeDay = "Day 1";
+    const CAT_ICON = {
+      "Airport": "✈️",
+      "Stay": "🏠",
+      "Cafe": "☕️",
+      "Food": "🍜",
+      "Sight": "🏛️",
+      "Nature": "🌸",
+      "Shopping": "🛍️",
+      "Clinic": "🏥",
+      "Concert": "🎤",
+      "Other": "📍"
+    };
 
-const PINK   = "#ff7bbd";
-const PURPLE = "#8a5cff";
+    let allPoints = [];
+    let overlapKeys = new Set();
+    let userLocation = null;
+    let userMarker = null;
 
-const CAT_ICON = {
-  "Airport": "✈️",
-  "Stay": "🏠",
-  "Cafe": "☕️",
-  "Food": "🍜",
-  "Sight": "🏛️",
-  "Nature": "🌸",
-  "Shopping": "🛍️",
-  "Clinic": "🏥",
-  "Concert": "🎤",
-  "Other": "📍"
-};
+    // Marker maps
+    const markerById = new Map();     // pointId -> marker (all pinned markers that exist)
+    const dayMarkerIds = new Set();   // pointIds currently pinned for active day
 
-let allPoints = [];
-let overlapKeys = new Set();
-let userLocation = null;
-let userMarker = null;
+    // Geocode abort/cancel token for day changes
+    let pinRunToken = 0;
 
-const markerById = new Map();
-const dayMarkerIds = new Set();
+    const qEl = document.getElementById("q");
+    const resultsEl = document.getElementById("results");
+    const tabBarEl = document.getElementById("tabBar");
+    const statusEl = document.getElementById("status");
 
-let pinRunToken = 0;
+    function setResultsVisible(isVisible) {
+      resultsEl.style.display = isVisible ? "block" : "none";
+    }
 
-const qEl = document.getElementById("q");
-const resultsEl = document.getElementById("results");
-const tabBarEl = document.getElementById("tabBar");
-const statusEl = document.getElementById("status");
+    function setStatus(msg) {
+      statusEl.textContent = msg || "";
+    }
 
-function setResultsVisible(isVisible) {
-  resultsEl.style.display = isVisible ? "block" : "none";
-}
+    // -----------------------------
+    // Helpers
+    // -----------------------------
+    function escapeHtml(str) {
+      return String(str ?? "").replace(/[&<>"']/g, s => ({
+        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+      }[s]));
+    }
 
-function setStatus(msg) {
-  statusEl.textContent = msg || "";
-}
+    function normName(s) {
+      return String(s || "").trim().toLowerCase().replace(/\s+/g, " ");
+    }
 
-function googleMapsLink(lat, lng) {
-  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(lat + "," + lng)}`;
-}
+    function pointKey(p) {
+      return `${p.day}__${normName(p.name)}`;
+    }
 
-function kakaoMapLink(lat, lng, name) {
-  return `https://map.kakao.com/link/map/${encodeURIComponent(name || "Pinned Place")},${lat},${lng}`;
-}
+    function haversineKm(lat1, lon1, lat2, lon2) {
+      const R = 6371;
+      const dLat = (lat2 - lat1) * Math.PI / 180;
+      const dLon = (lon2 - lon1) * Math.PI / 180;
+      const a =
+        Math.sin(dLat/2) * Math.sin(dLat/2) +
+        Math.cos(lat1 * Math.PI/180) * Math.cos(lat2 * Math.PI/180) *
+        Math.sin(dLon/2) * Math.sin(dLon/2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+      return R * c;
+    }
 
-/* ✅ ONLY NEW ADDITION */
-function naverMapLink(lat, lng, name) {
-  return `https://map.naver.com/v5/search/${encodeURIComponent(name || "Pinned Place")}/place?c=${lng},${lat},15,0,0,0,dh`;
-}
+    function googleMapsLink(lat, lng) {
+      return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(lat + "," + lng)}`;
+    }
 
-// ============================
-// POPUP (only addition = Naver link)
-// ============================
+    function kakaoMapLink(lat, lng, name) {
+      return `https://map.kakao.com/link/map/${encodeURIComponent(name || "Pinned Place")},${lat},${lng}`;
+    }
 
-function buildPopup(p, coords) {
+    function iconEmoji(emoji, bgColor) {
+      return L.divIcon({
+        className: "",
+        html: `<div class="emoji-marker" style="background:${bgColor};">${emoji}</div>`,
+        iconSize: [32, 32],
+        iconAnchor: [16, 32],
+        popupAnchor: [0, -30]
+      });
+    }
 
-  const g = googleMapsLink(coords.lat, coords.lng);
-  const k = kakaoMapLink(coords.lat, coords.lng, p.name);
-  const n = naverMapLink(coords.lat, coords.lng, p.name);
+    function computeOverlap(points) {
+      const seen = new Map(); // key -> Set(who)
+      for (const p of points) {
+        const k = pointKey(p);
+        if (!seen.has(k)) seen.set(k, new Set());
+        seen.get(k).add(p.who);
+      }
+      const overlaps = new Set();
+      for (const [k, s] of seen.entries()) {
+        if (s.has("aunt") && s.has("me")) overlaps.add(k);
+      }
+      return overlaps;
+    }
 
-  return `
-    <div>
-      <strong>${p.name}</strong><br>
-      ${p.notes || ""}<br><br>
-      <a href="${g}" target="_blank">Open in Google Maps</a>
-      &nbsp;|&nbsp;
-      <a href="${k}" target="_blank">Open in KakaoMap</a>
-      &nbsp;|&nbsp;
-      <a href="${n}" target="_blank">Open in Naver Map</a>
-    </div>
-  `;
-}
+    function markerColor(p) {
+      if (overlapKeys.has(pointKey(p))) return PINK; // overlap => pink
+      return (p.who === "me") ? PURPLE : PINK;
+    }
 
-// ============================
-// Load points.json
-// ============================
+    function whoLabel(p) {
+      if (overlapKeys.has(pointKey(p))) return "Overlap (pink)";
+      return p.who === "me" ? "You (purple)" : "Aunt (pink)";
+    }
 
-fetch("./points.json")
-  .then(r => r.json())
-  .then(async points => {
+    // Prefer aunt version when overlapping (so only one marker shown)
+    function dedupePreferAunt(pointsForDay) {
+      const best = new Map(); // key -> point
+      for (const p of pointsForDay) {
+        const k = pointKey(p);
+        if (!best.has(k)) best.set(k, p);
+        else {
+          if (p.who === "aunt") best.set(k, p);
+        }
+      }
+      return Array.from(best.values());
+    }
 
-    allPoints = points.map((p, idx) => ({
-      ...p,
-      lat: p.lat,
-      lng: p.lng ?? p.long   // supports BOTH
-    }));
+    function cleanAddress(addr) {
+      return String(addr || "")
+        .replace(/\([^)]*\)/g, "")
+        .replace(/\s+/g, " ")
+        .trim();
+    }
 
-    renderTabs();
-    await switchDayAndPin();
-  });
-</script>
+    function buildGeocodeAttempts(p) {
+      const attempts = [];
+      const addr = cleanAddress(p.address || "");
+      if (addr) attempts.push(addr);
+      attempts.push(`${p.name}, Seoul, South Korea`);
+      attempts.push(`${p.name}, South Korea`);
+      attempts.push(`${p.name}`);
+      return Array.from(new Set(attempts));
+    }
+
+    // -----------------------------
+    // Geocoding (on-demand / throttled)
+    // -----------------------------
+    const GEO_CACHE_KEY = "koreaTripGeoCache_v3";
+    const geoCache = JSON.parse(localStorage.getItem(GEO_CACHE_KEY) || "{}");
+    let geoQueue = Promise.resolve(); // throttle chain
+
+    function saveGeoCache() {
+      localStorage.setItem(GEO_CACHE_KEY, JSON.stringify(geoCache));
+    }
+
+    async function geocodeWithNominatim(query) {
+      const url =
+        "https://nominatim.openstreetmap.org/search?format=json&limit=1&addressdetails=0&q=" +
+        encodeURIComponent(query);
+
+      const resp = await fetch(url);
+      if (!resp.ok) throw new Error("Geocode failed");
+      const data = await resp.json();
+      if (!data || !data.length) throw new Error("No result");
+      return { lat: Number(data[0].lat), lng: Number(data[0].lon) };
+    }
+
+    async function ensureCoords(p) {
+      if (typeof p.lat === "number" && typeof p.lng === "number") return { lat: p.lat, lng: p.lng };
+
+      const primaryKey = (cleanAddress(p.address || "") || `${p.name}, Seoul, South Korea`);
+      if (geoCache[primaryKey]) return geoCache[primaryKey];
+
+      geoQueue = geoQueue.then(async () => {
+        const attempts = buildGeocodeAttempts(p);
+
+        let lastErr = null;
+        for (const q of attempts) {
+          try {
+            const coords = await geocodeWithNominatim(q);
+            geoCache[primaryKey] = coords;
+            saveGeoCache();
+            await new Promise(r => setTimeout(r, 1200));
+            return coords;
+          } catch (e) {
+            lastErr = e;
+          }
+        }
+
+        await new Promise(r => setTimeout(r, 1200));
+        throw lastErr || new Error("No geocode result");
+      });
+
+      return geoQueue;
+    }
+
+    // -----------------------------
+    // Popup + markers
+    // -----------------------------
+    function buildPopup(p, coords) {
+      const emoji = CAT_ICON[p.category] || CAT_ICON["Other"];
+      const cat = escapeHtml(p.category || "Other");
+      const notes = p.notes ? `<div class="meta">${escapeHtml(p.notes)}</div>` : "";
+      const addr = p.address ? `<div class="meta">${escapeHtml(cleanAddress(p.address))}</div>` : "";
+      const who = `<div class="meta">${escapeHtml(whoLabel(p))}</div>`;
+
+      let distLine = "";
+      if (userLocation) {
+        const km = haversineKm(userLocation.lat, userLocation.lng, coords.lat, coords.lng);
+        distLine = `<div class="meta">Distance: <strong>${km.toFixed(2)} km</strong></div>`;
+      }
+
+      const g = googleMapsLink(coords.lat, coords.lng);
+      const k = kakaoMapLink(coords.lat, coords.lng, p.name);
+
+      return `
+        <div>
+          <div>
+            <strong>${escapeHtml(p.name)}</strong>
+            <span class="pill">${emoji} ${cat}</span>
+            <span class="pill">${escapeHtml(p.day)}</span>
+          </div>
+          ${who}
+          ${notes}
+          ${addr}
+          ${distLine}
+          <div style="margin-top:8px;">
+            <a href="${g}" target="_blank" rel="noopener">Open in Google Maps</a>
+            &nbsp;|&nbsp;
+            <a href="${k}" target="_blank" rel="noopener">Open in KakaoMap</a>
+          </div>
+        </div>
+      `;
+    }
+
+    async function createMarkerForPoint(p) {
+      // If already created, just return it
+      if (markerById.has(p.id)) return markerById.get(p.id);
+
+      const coords = await ensureCoords(p);
+
+      const emoji = CAT_ICON[p.category] || CAT_ICON["Other"];
+      const color = markerColor(p);
+
+      const marker = L.marker([coords.lat, coords.lng], {
+        icon: iconEmoji(emoji, color)
+      }).addTo(map);
+
+      marker.bindPopup(buildPopup(p, coords));
+      markerById.set(p.id, marker);
+      return marker;
+    }
+
+    function clearDayMarkers() {
+      for (const id of dayMarkerIds) {
+        const m = markerById.get(id);
+        if (m) {
+          map.removeLayer(m);
+          markerById.delete(id);
+        }
+      }
+      dayMarkerIds.clear();
+    }
+
+    async function pinAllForActiveDay(pointsForDay) {
+      // cancel previous run
+      const myToken = ++pinRunToken;
+
+      setStatus(`Pinning ${pointsForDay.length} places for ${activeDay}...`);
+      let pinned = 0;
+      let failed = 0;
+
+      for (const p of pointsForDay) {
+        if (myToken !== pinRunToken) return; // aborted due to day switch
+
+        try {
+          const m = await createMarkerForPoint(p);
+          dayMarkerIds.add(p.id);
+          pinned++;
+          setStatus(`Pinning ${activeDay}: ${pinned}/${pointsForDay.length} pinned${failed ? ` (${failed} failed)` : ""}...`);
+        } catch {
+          failed++;
+          setStatus(`Pinning ${activeDay}: ${pinned}/${pointsForDay.length} pinned (${failed} failed)...`);
+        }
+      }
+
+      if (myToken !== pinRunToken) return;
+
+      if (pinned > 0) {
+        const group = L.featureGroup(Array.from(dayMarkerIds).map(id => markerById.get(id)).filter(Boolean));
+        try { map.fitBounds(group.getBounds().pad(0.15)); } catch {}
+      }
+
+      setStatus(
+        failed
+          ? `Done: pinned ${pinned}/${pointsForDay.length}. (${failed} could not be located — add lat/lng in points.json for those.)`
+          : `Done: pinned all ${pinned} places for ${activeDay}.`
+      );
+    }
+
+    async function zoomToPoint(p) {
+      // Marker should already exist because we pin all for the day,
+      // but handle the case where geocoding failed earlier and user clicks it now.
+      let marker = markerById.get(p.id);
+
+      if (!marker) {
+        marker = await createMarkerForPoint(p);
+        dayMarkerIds.add(p.id);
+      }
+
+      map.setView(marker.getLatLng(), 16, { animate: true });
+      marker.openPopup();
+    }
+
+    // -----------------------------
+    // Tabs + list rendering
+    // -----------------------------
+    function renderTabs() {
+      tabBarEl.innerHTML = DAYS.map(d => `
+        <button class="${d === activeDay ? "active" : ""}" data-day="${d}">${d}</button>
+      `).join("");
+
+      tabBarEl.querySelectorAll("button").forEach(btn => {
+        btn.addEventListener("click", async () => {
+          activeDay = btn.getAttribute("data-day");
+
+          // Show list again when switching days
+          setResultsVisible(true);
+
+          // Clear old day's pins and pin the new day
+          await switchDayAndPin();
+
+          renderTabs();
+        });
+      });
+    }
+
+    function searchWithin(points, query) {
+      const q = query.trim().toLowerCase();
+      if (!q) return points;
+      return points.filter(p => {
+        const hay = `${p.name ?? ""} ${p.category ?? ""} ${p.notes ?? ""} ${p.address ?? ""}`.toLowerCase();
+        return hay.includes(q);
+      });
+    }
+
+    function renderList(pointsForDayDeduped) {
+      const filtered = searchWithin(pointsForDayDeduped, qEl.value);
+
+      if (!filtered.length) {
+        resultsEl.innerHTML = `<div class="item"><strong>No matches</strong><div class="meta">Try a different keyword.</div></div>`;
+        return;
+      }
+
+      let list = filtered.slice();
+
+      // If user location exists, show distance (if coords cached)
+      resultsEl.innerHTML = list.map(p => {
+        const emoji = CAT_ICON[p.category] || CAT_ICON["Other"];
+        const label = escapeHtml(whoLabel(p));
+        const cat = escapeHtml(p.category || "Other");
+
+        let dist = "";
+        if (userLocation) {
+          const key = cleanAddress(p.address || "") || `${p.name}, Seoul, South Korea`;
+          const c = geoCache[key];
+          if (c) {
+            const km = haversineKm(userLocation.lat, userLocation.lng, c.lat, c.lng);
+            dist = `<span class="pill">${km.toFixed(2)} km</span>`;
+          }
+        }
+
+        return `
+          <div class="item" data-id="${escapeHtml(p.id)}">
+            <strong>${escapeHtml(p.name)}</strong>
+            <span class="pill">${emoji} ${cat}</span>
+            <span class="pill">${label}</span>
+            ${dist}
+            <div class="meta">${escapeHtml((p.notes || cleanAddress(p.address) || "").slice(0, 90))}</div>
+          </div>
+        `;
+      }).join("");
+
+      resultsEl.querySelectorAll(".item").forEach(el => {
+        el.addEventListener("click", async () => {
+          const id = el.getAttribute("data-id");
+          const p = pointsForDayDeduped.find(x => x.id === id);
+          if (!p) return;
+
+          try {
+            await zoomToPoint(p);
+
+            // Hide list after selecting a point so it doesn't block the map
+            setResultsVisible(false);
+
+            // Keep list content ready (so when it reappears, it’s correct)
+            // No need to re-pin; markers stay on the map for the day.
+          } catch {
+            alert("Could not locate this place automatically. Add lat/lng in points.json for this place.");
+          }
+        });
+      });
+    }
+
+    function getDayPointsDeduped(day) {
+      const dayPointsRaw = allPoints.filter(p => p.day === day);
+      return dedupePreferAunt(dayPointsRaw);
+    }
+
+    async function switchDayAndPin() {
+      // stop any ongoing pin run + remove previous day markers
+      ++pinRunToken;
+      clearDayMarkers();
+
+      const dayPoints = getDayPointsDeduped(activeDay);
+
+      // Always render the list immediately (even while pins are loading)
+      renderList(dayPoints);
+
+      // Pin all for the day in the background (still in this same session, just sequential)
+      await pinAllForActiveDay(dayPoints);
+    }
+
+    // -----------------------------
+    // Near me
+    // -----------------------------
+    function activateNearMe() {
+      if (!navigator.geolocation) {
+        alert("Your browser doesn’t support GPS location.");
+        return;
+      }
+
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          userLocation = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+
+          if (userMarker) map.removeLayer(userMarker);
+          userMarker = L.circleMarker([userLocation.lat, userLocation.lng], {
+            radius: 8,
+            weight: 2
+          }).addTo(map).bindPopup("<strong>You are here</strong>");
+
+          map.setView([userLocation.lat, userLocation.lng], 14, { animate: true });
+
+          // Refresh list to show distance pills where cached coords exist
+          renderList(getDayPointsDeduped(activeDay));
+        },
+        () => {
+          alert("Could not get your location. Please allow location permissions in your browser.");
+        },
+        { enableHighAccuracy: true, timeout: 10000 }
+      );
+    }
+
+    // -----------------------------
+    // UI wiring
+    // -----------------------------
+    document.getElementById("nearBtn").addEventListener("click", activateNearMe);
+
+    document.getElementById("clearBtn").addEventListener("click", () => {
+      qEl.value = "";
+      userLocation = null;
+      if (userMarker) { map.removeLayer(userMarker); userMarker = null; }
+      setResultsVisible(true);
+      renderList(getDayPointsDeduped(activeDay));
+      qEl.focus();
+    });
+
+    qEl.addEventListener("input", () => {
+      setResultsVisible(true);
+      renderList(getDayPointsDeduped(activeDay));
+    });
+
+    // -----------------------------
+    // Load points.json
+    // -----------------------------
+    fetch("./points.json")
+      .then(r => r.json())
+      .then(async points => {
+        allPoints = points.map((p, idx) => ({
+          id: String(p.id ?? `${idx}`),
+          name: p.name,
+          day: p.day,
+          who: p.who,
+          category: p.category || "Other",
+          notes: p.notes || "",
+          address: p.address || "",
+          lat: (typeof p.lat === "number") ? p.lat : undefined,
+          lng: (typeof p.lng === "number") ? p.lng : undefined
+        }));
+
+        overlapKeys = computeOverlap(allPoints);
+
+        renderTabs();
+        setResultsVisible(true);
+
+        // Start on Day 1, pin all points for Day 1 automatically
+        await switchDayAndPin();
+      })
+      .catch(err => {
+        console.error(err);
+        alert("Could not load points.json. Check file name and JSON format.");
+      });
+  </script>
 </body>
 </html>
