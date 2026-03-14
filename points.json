@@ -349,17 +349,6 @@
     "lat": 37.67587628041816, 
     "lng": 126.74262084011005
   },
-  {
-    "id": "m1_kyochon_late",
-    "name": "Kyochon Chicken Yeonnam",
-    "day": "Day 1",
-    "who": "me",
-    "category": "Food",
-    "notes": "Dinner (or delivery)",
-    "address": "369-20 Yeonnam-dong, Mapo-gu, Seoul",
-    "lat": 37.563399136059736, 
-    "lng": 126.92082734110106
-  },
 
 
   {
