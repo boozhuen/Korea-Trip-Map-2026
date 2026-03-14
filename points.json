@@ -426,10 +426,10 @@
     "day": "Day 2",
     "who": "me",
     "category": "Stay",
-    "notes": "Start of day",
+    "notes": "Lodging",
     "address": "10-5 Donggyo-ro 52-gil, Mapo-gu, Seoul, South Korea",
-    "lat": 37.56447992707814, 
-    "long": 126.92663960756279
+    "lat": 37.56387611207991, 
+    "lng": 126.92681126931322
   },
   {
     "id": "m2_mrkim",
@@ -438,7 +438,9 @@
     "who": "me",
     "category": "Food",
     "notes": "Breakfast",
-    "address": "152 Yanghwa-ro, Mapo-gu, Seoul"
+    "address": "152 Yanghwa-ro, Mapo-gu, Seoul",
+    "lat": 37.55594187929443, 
+    "lng": 126.92298622255156
   },
   {
     "id": "m2_mammoth",
@@ -511,10 +513,10 @@
     "day": "Day 3",
     "who": "aunt",
     "category": "Stay",
-    "notes": "Start of day",
+    "notes": "Lodging",
     "address": "10-5 Donggyo-ro 52-gil, Mapo-gu, Seoul, South Korea",
-    "lat": 37.56447992707814, 
-    "long": 126.92663960756279
+    "lat": 37.56387611207991, 
+    "lng": 126.92681126931322
   },
   {
     "id": "a3_onion",
