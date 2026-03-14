@@ -357,10 +357,10 @@
     "day": "Day 2",
     "who": "aunt",
     "category": "Stay",
-    "notes": "Start of day",
+    "notes": "Lodging",
     "address": "10-5 Donggyo-ro 52-gil, Mapo-gu, Seoul, South Korea",
-    "lat": 37.56447992707814, 
-    "long": 126.92663960756279
+    "lat": 37.56387611207991, 
+    "lng": 126.92681126931322 
   },
   {
     "id": "a2_coffee_company",
@@ -369,7 +369,10 @@
     "who": "aunt",
     "category": "Cafe",
     "notes": "Morning coffee",
-    "address": "47, Jamsil-dong, Songpa-gu, Seoul"
+    "address": "47, Jamsil-dong, Songpa-gu, Seoul",
+    "lat": 37.528667841926335, 
+    "lng": 127.03279433558052
+    
   },
   {
     "id": "a2_ocean_clinic",
@@ -378,7 +381,9 @@
     "who": "aunt",
     "category": "Clinic",
     "notes": "Appointment",
-    "address": "29 Olympic-ro 32-gil, Songpa-gu, Seoul"
+    "address": "29 Olympic-ro 32-gil, Songpa-gu, Seoul",
+    "lat": 37.49512758851198, 
+    "lng": 127.02843338869188
   },
   {
     "id": "a2_hwayeon",
@@ -387,16 +392,20 @@
     "who": "aunt",
     "category": "Food",
     "notes": "Meal",
-    "address": "12 Seolleung-ro 152-gil, Gangnam-gu, Seoul"
+    "address": "12 Seolleung-ro 152-gil, Gangnam-gu, Seoul",
+    "lat": 37.5240944181656, 
+    "lng": 127.04052446169243
   },
   {
     "id": "a2_coex",
-    "name": "Starfield COEX Mall (Library)",
+    "name": "Starfield COEX Mall / Library",
     "day": "Day 2",
     "who": "aunt",
     "category": "Shopping",
     "notes": "Library visit",
-    "address": "513 Yeongdong-daero, Gangnam-gu, Seoul"
+    "address": "513 Yeongdong-daero, Gangnam-gu, Seoul",
+    "lat": 37.511841860891636, 
+    "lng": 127.05978774012476
   },
   {
     "id": "a2_banpo",
@@ -405,7 +414,9 @@
     "who": "aunt",
     "category": "Nature",
     "notes": "Convenience store picnic + light show",
-    "address": "Banpo Hangang Park, Seoul, South Korea"
+    "address": "Banpo Hangang Park, Seoul, South Korea",
+    "lat": 37.51264625201085, 
+    "lng": 126.99847081499787
   },
 
   
