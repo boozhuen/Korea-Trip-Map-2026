@@ -286,51 +286,57 @@
 
  
   {
-    "id": "m1_airport",
+    "id": "a1_airport",
     "name": "Incheon International Airport T1",
     "day": "Day 1",
     "who": "me",
     "category": "Airport",
     "notes": "Purchase T-Money",
-    "address": "Incheon International Airport Terminal 1, Incheon, South Korea"
+    "address": "272 Gonghang-ro, Jung-gu, Incheon, South Korea"
   },
   {
-    "id": "m1_airbnb",
+    "id": "a1_airbnb",
     "name": "AirBNB (Yeonnam-dong)",
     "day": "Day 1",
-    "who": "me",
+    "who": "aunt",
     "category": "Stay",
-    "notes": "Drop off luggage",
+    "notes": "Drop off luggage and check-in",
     "address": "10-5 Donggyo-ro 52-gil, Mapo-gu, Seoul, South Korea",
-    "lat": 37.56447992707814, 
-    "long": 126.92663960756279
+    "lat": 37.56387611207991, 
+    "lng": 126.92681126931322 
   },
   {
-    "id": "m1_sandstone",
+    "id": "a1_sandstone",
     "name": "Sandstone Coffee Lab",
     "day": "Day 1",
-    "who": "me",
+    "who": "aunt",
     "category": "Cafe",
     "notes": "Breakfast",
-    "address": "Seongmisan-ro 23an-gil 21, Mapo-gu, Seoul (성미산로23안길 21)"
+    "address": "Seongmisan-ro 23an-gil 21, Mapo-gu, Seoul (성미산로23안길 21)",
+    "lat": 37.5662471673303, 
+    "lng": 126.92100880185092 
   },
   {
-    "id": "m1_yeouido",
+    "id": "a1_yeouido",
     "name": "Yeouido Hangang Park",
     "day": "Day 1",
-    "who": "me",
+    "who": "aunt",
     "category": "Nature",
     "notes": "Cherry Blossoms O’clock!",
-    "address": "Yeouido Hangang Park, Seoul, South Korea"
+    "address": "Yeouido Hangang Park, Seoul, South Korea",
+    "lat": 37.52689779142961, 
+    "lng": 126.93493650555277
   },
   {
-    "id": "m1_pungcheon",
-    "name": "Pungcheon Jangeo (eel)",
+    "id": "a1_yeouido",
+    "name": "Yeouido Hangang Park",
     "day": "Day 1",
-    "who": "me",
-    "category": "Food",
-    "notes": "Lunch",
-    "address": "39 Donggyo-ro 27-gil, Mapo-gu, Seoul"
+    "who": "aunt",
+    "category": "Nature",
+    "notes": "Cherry Blossoms O’clock!",
+    "address": "Yeouido Hangang Park, Seoul, South Korea",
+    "lat": 37.52689779142961, 
+    "lng": 126.93493650555277
   },
   {
     "id": "m1_goyang",
@@ -339,7 +345,9 @@
     "who": "me",
     "category": "Concert",
     "notes": "Concert",
-    "address": "Goyang Stadium, Goyang-si, Gyeonggi-do, South Korea"
+    "address": "Goyang Stadium, Goyang-si, Gyeonggi-do, South Korea",
+    "lat": 37.67587628041816, 
+    "lng": 126.74262084011005
   },
   {
     "id": "m1_kyochon_late",
@@ -348,7 +356,9 @@
     "who": "me",
     "category": "Food",
     "notes": "Dinner (or delivery)",
-    "address": "369-20 Yeonnam-dong, Mapo-gu, Seoul"
+    "address": "369-20 Yeonnam-dong, Mapo-gu, Seoul",
+    "lat": 37.563399136059736, 
+    "lng": 126.92082734110106
   },
 
 
