@@ -42,7 +42,7 @@
     #results {
       margin-top: 10px; max-height: 240px; overflow: auto;
       border: 1px solid #eee; border-radius: 10px; padding: 6px;
-      display: block; /* toggled by JS */
+      display: block;
     }
     .item { padding: 10px; border-radius: 10px; cursor: pointer; }
     .item:hover { background: #f4f4f4; }
@@ -129,8 +129,8 @@
     let userMarker = null;
 
     // Marker maps
-    const markerById = new Map();     // pointId -> marker (all pinned markers that exist)
-    const dayMarkerIds = new Set();   // pointIds currently pinned for active day
+    const markerById = new Map();
+    const dayMarkerIds = new Set();
 
     // Geocode abort/cancel token for day changes
     let pinRunToken = 0;
@@ -185,6 +185,13 @@
       return `https://map.kakao.com/link/map/${encodeURIComponent(name || "Pinned Place")},${lat},${lng}`;
     }
 
+    // NAVER link added
+    // Uses a web search URL so it can work from a normal website without requiring a NAVER JS API key.
+    function naverMapLink(lat, lng, name, address) {
+      const query = cleanAddress(address || "") || name || `${lat},${lng}`;
+      return `https://map.naver.com/p/search/${encodeURIComponent(query)}`;
+    }
+
     function iconEmoji(emoji, bgColor) {
       return L.divIcon({
         className: "",
@@ -196,7 +203,7 @@
     }
 
     function computeOverlap(points) {
-      const seen = new Map(); // key -> Set(who)
+      const seen = new Map();
       for (const p of points) {
         const k = pointKey(p);
         if (!seen.has(k)) seen.set(k, new Set());
@@ -210,7 +217,7 @@
     }
 
     function markerColor(p) {
-      if (overlapKeys.has(pointKey(p))) return PINK; // overlap => pink
+      if (overlapKeys.has(pointKey(p))) return PINK;
       return (p.who === "me") ? PURPLE : PINK;
     }
 
@@ -219,9 +226,9 @@
       return p.who === "me" ? "You (purple)" : "Aunt (pink)";
     }
 
-    // Prefer aunt version when overlapping (so only one marker shown)
+    // Prefer aunt version when overlapping
     function dedupePreferAunt(pointsForDay) {
-      const best = new Map(); // key -> point
+      const best = new Map();
       for (const p of pointsForDay) {
         const k = pointKey(p);
         if (!best.has(k)) best.set(k, p);
@@ -254,7 +261,7 @@
     // -----------------------------
     const GEO_CACHE_KEY = "koreaTripGeoCache_v3";
     const geoCache = JSON.parse(localStorage.getItem(GEO_CACHE_KEY) || "{}");
-    let geoQueue = Promise.resolve(); // throttle chain
+    let geoQueue = Promise.resolve();
 
     function saveGeoCache() {
       localStorage.setItem(GEO_CACHE_KEY, JSON.stringify(geoCache));
@@ -319,6 +326,7 @@
 
       const g = googleMapsLink(coords.lat, coords.lng);
       const k = kakaoMapLink(coords.lat, coords.lng, p.name);
+      const n = naverMapLink(coords.lat, coords.lng, p.name, p.address);
 
       return `
         <div>
@@ -335,13 +343,14 @@
             <a href="${g}" target="_blank" rel="noopener">Open in Google Maps</a>
             &nbsp;|&nbsp;
             <a href="${k}" target="_blank" rel="noopener">Open in KakaoMap</a>
+            &nbsp;|&nbsp;
+            <a href="${n}" target="_blank" rel="noopener">Open in NAVER Map</a>
           </div>
         </div>
       `;
     }
 
     async function createMarkerForPoint(p) {
-      // If already created, just return it
       if (markerById.has(p.id)) return markerById.get(p.id);
 
       const coords = await ensureCoords(p);
@@ -370,7 +379,6 @@
     }
 
     async function pinAllForActiveDay(pointsForDay) {
-      // cancel previous run
       const myToken = ++pinRunToken;
 
       setStatus(`Pinning ${pointsForDay.length} places for ${activeDay}...`);
@@ -378,7 +386,7 @@
       let failed = 0;
 
       for (const p of pointsForDay) {
-        if (myToken !== pinRunToken) return; // aborted due to day switch
+        if (myToken !== pinRunToken) return;
 
         try {
           const m = await createMarkerForPoint(p);
@@ -406,8 +414,6 @@
     }
 
     async function zoomToPoint(p) {
-      // Marker should already exist because we pin all for the day,
-      // but handle the case where geocoding failed earlier and user clicks it now.
       let marker = markerById.get(p.id);
 
       if (!marker) {
@@ -430,13 +436,8 @@
       tabBarEl.querySelectorAll("button").forEach(btn => {
         btn.addEventListener("click", async () => {
           activeDay = btn.getAttribute("data-day");
-
-          // Show list again when switching days
           setResultsVisible(true);
-
-          // Clear old day's pins and pin the new day
           await switchDayAndPin();
-
           renderTabs();
         });
       });
@@ -459,9 +460,8 @@
         return;
       }
 
-      let list = filtered.slice();
+      let list = filtered;
 
-      // If user location exists, show distance (if coords cached)
       resultsEl.innerHTML = list.map(p => {
         const emoji = CAT_ICON[p.category] || CAT_ICON["Other"];
         const label = escapeHtml(whoLabel(p));
@@ -496,12 +496,7 @@
 
           try {
             await zoomToPoint(p);
-
-            // Hide list after selecting a point so it doesn't block the map
             setResultsVisible(false);
-
-            // Keep list content ready (so when it reappears, it’s correct)
-            // No need to re-pin; markers stay on the map for the day.
           } catch {
             alert("Could not locate this place automatically. Add lat/lng in points.json for this place.");
           }
@@ -515,16 +510,11 @@
     }
 
     async function switchDayAndPin() {
-      // stop any ongoing pin run + remove previous day markers
       ++pinRunToken;
       clearDayMarkers();
 
       const dayPoints = getDayPointsDeduped(activeDay);
-
-      // Always render the list immediately (even while pins are loading)
       renderList(dayPoints);
-
-      // Pin all for the day in the background (still in this same session, just sequential)
       await pinAllForActiveDay(dayPoints);
     }
 
@@ -548,8 +538,6 @@
           }).addTo(map).bindPopup("<strong>You are here</strong>");
 
           map.setView([userLocation.lat, userLocation.lng], 14, { animate: true });
-
-          // Refresh list to show distance pills where cached coords exist
           renderList(getDayPointsDeduped(activeDay));
         },
         () => {
@@ -600,8 +588,6 @@
 
         renderTabs();
         setResultsVisible(true);
-
-        // Start on Day 1, pin all points for Day 1 automatically
         await switchDayAndPin();
       })
       .catch(err => {
