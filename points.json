@@ -1,808 +1,1018 @@
 [
-  {
-    "id": "a1_airport",
-    "name": "Incheon International Airport T1",
-    "day": "Day 1",
-    "who": "aunt",
-    "category": "Airport",
-    "notes": "Purchase T-Money",
-    "address": "272 Gonghang-ro, Jung-gu, Incheon, South Korea"
-  },
-  {
-    "id": "a1_airbnb",
-    "name": "AirBNB (Yeonnam-dong)",
-    "day": "Day 1",
-    "who": "aunt",
-    "category": "Stay",
-    "notes": "Drop off luggage and check-in",
-    "address": "10-5 Donggyo-ro 52-gil, Mapo-gu, Seoul, South Korea",
-    "lat": 37.56387611207991, 
-    "lng": 126.92681126931322 
-  },
-  {
-    "id": "a1_sandstone",
-    "name": "Sandstone Coffee Lab",
-    "day": "Day 1",
-    "who": "aunt",
-    "category": "Cafe",
-    "notes": "Breakfast",
-    "address": "Seongmisan-ro 23an-gil 21, Mapo-gu, Seoul (성미산로23안길 21)",
-    "lat": 37.5662471673303, 
-    "lng": 126.92100880185092 
-  },
-  {
-    "id": "a1_yeouido",
-    "name": "Yeouido Hangang Park",
-    "day": "Day 1",
-    "who": "aunt",
-    "category": "Nature",
-    "notes": "Cherry Blossoms O’clock!",
-    "address": "Yeouido Hangang Park, Seoul, South Korea",
-    "lat": 37.52689779142961, 
-    "lng": 126.93493650555277
-  },
-  {
-    "id": "a1_pungcheon",
-    "name": "Pungcheon Jangeo (eel)",
-    "day": "Day 1",
-    "who": "aunt",
-    "category": "Food",
-    "notes": "Lunch",
-    "address": "39 Donggyo-ro 27-gil, Mapo-gu, Seoul",
-    "lat": 37.55957383359244, 
-    "lng": 126.92154597899258
-  },
-  {
-    "id": "a1_shinleedoga",
-    "name": "Shinleedoga",
-    "day": "Day 1",
-    "who": "aunt",
-    "category": "Cafe",
-    "notes": "Tea / Cafe",
-    "address": "20-12 Jandari-ro, Mapo-gu, Seoul",
-    "lat": 37.55142744097457, 
-    "lng": 126.92095787247443
-  },
-  {
-    "id": "a1_anccibrush",
-    "name": "Anccibrush (Hongdae)",
-    "day": "Day 1",
-    "who": "aunt",
-    "category": "Shopping",
-    "notes": "Makeup brushes",
-    "address": "332-22 서교동 Mapo-gu, Seoul, South Korea",
-    "lat": 37.55602459776399, 
-    "lng": 126.92634651598851
-  },
-  {
-    "id": "a1_WintersVillage",
-    "name": "Winters Village (Hongdae)",
-    "day": "Day 1",
-    "who": "aunt",
-    "category": "Animal Cafe",
-    "notes": "Dog cafe",
-    "address": "South Korea, Seoul, Mapo-gu, Wausan-ro 17-gil, 19-5 겨울이 머무는 집",
-    "lat": 37.54992905582266, 
-    "lng": 126.92184757695125
-  },
-  {
-    "id": "a1_Leesle",
-    "name": "Leesle (Hongdae)",
-    "day": "Day 1",
-    "who": "aunt",
-    "category": "Shopping",
-    "notes": "Norigae making and modern hanbok",
-    "address": "37 Wausan-ro 29-gil, Mapo-gu, Seoul, South Korea",
-    "lat": 37.55534675632545, 
-    "lng": 126.92783667355323
-  },
-  {
-    "id": "a1_AverHaus",
-    "name": "Aver Haus (Hongdae)",
-    "day": "Day 1",
-    "who": "aunt",
-    "category": "Shopping",
-    "notes": "Clothes",
-    "address": "South Korea, 지하1층 78 KR 서울특별시 마포구 어울마당로 1층, 2층, 3",
-    "lat": 37.55194091872199, 
-    "lng": 126.92165483549398
-  },
-  {
-    "id": "a1_ORMUSEA",
-    "name": "OR MUSEA (Hongdae)",
-    "day": "Day 1",
-    "who": "aunt",
-    "category": "Shopping",
-    "notes": "Clothes",
-    "address": "98 Eoulmadang-ro, Mapo-gu, Seoul, South Korea",
-    "lat": 37.55362870519691, 
-    "lng": 126.92224742390692
-  },
-  {
-    "id": "a1_LOOF",
-    "name": "LOOF (Hongdae)",
-    "day": "Day 1",
-    "who": "aunt",
-    "category": "Shopping",
-    "notes": "Clothes",
-    "address": "South Korea, Seoul, Mapo-gu, Hongik-ro 3-gil, 20 지하 1층",
-    "lat": 37.553822261946365, 
-    "lng": 126.92192634034541
-  },
-  {
-    "id": "a1_thisisneverthat",
-    "name": "thisisneverthat (Hongdae)",
-    "day": "Day 1",
-    "who": "aunt",
-    "category": "Shopping",
-    "notes": "Clothes",
-    "address": "South Korea, Seoul, Mapo-gu, Jandari-ro, 32 1층 101호",
-    "lat": 37.55154907698149, 
-    "lng": 126.9197775399206
-  },
-  {
-    "id": "a1_MusinsaStandardHongdae",
-    "name": "Musinsa Standard (Hongdae)",
-    "day": "Day 1",
-    "who": "aunt",
-    "category": "Shopping",
-    "notes": "Clothes",
-    "address": "144 Yanghwa-ro, Mapo-gu, Seoul, South Korea",
-    "lat": 37.555397851856505, 
-    "lng": 126.9223751535856
-  },
-  {
-    "id": "a1_MPLAYGROUND",
-    "name": "MPLAYGROUND (Hongdae)",
-    "day": "Day 1",
-    "who": "aunt",
-    "category": "Shopping",
-    "notes": "Clothes",
-    "address": "132 Eoulmadang-ro, Mapo-gu, Seoul, South Korea",
-    "lat": 37.55587637300989, 
-    "lng": 126.92464302210045
-  },
-  {
-    "id": "a1_CLO",
-    "name": "CLO (Hongdae)",
-    "day": "Day 1",
-    "who": "aunt",
-    "category": "Shopping",
-    "notes": "Clothes",
-    "address": "70 Eoulmadang-ro, Mapo-gu, Seoul, South Korea",
-    "lat": 37.55137996399118, 
-    "lng": 126.9215462883374
-  },
-  {
-    "id": "a1_Lovelyou",
-    "name": "Lovelyou (Hongdae)",
-    "day": "Day 1",
-    "who": "aunt",
-    "category": "Shopping",
-    "notes": "Clothes",
-    "address": "339-1 Seogyo-dong, Mapo-gu, Seoul, South Korea",
-    "lat": 37.55438643500731, 
-    "lng": 126.92670754883801
-  },
-  {
-    "id": "a1_SPAO",
-    "name": "SPAO (Hongdae)",
-    "day": "Day 1",
-    "who": "aunt",
-    "category": "Shopping",
-    "notes": "Clothes",
-    "address": "153 Yanghwa-ro, Mapo-gu, Seoul, South Korea",
-    "lat": 37.556435827235234, 
-    "lng": 126.92276172295678
-  },
-  {
-    "id": "a1_8seconds",
-    "name": "8Seconds (Hongdae)",
-    "day": "Day 1",
-    "who": "aunt",
-    "category": "Shopping",
-    "notes": "Clothes",
-    "address": "South Korea, Seoul, Mapo-gu, Yanghwa-ro, 45 메세나폴리스 지하 1층 B111호",
-    "lat": 37.55091722026465, 
-    "lng": 126.91375894267475
-  },
-  {
-    "id": "a1_Shoopen",
-    "name": "Shoopen (Hongdae)",
-    "day": "Day 1",
-    "who": "aunt",
-    "category": "Shopping",
-    "notes": "Shoes/Accessories",
-    "address": "153 Yanghwa-ro, Mapo-gu, Seoul, South Korea",
-    "lat": 37.55658558553619, 
-    "lng": 126.92263649828905
-  },
-  {
-    "id": "a1_Chaakan",
-    "name": "Chaakan (Hongdae)",
-    "day": "Day 1",
-    "who": "aunt",
-    "category": "Shopping",
-    "notes": "Shoes/Accessories",
-    "address": "25 Wausan-ro 29ba-gil, Mapo-gu, Seoul, South Korea",
-    "lat": 37.555206841173465, 
-    "lng": 126.92574069715153
-  },
-  {
-    "id": "a1_IAMJOY",
-    "name": "IAMJOY (Hongdae)",
-    "day": "Day 1",
-    "who": "aunt",
-    "category": "Shopping",
-    "notes": "Shoes/Accessories",
-    "address": "40 Wausan-ro 27-gil, Seogyo-dong, Mapo-gu, Seoul, South Korea",
-    "lat": 37.5547302634893, 
-    "lng": 126.92643431656721
-  },
-  {
-    "id": "a1_BUTTER",
-    "name": "BUTTER (Hongdae)",
-    "day": "Day 1",
-    "who": "aunt",
-    "category": "Shopping",
-    "notes": "Stationary",
-    "address": "South Korea, Seoul, Mapo-gu, 서교동 Yanghwa-ro, 153 지하2층 이랜드 복합관 홍대점",
-    "lat": 37.55644974773364,  
-    "lng": 126.92261186374112
-  },
-  {
-    "id": "a1_MeerkatFriends",
-    "name": "Meerkat Friends (Hongdae)",
-    "day": "Day 1",
-    "who": "aunt",
-    "category": "Animal Cafe",
-    "notes": "Exotic animals cafe",
-    "address": "South Korea, Seoul, Mapo-gu, Wausan-ro 21-gil, 20 미어캣 프랜즈 2층",
-    "lat": 37.55242878072202, 
-    "lng": 126.92297842285936
-  },
-  {
-    "id": "a1_RoofCatMe",
-    "name": "Roof Cat Me (Hongdae)",
-    "day": "Day 1",
-    "who": "aunt",
-    "category": "Animal Cafe",
-    "notes": "Cat cafe",
-    "address": "South Korea, Seoul, Mapo-gu, 162 15 지하 2층",
-    "lat": 37.554915394868914, 
-    "lng": 126.92214563583492
-  },
-  {
-    "id": "a1_kyochon",
-    "name": "Kyochon Chicken Yeonnam",
-    "day": "Day 1",
-    "who": "aunt",
-    "category": "Food",
-    "notes": "Dinner",
-    "address": "369-20 Yeonnam-dong, Mapo-gu, Seoul",
-    "lat": 37.563399136059736, 
-    "lng": 126.92082734110106
-  },
-
- 
-  {
-    "id": "a1_airport",
-    "name": "Incheon International Airport T1",
-    "day": "Day 1",
-    "who": "me",
-    "category": "Airport",
-    "notes": "Purchase T-Money",
-    "address": "272 Gonghang-ro, Jung-gu, Incheon, South Korea"
-  },
-  {
-    "id": "a1_airbnb",
-    "name": "AirBNB (Yeonnam-dong)",
-    "day": "Day 1",
-    "who": "me",
-    "category": "Stay",
-    "notes": "Drop off luggage and check-in",
-    "address": "10-5 Donggyo-ro 52-gil, Mapo-gu, Seoul, South Korea",
-    "lat": 37.56387611207991, 
-    "lng": 126.92681126931322 
-  },
-  {
-    "id": "a1_sandstone",
-    "name": "Sandstone Coffee Lab",
-    "day": "Day 1",
-    "who": "me",
-    "category": "Cafe",
-    "notes": "Breakfast",
-    "address": "Seongmisan-ro 23an-gil 21, Mapo-gu, Seoul (성미산로23안길 21)",
-    "lat": 37.5662471673303, 
-    "lng": 126.92100880185092 
-  },
-  {
-    "id": "a1_yeouido",
-    "name": "Yeouido Hangang Park",
-    "day": "Day 1",
-    "who": "me",
-    "category": "Nature",
-    "notes": "Cherry Blossoms O’clock!",
-    "address": "Yeouido Hangang Park, Seoul, South Korea",
-    "lat": 37.52689779142961, 
-    "lng": 126.93493650555277
-  },
-  {
-    "id": "a1_yeouido",
-    "name": "Yeouido Hangang Park",
-    "day": "Day 1",
-    "who": "me",
-    "category": "Nature",
-    "notes": "Cherry Blossoms O’clock!",
-    "address": "Yeouido Hangang Park, Seoul, South Korea",
-    "lat": 37.52689779142961, 
-    "lng": 126.93493650555277
-  },
-  {
-    "id": "m1_goyang",
-    "name": "Goyang Stadium",
-    "day": "Day 1",
-    "who": "me",
-    "category": "Concert",
-    "notes": "Concert",
-    "address": "Goyang Stadium, Goyang-si, Gyeonggi-do, South Korea",
-    "lat": 37.67587628041816, 
-    "lng": 126.74262084011005
-  },
-
-
-  {
-    "id": "a2_airbnb",
-    "name": "AirBNB (Yeonnam-dong)",
-    "day": "Day 2",
-    "who": "aunt",
-    "category": "Stay",
-    "notes": "Lodging",
-    "address": "10-5 Donggyo-ro 52-gil, Mapo-gu, Seoul, South Korea",
-    "lat": 37.56387611207991, 
-    "lng": 126.92681126931322 
-  },
-  {
-    "id": "a2_coffee_company",
-    "name": "The Coffee Company",
-    "day": "Day 2",
-    "who": "aunt",
-    "category": "Cafe",
-    "notes": "Morning coffee",
-    "address": "47, Jamsil-dong, Songpa-gu, Seoul",
-    "lat": 37.528667841926335, 
-    "lng": 127.03279433558052
+    {
+      "id": "a1_airport",
+      "name": "Incheon International Airport T1",
+      "day": "Day 1",
+      "who": "aunt",
+      "category": "Airport",
+      "notes": "Purchase T-Money",
+      "address": "272 Gonghang-ro, Jung-gu, Incheon, South Korea"
+    },
+    {
+      "id": "a1_airbnb",
+      "name": "AirBNB (Yeonnam-dong)",
+      "day": "Day 1",
+      "who": "aunt",
+      "category": "Stay",
+      "notes": "Drop off luggage and check-in",
+      "address": "10-5 Donggyo-ro 52-gil, Mapo-gu, Seoul, South Korea",
+      "lat": 37.56387611207991, 
+      "lng": 126.92681126931322 
+    },
+    {
+      "id": "a1_sandstone",
+      "name": "Sandstone Coffee Lab",
+      "day": "Day 1",
+      "who": "aunt",
+      "category": "Cafe",
+      "notes": "Breakfast",
+      "address": "Seongmisan-ro 23an-gil 21, Mapo-gu, Seoul (성미산로23안길 21)",
+      "lat": 37.5662471673303, 
+      "lng": 126.92100880185092 
+    },
+    {
+      "id": "a1_yeouido",
+      "name": "Yeouido Hangang Park",
+      "day": "Day 1",
+      "who": "aunt",
+      "category": "Nature",
+      "notes": "Cherry Blossoms O’clock!",
+      "address": "Yeouido Hangang Park, Seoul, South Korea",
+      "lat": 37.52689779142961, 
+      "lng": 126.93493650555277
+    },
+    {
+      "id": "a1_pungcheon",
+      "name": "Pungcheon Jangeo (eel)",
+      "day": "Day 1",
+      "who": "aunt",
+      "category": "Food",
+      "notes": "Lunch",
+      "address": "39 Donggyo-ro 27-gil, Mapo-gu, Seoul",
+      "lat": 37.55957383359244, 
+      "lng": 126.92154597899258
+    },
+    {
+      "id": "a1_shinleedoga",
+      "name": "Shinleedoga",
+      "day": "Day 1",
+      "who": "aunt",
+      "category": "Cafe",
+      "notes": "Tea / Cafe",
+      "address": "20-12 Jandari-ro, Mapo-gu, Seoul",
+      "lat": 37.55142744097457, 
+      "lng": 126.92095787247443
+    },
+    {
+      "id": "a1_anccibrush",
+      "name": "Anccibrush (Hongdae)",
+      "day": "Day 1",
+      "who": "aunt",
+      "category": "Shopping",
+      "notes": "Makeup brushes",
+      "address": "332-22 서교동 Mapo-gu, Seoul, South Korea",
+      "lat": 37.55602459776399, 
+      "lng": 126.92634651598851
+    },
+    {
+      "id": "a1_WintersVillage",
+      "name": "Winters Village (Hongdae)",
+      "day": "Day 1",
+      "who": "aunt",
+      "category": "Animal Cafe",
+      "notes": "Dog cafe",
+      "address": "South Korea, Seoul, Mapo-gu, Wausan-ro 17-gil, 19-5 겨울이 머무는 집",
+      "lat": 37.54992905582266, 
+      "lng": 126.92184757695125
+    },
+    {
+      "id": "a1_Leesle",
+      "name": "Leesle (Hongdae)",
+      "day": "Day 1",
+      "who": "aunt",
+      "category": "Shopping",
+      "notes": "Norigae making and modern hanbok",
+      "address": "37 Wausan-ro 29-gil, Mapo-gu, Seoul, South Korea",
+      "lat": 37.55534675632545, 
+      "lng": 126.92783667355323
+    },
+    {
+      "id": "a1_AverHaus",
+      "name": "Aver Haus (Hongdae)",
+      "day": "Day 1",
+      "who": "aunt",
+      "category": "Shopping",
+      "notes": "Clothes",
+      "address": "South Korea, 지하1층 78 KR 서울특별시 마포구 어울마당로 1층, 2층, 3",
+      "lat": 37.55194091872199, 
+      "lng": 126.92165483549398
+    },
+    {
+      "id": "a1_ORMUSEA",
+      "name": "OR MUSEA (Hongdae)",
+      "day": "Day 1",
+      "who": "aunt",
+      "category": "Shopping",
+      "notes": "Clothes",
+      "address": "98 Eoulmadang-ro, Mapo-gu, Seoul, South Korea",
+      "lat": 37.55362870519691, 
+      "lng": 126.92224742390692
+    },
+    {
+      "id": "a1_LOOF",
+      "name": "LOOF (Hongdae)",
+      "day": "Day 1",
+      "who": "aunt",
+      "category": "Shopping",
+      "notes": "Clothes",
+      "address": "South Korea, Seoul, Mapo-gu, Hongik-ro 3-gil, 20 지하 1층",
+      "lat": 37.553822261946365, 
+      "lng": 126.92192634034541
+    },
+    {
+      "id": "a1_thisisneverthat",
+      "name": "thisisneverthat (Hongdae)",
+      "day": "Day 1",
+      "who": "aunt",
+      "category": "Shopping",
+      "notes": "Clothes",
+      "address": "South Korea, Seoul, Mapo-gu, Jandari-ro, 32 1층 101호",
+      "lat": 37.55154907698149, 
+      "lng": 126.9197775399206
+    },
+    {
+      "id": "a1_MusinsaStandardHongdae",
+      "name": "Musinsa Standard (Hongdae)",
+      "day": "Day 1",
+      "who": "aunt",
+      "category": "Shopping",
+      "notes": "Clothes",
+      "address": "144 Yanghwa-ro, Mapo-gu, Seoul, South Korea",
+      "lat": 37.555397851856505, 
+      "lng": 126.9223751535856
+    },
+    {
+      "id": "a1_MPLAYGROUND",
+      "name": "MPLAYGROUND (Hongdae)",
+      "day": "Day 1",
+      "who": "aunt",
+      "category": "Shopping",
+      "notes": "Clothes",
+      "address": "132 Eoulmadang-ro, Mapo-gu, Seoul, South Korea",
+      "lat": 37.55587637300989, 
+      "lng": 126.92464302210045
+    },
+    {
+      "id": "a1_CLO",
+      "name": "CLO (Hongdae)",
+      "day": "Day 1",
+      "who": "aunt",
+      "category": "Shopping",
+      "notes": "Clothes",
+      "address": "70 Eoulmadang-ro, Mapo-gu, Seoul, South Korea",
+      "lat": 37.55137996399118, 
+      "lng": 126.9215462883374
+    },
+    {
+      "id": "a1_Lovelyou",
+      "name": "Lovelyou (Hongdae)",
+      "day": "Day 1",
+      "who": "aunt",
+      "category": "Shopping",
+      "notes": "Clothes",
+      "address": "339-1 Seogyo-dong, Mapo-gu, Seoul, South Korea",
+      "lat": 37.55438643500731, 
+      "lng": 126.92670754883801
+    },
+    {
+      "id": "a1_SPAO",
+      "name": "SPAO (Hongdae)",
+      "day": "Day 1",
+      "who": "aunt",
+      "category": "Shopping",
+      "notes": "Clothes",
+      "address": "153 Yanghwa-ro, Mapo-gu, Seoul, South Korea",
+      "lat": 37.556435827235234, 
+      "lng": 126.92276172295678
+    },
+    {
+      "id": "a1_8seconds",
+      "name": "8Seconds (Hongdae)",
+      "day": "Day 1",
+      "who": "aunt",
+      "category": "Shopping",
+      "notes": "Clothes",
+      "address": "South Korea, Seoul, Mapo-gu, Yanghwa-ro, 45 메세나폴리스 지하 1층 B111호",
+      "lat": 37.55091722026465, 
+      "lng": 126.91375894267475
+    },
+    {
+      "id": "a1_Shoopen",
+      "name": "Shoopen (Hongdae)",
+      "day": "Day 1",
+      "who": "aunt",
+      "category": "Shopping",
+      "notes": "Shoes/Accessories",
+      "address": "153 Yanghwa-ro, Mapo-gu, Seoul, South Korea",
+      "lat": 37.55658558553619, 
+      "lng": 126.92263649828905
+    },
+    {
+      "id": "a1_Chaakan",
+      "name": "Chaakan (Hongdae)",
+      "day": "Day 1",
+      "who": "aunt",
+      "category": "Shopping",
+      "notes": "Shoes/Accessories",
+      "address": "25 Wausan-ro 29ba-gil, Mapo-gu, Seoul, South Korea",
+      "lat": 37.555206841173465, 
+      "lng": 126.92574069715153
+    },
+    {
+      "id": "a1_IAMJOY",
+      "name": "IAMJOY (Hongdae)",
+      "day": "Day 1",
+      "who": "aunt",
+      "category": "Shopping",
+      "notes": "Shoes/Accessories",
+      "address": "40 Wausan-ro 27-gil, Seogyo-dong, Mapo-gu, Seoul, South Korea",
+      "lat": 37.5547302634893, 
+      "lng": 126.92643431656721
+    },
+    {
+      "id": "a1_BUTTER",
+      "name": "BUTTER (Hongdae)",
+      "day": "Day 1",
+      "who": "aunt",
+      "category": "Shopping",
+      "notes": "Stationary",
+      "address": "South Korea, Seoul, Mapo-gu, 서교동 Yanghwa-ro, 153 지하2층 이랜드 복합관 홍대점",
+      "lat": 37.55644974773364,  
+      "lng": 126.92261186374112
+    },
+    {
+      "id": "a1_MeerkatFriends",
+      "name": "Meerkat Friends (Hongdae)",
+      "day": "Day 1",
+      "who": "aunt",
+      "category": "Animal Cafe",
+      "notes": "Exotic animals cafe",
+      "address": "South Korea, Seoul, Mapo-gu, Wausan-ro 21-gil, 20 미어캣 프랜즈 2층",
+      "lat": 37.55242878072202, 
+      "lng": 126.92297842285936
+    },
+    {
+      "id": "a1_RoofCatMe",
+      "name": "Roof Cat Me (Hongdae)",
+      "day": "Day 1",
+      "who": "aunt",
+      "category": "Animal Cafe",
+      "notes": "Cat cafe",
+      "address": "South Korea, Seoul, Mapo-gu, 162 15 지하 2층",
+      "lat": 37.554915394868914, 
+      "lng": 126.92214563583492
+    },
+    {
+      "id": "a1_kyochon",
+      "name": "Kyochon Chicken Yeonnam",
+      "day": "Day 1",
+      "who": "aunt",
+      "category": "Food",
+      "notes": "Dinner",
+      "address": "369-20 Yeonnam-dong, Mapo-gu, Seoul",
+      "lat": 37.563399136059736, 
+      "lng": 126.92082734110106
+    },
+  
+   
+    {
+      "id": "a1_airport",
+      "name": "Incheon International Airport T1",
+      "day": "Day 1",
+      "who": "me",
+      "category": "Airport",
+      "notes": "Purchase T-Money",
+      "address": "272 Gonghang-ro, Jung-gu, Incheon, South Korea"
+    },
+    {
+      "id": "a1_airbnb",
+      "name": "AirBNB (Yeonnam-dong)",
+      "day": "Day 1",
+      "who": "me",
+      "category": "Stay",
+      "notes": "Drop off luggage and check-in",
+      "address": "10-5 Donggyo-ro 52-gil, Mapo-gu, Seoul, South Korea",
+      "lat": 37.56387611207991, 
+      "lng": 126.92681126931322 
+    },
+    {
+      "id": "a1_sandstone",
+      "name": "Sandstone Coffee Lab",
+      "day": "Day 1",
+      "who": "me",
+      "category": "Cafe",
+      "notes": "Breakfast",
+      "address": "Seongmisan-ro 23an-gil 21, Mapo-gu, Seoul (성미산로23안길 21)",
+      "lat": 37.5662471673303, 
+      "lng": 126.92100880185092 
+    },
+    {
+      "id": "a1_yeouido",
+      "name": "Yeouido Hangang Park",
+      "day": "Day 1",
+      "who": "me",
+      "category": "Nature",
+      "notes": "Cherry Blossoms O’clock!",
+      "address": "Yeouido Hangang Park, Seoul, South Korea",
+      "lat": 37.52689779142961, 
+      "lng": 126.93493650555277
+    },
+    {
+      "id": "a1_yeouido",
+      "name": "Yeouido Hangang Park",
+      "day": "Day 1",
+      "who": "me",
+      "category": "Nature",
+      "notes": "Cherry Blossoms O’clock!",
+      "address": "Yeouido Hangang Park, Seoul, South Korea",
+      "lat": 37.52689779142961, 
+      "lng": 126.93493650555277
+    },
+    {
+      "id": "m1_goyang",
+      "name": "Goyang Stadium",
+      "day": "Day 1",
+      "who": "me",
+      "category": "Concert",
+      "notes": "Concert",
+      "address": "Goyang Stadium, Goyang-si, Gyeonggi-do, South Korea",
+      "lat": 37.67587628041816, 
+      "lng": 126.74262084011005
+    },
+  
+  
+    {
+      "id": "a2_airbnb",
+      "name": "AirBNB (Yeonnam-dong)",
+      "day": "Day 2",
+      "who": "aunt",
+      "category": "Stay",
+      "notes": "Lodging",
+      "address": "10-5 Donggyo-ro 52-gil, Mapo-gu, Seoul, South Korea",
+      "lat": 37.56387611207991, 
+      "lng": 126.92681126931322 
+    },
+    {
+      "id": "a2_coffee_company",
+      "name": "The Coffee Company",
+      "day": "Day 2",
+      "who": "aunt",
+      "category": "Cafe",
+      "notes": "Morning coffee",
+      "address": "617-2 Sinsa-dong, Gangnam District",
+      "lat": 37.528667841926335, 
+      "lng": 127.03279433558052
+      
+    },
+    {
+      "id": "a2_ocean_clinic",
+      "name": "Ocean Clinic",
+      "day": "Day 2",
+      "who": "aunt",
+      "category": "Clinic",
+      "notes": "Appointment",
+      "address": "363, Gangnam-daero, Seochu-gu",
+      "lat": 37.49512758851198, 
+      "lng": 127.02843338869188
+    },
+    {
+      "id": "a2_hwayeon",
+      "name": "Hwayeon Sanjang",
+      "day": "Day 2",
+      "who": "aunt",
+      "category": "Food",
+      "notes": "Lunch",
+      "address": "12 Seolleung-ro 152-gil, Gangnam-gu, Seoul",
+      "lat": 37.5240944181656, 
+      "lng": 127.04052446169243
+    },
+    {
+      "id": "a2_coex",
+      "name": "Starfield COEX Mall / Library",
+      "day": "Day 2",
+      "who": "aunt",
+      "category": "Shopping",
+      "notes": "Library and mall visit",
+      "address": "513 Yeongdong-daero, Gangnam-gu, Seoul",
+      "lat": 37.511841860891636, 
+      "lng": 127.05978774012476
+    },
+    {
+      "id": "a2_banpo",
+      "name": "Banpo Hangang Park",
+      "day": "Day 2",
+      "who": "aunt",
+      "category": "Nature",
+      "notes": "Convenience store picnic + light show",
+      "address": "Banpo Hangang Park, Seoul, South Korea",
+      "lat": 37.51264625201085, 
+      "lng": 126.99847081499787
+    },
+  
     
-  },
-  {
-    "id": "a2_ocean_clinic",
-    "name": "Ocean Clinic",
-    "day": "Day 2",
-    "who": "aunt",
-    "category": "Clinic",
-    "notes": "Appointment",
-    "address": "29 Olympic-ro 32-gil, Songpa-gu, Seoul",
-    "lat": 37.49512758851198, 
-    "lng": 127.02843338869188
-  },
-  {
-    "id": "a2_hwayeon",
-    "name": "Hwayeon Sanjang",
-    "day": "Day 2",
-    "who": "aunt",
-    "category": "Food",
-    "notes": "Lunch",
-    "address": "12 Seolleung-ro 152-gil, Gangnam-gu, Seoul",
-    "lat": 37.5240944181656, 
-    "lng": 127.04052446169243
-  },
-  {
-    "id": "a2_coex",
-    "name": "Starfield COEX Mall / Library",
-    "day": "Day 2",
-    "who": "aunt",
-    "category": "Shopping",
-    "notes": "Library and mall visit",
-    "address": "513 Yeongdong-daero, Gangnam-gu, Seoul",
-    "lat": 37.511841860891636, 
-    "lng": 127.05978774012476
-  },
-  {
-    "id": "a2_banpo",
-    "name": "Banpo Hangang Park",
-    "day": "Day 2",
-    "who": "aunt",
-    "category": "Nature",
-    "notes": "Convenience store picnic + light show",
-    "address": "Banpo Hangang Park, Seoul, South Korea",
-    "lat": 37.51264625201085, 
-    "lng": 126.99847081499787
-  },
-
+    {
+      "id": "m2_airbnb",
+      "name": "AirBNB (Yeonnam-dong)",
+      "day": "Day 2",
+      "who": "me",
+      "category": "Stay",
+      "notes": "Lodging",
+      "address": "10-5 Donggyo-ro 52-gil, Mapo-gu, Seoul, South Korea",
+      "lat": 37.56387611207991, 
+      "lng": 126.92681126931322
+    },
+    {
+      "id": "m2_mrkim",
+      "name": "Mr Kim Toast",
+      "day": "Day 2",
+      "who": "me",
+      "category": "Food",
+      "notes": "Breakfast",
+      "address": "152 Yanghwa-ro, Mapo-gu, Seoul",
+      "lat": 37.555934651119934, 
+      "lng": 126.92298475042904
+    },
+    {
+      "id": "m2_mammoth",
+      "name": "Mammoth Coffee Express",
+      "day": "Day 2",
+      "who": "me",
+      "category": "Cafe",
+      "notes": "Coffee",
+      "address": "22-22 Sinchon-ro 4-gil, Mapo-gu, Seoul",
+      "lat": 37.557491254544324, 
+      "lng": 126.9272536686502
+    },
+    {
+      "id": "m2_modelro",
+      "name": "Modelro Studio",
+      "day": "Day 2",
+      "who": "me",
+      "category": "Other",
+      "notes": "Studio stop",
+      "address": "15 Yanghwa-ro 18-gil, Mapo-gu, Seoul",
+      "lat": 37.556580205375816, 
+      "lng": 126.92492965745737
+    },
+    {
+      "id": "m2_shinleedoga",
+      "name": "Shinleedoga",
+      "day": "Day 2",
+      "who": "me",
+      "category": "Cafe",
+      "notes": "Cafe stop",
+      "address": "20-12 Jandari-ro, Mapo-gu, Seoul",
+      "lat": 37.55142904928303, 
+      "lng": 126.92096220919426
+    },
+    {
+      "id": "m2_leesle",
+      "name": "Leesle 리슬 홍대점",
+      "day": "Day 2",
+      "who": "me",
+      "category": "Shopping",
+      "notes": "Norigae making",
+      "address": "37 Wausan-ro 29-gil, Mapo-gu, Seoul",
+      "lat": 37.555343617233895, 
+      "lng": 126.92783781229228
+    },
+    {
+      "id": "m2_hwayeon",
+      "name": "Hwayeon Sanjang",
+      "day": "Day 2",
+      "who": "me",
+      "category": "Food",
+      "notes": "Lunch",
+      "address": "12 Seolleung-ro 152-gil, Gangnam-gu, Seoul",
+      "lat": 37.5240944181656, 
+      "lng": 127.04052446169243
+    },
+    {
+      "id": "m2_coex",
+      "name": "Starfield COEX Mall / Library",
+      "day": "Day 2",
+      "who": "me",
+      "category": "Shopping",
+      "notes": "Library and mall visit",
+      "address": "513 Yeongdong-daero, Gangnam-gu, Seoul",
+      "lat": 37.511841860891636, 
+      "lng": 127.05978774012476
+    },
+    {
+      "id": "m2_banpo",
+      "name": "Banpo Hangang Park",
+      "day": "Day 2",
+      "who": "me",
+      "category": "Nature",
+      "notes": "Convenience store picnic + light show",
+      "address": "Banpo Hangang Park, Seoul, South Korea",
+      "lat": 37.51264625201085, 
+      "lng": 126.99847081499787
+    },
+    {
+        "id": "m2_anccibrush",
+        "name": "Anccibrush (Hongdae)",
+        "day": "Day 2",
+        "who": "me",
+        "category": "Shopping",
+        "notes": "Makeup brushes",
+        "address": "332-22 서교동 Mapo-gu, Seoul, South Korea",
+        "lat": 37.55602459776399, 
+        "lng": 126.92634651598851
+    },
+    {
+        "id": "m2_WintersVillage",
+        "name": "Winters Village (Hongdae)",
+        "day": "Day 2",
+        "who": "me",
+        "category": "Animal Cafe",
+        "notes": "Dog cafe",
+        "address": "South Korea, Seoul, Mapo-gu, Wausan-ro 17-gil, 19-5 겨울이 머무는 집",
+        "lat": 37.54992905582266, 
+        "lng": 126.92184757695125
+    },
+    {
+        "id": "m2_Leesle",
+        "name": "Leesle (Hongdae)",
+        "day": "Day 2",
+        "who": "me",
+        "category": "Shopping",
+        "notes": "Norigae making and modern hanbok",
+        "address": "37 Wausan-ro 29-gil, Mapo-gu, Seoul, South Korea",
+        "lat": 37.55534675632545, 
+        "lng": 126.92783667355323
+    },
+    {
+        "id": "m2_AverHaus",
+        "name": "Aver Haus (Hongdae)",
+        "day": "Day 2",
+        "who": "me",
+        "category": "Shopping",
+        "notes": "Clothes",
+        "address": "South Korea, 지하1층 78 KR 서울특별시 마포구 어울마당로 1층, 2층, 3",
+        "lat": 37.55194091872199, 
+        "lng": 126.92165483549398
+    },
+    {
+        "id": "m2_ORMUSEA",
+        "name": "OR MUSEA (Hongdae)",
+        "day": "Day 2",
+        "who": "me",
+        "category": "Shopping",
+        "notes": "Clothes",
+        "address": "98 Eoulmadang-ro, Mapo-gu, Seoul, South Korea",
+        "lat": 37.55362870519691, 
+        "lng": 126.92224742390692
+    },
+    {
+        "id": "m2_LOOF",
+        "name": "LOOF (Hongdae)",
+        "day": "Day 2",
+        "who": "me",
+        "category": "Shopping",
+        "notes": "Clothes",
+        "address": "South Korea, Seoul, Mapo-gu, Hongik-ro 3-gil, 20 지하 1층",
+        "lat": 37.553822261946365, 
+        "lng": 126.92192634034541
+    },
+    {
+        "id": "m2_thisisneverthat",
+        "name": "thisisneverthat (Hongdae)",
+        "day": "Day 2",
+        "who": "me",
+        "category": "Shopping",
+        "notes": "Clothes",
+        "address": "South Korea, Seoul, Mapo-gu, Jandari-ro, 32 1층 101호",
+        "lat": 37.55154907698149, 
+        "lng": 126.9197775399206
+    },
+    {
+        "id": "m2_MusinsaStandardHongdae",
+        "name": "Musinsa Standard (Hongdae)",
+        "day": "Day 2",
+        "who": "me",
+        "category": "Shopping",
+        "notes": "Clothes",
+        "address": "144 Yanghwa-ro, Mapo-gu, Seoul, South Korea",
+        "lat": 37.555397851856505, 
+        "lng": 126.9223751535856
+    },
+    {
+        "id": "m2_MPLAYGROUND",
+        "name": "MPLAYGROUND (Hongdae)",
+        "day": "Day 2",
+        "who": "me",
+        "category": "Shopping",
+        "notes": "Clothes",
+        "address": "132 Eoulmadang-ro, Mapo-gu, Seoul, South Korea",
+        "lat": 37.55587637300989, 
+        "lng": 126.92464302210045
+    },
+    {
+        "id": "m2_CLO",
+        "name": "CLO (Hongdae)",
+        "day": "Day 2",
+        "who": "me",
+        "category": "Shopping",
+        "notes": "Clothes",
+        "address": "70 Eoulmadang-ro, Mapo-gu, Seoul, South Korea",
+        "lat": 37.55137996399118, 
+        "lng": 126.9215462883374
+    },
+    {
+        "id": "m2_Lovelyou",
+        "name": "Lovelyou (Hongdae)",
+        "day": "Day 2",
+        "who": "me",
+        "category": "Shopping",
+        "notes": "Clothes",
+        "address": "339-1 Seogyo-dong, Mapo-gu, Seoul, South Korea",
+        "lat": 37.55438643500731, 
+        "lng": 126.92670754883801
+    },
+    {
+        "id": "m2_SPAO",
+        "name": "SPAO (Hongdae)",
+        "day": "Day 2",
+        "who": "me",
+        "category": "Shopping",
+        "notes": "Clothes",
+        "address": "153 Yanghwa-ro, Mapo-gu, Seoul, South Korea",
+        "lat": 37.556435827235234, 
+        "lng": 126.92276172295678
+    },
+    {
+        "id": "m2_8seconds",
+        "name": "8Seconds (Hongdae)",
+        "day": "Day 2",
+        "who": "me",
+        "category": "Shopping",
+        "notes": "Clothes",
+        "address": "South Korea, Seoul, Mapo-gu, Yanghwa-ro, 45 메세나폴리스 지하 1층 B111호",
+        "lat": 37.55091722026465, 
+        "lng": 126.91375894267475
+    },
+    {
+        "id": "m2_Shoopen",
+        "name": "Shoopen (Hongdae)",
+        "day": "Day 2",
+        "who": "me",
+        "category": "Shopping",
+        "notes": "Shoes/Accessories",
+        "address": "153 Yanghwa-ro, Mapo-gu, Seoul, South Korea",
+        "lat": 37.55658558553619, 
+        "lng": 126.92263649828905
+    },
+    {
+        "id": "m2_Chaakan",
+        "name": "Chaakan (Hongdae)",
+        "day": "Day 2",
+        "who": "me",
+        "category": "Shopping",
+        "notes": "Shoes/Accessories",
+        "address": "25 Wausan-ro 29ba-gil, Mapo-gu, Seoul, South Korea",
+        "lat": 37.555206841173465, 
+        "lng": 126.92574069715153
+    },
+    {
+        "id": "m2_IAMJOY",
+        "name": "IAMJOY (Hongdae)",
+        "day": "Day 2",
+        "who": "me",
+        "category": "Shopping",
+        "notes": "Shoes/Accessories",
+        "address": "40 Wausan-ro 27-gil, Seogyo-dong, Mapo-gu, Seoul, South Korea",
+        "lat": 37.5547302634893, 
+        "lng": 126.92643431656721
+    },
+    {
+        "id": "m2_BUTTER",
+        "name": "BUTTER (Hongdae)",
+        "day": "Day 2",
+        "who": "me",
+        "category": "Shopping",
+        "notes": "Stationary",
+        "address": "South Korea, Seoul, Mapo-gu, 서교동 Yanghwa-ro, 153 지하2층 이랜드 복합관 홍대점",
+        "lat": 37.55644974773364,  
+        "lng": 126.92261186374112
+    },
+    {
+        "id": "m2_MeerkatFriends",
+        "name": "Meerkat Friends (Hongdae)",
+        "day": "Day 2",
+        "who": "me",
+        "category": "Animal Cafe",
+        "notes": "Exotic animals cafe",
+        "address": "South Korea, Seoul, Mapo-gu, Wausan-ro 21-gil, 20 미어캣 프랜즈 2층",
+        "lat": 37.55242878072202, 
+        "lng": 126.92297842285936
+    },
+    {
+        "id": "m2_RoofCatMe",
+        "name": "Roof Cat Me (Hongdae)",
+        "day": "Day 2",
+        "who": "me",
+        "category": "Animal Cafe",
+        "notes": "Cat cafe",
+        "address": "South Korea, Seoul, Mapo-gu, 162 15 지하 2층",
+        "lat": 37.554915394868914, 
+        "lng": 126.92214563583492
+    },
   
-  {
-    "id": "m2_airbnb",
-    "name": "AirBNB (Yeonnam-dong)",
-    "day": "Day 2",
-    "who": "me",
-    "category": "Stay",
-    "notes": "Lodging",
-    "address": "10-5 Donggyo-ro 52-gil, Mapo-gu, Seoul, South Korea",
-    "lat": 37.56387611207991, 
-    "lng": 126.92681126931322
-  },
-  {
-    "id": "m2_mrkim",
-    "name": "Mr Kim Toast",
-    "day": "Day 2",
-    "who": "me",
-    "category": "Food",
-    "notes": "Breakfast",
-    "address": "152 Yanghwa-ro, Mapo-gu, Seoul",
-    "lat": 37.55594187929443, 
-    "lng": 126.92298622255156
-  },
-  {
-    "id": "m2_mammoth",
-    "name": "Mammoth Coffee Express",
-    "day": "Day 2",
-    "who": "me",
-    "category": "Cafe",
-    "notes": "Coffee",
-    "address": "22-22 Sinchon-ro 4-gil, Mapo-gu, Seoul",
-    "lat": 37.55748822691855, 
-    "lng": 126.9272529749187
-  },
-  {
-    "id": "m2_modelro",
-    "name": "Modelro Studio",
-    "day": "Day 2",
-    "who": "me",
-    "category": "Other",
-    "notes": "Studio stop",
-    "address": "15 Yanghwa-ro 18-gil, Mapo-gu, Seoul",
-    "lat": 37.55657265306343, 
-    "lng": 126.92493221683439
-  },
-  {
-    "id": "m2_shinleedoga",
-    "name": "Shinleedoga",
-    "day": "Day 2",
-    "who": "me",
-    "category": "Cafe",
-    "notes": "Cafe stop",
-    "address": "20-12 Jandari-ro, Mapo-gu, Seoul",
-    "lat": 37.55142744097457, 
-    "lng": 126.92095787247443
-  },
-  {
-    "id": "m2_leesle",
-    "name": "Leesle 리슬 홍대점",
-    "day": "Day 2",
-    "who": "me",
-    "category": "Shopping",
-    "notes": "Norigae making",
-    "address": "37 Wausan-ro 29-gil, Mapo-gu, Seoul",
-    "lat": 37.555337142603875, 
-    "lng": 126.92784083125353
-  },
-  {
-    "id": "m2_hwayeon",
-    "name": "Hwayeon Sanjang",
-    "day": "Day 2",
-    "who": "me",
-    "category": "Food",
-    "notes": "Lunch",
-    "address": "12 Seolleung-ro 152-gil, Gangnam-gu, Seoul",
-    "lat": 37.5240944181656, 
-    "lng": 127.04052446169243
-  },
-  {
-    "id": "m2_coex",
-    "name": "Starfield COEX Mall (Library)",
-    "day": "Day 2",
-    "who": "me",
-    "category": "Shopping",
-    "notes": "Library and mall visit",
-    "address": "513 Yeongdong-daero, Gangnam-gu, Seoul",
-    "lat": 37.511841860891636, 
-    "lng": 127.05978774012476
-  },
-  {
-    "id": "m2_banpo",
-    "name": "Banpo Hangang Park",
-    "day": "Day 2",
-    "who": "me",
-    "category": "Nature",
-    "notes": "Convenience store picnic + light show",
-    "address": "Banpo Hangang Park, Seoul, South Korea",
-    "lat": 37.51264625201085, 
-    "lng": 126.99847081499787
-  },
-
+    
+    {
+      "id": "a3_airbnb",
+      "name": "AirBNB (Yeonnam-dong)",
+      "day": "Day 3",
+      "who": "aunt",
+      "category": "Stay",
+      "notes": "Lodging",
+      "address": "10-5 Donggyo-ro 52-gil, Mapo-gu, Seoul, South Korea",
+      "lat": 37.56387611207991, 
+      "lng": 126.92681126931322
+    },
+    {
+      "id": "a3_onion",
+      "name": "Cafe Onion",
+      "day": "Day 3",
+      "who": "aunt",
+      "category": "Cafe",
+      "notes": "Morning cafe",
+      "address": "5 Gyedong-gil, Jongno-gu, Seoul"
+    },
+    {
+      "id": "a3_hanbok",
+      "name": "3355 Hanbok",
+      "day": "Day 3",
+      "who": "aunt",
+      "category": "Other",
+      "notes": "Hanbok rental",
+      "address": "41 Yulgok-ro 1-gil, Jongno-gu, Seoul"
+    },
+    {
+      "id": "a3_gbg",
+      "name": "Gyeongbokgung Palace",
+      "day": "Day 3",
+      "who": "aunt",
+      "category": "Sight",
+      "notes": "Palace visit",
+      "address": "161 Sajik-ro, Jongno-gu, Seoul"
+    },
+    {
+      "id": "a3_tosokchon",
+      "name": "Tosokchon Samgyetang",
+      "day": "Day 3",
+      "who": "aunt",
+      "category": "Food",
+      "notes": "Lunch",
+      "address": "5 Jahamun-ro 5-gil, Jongno-gu, Seoul"
+    },
+    {
+      "id": "a3_seongsu",
+      "name": "Seongsu",
+      "day": "Day 3",
+      "who": "aunt",
+      "category": "Shopping",
+      "notes": "Explore area",
+      "address": "315-61 Seongsu-dong 2(i)-ga, Seongdong-gu, Seoul"
+    },
+    {
+      "id": "a3_grandma",
+      "name": "Grandmother’s Recipe",
+      "day": "Day 3",
+      "who": "aunt",
+      "category": "Food",
+      "notes": "Dinner",
+      "address": "44-12 Seoulsup 2-gil, Seongdong-gu, Seoul"
+    },
   
-  {
-    "id": "a3_airbnb",
-    "name": "AirBNB (Yeonnam-dong)",
-    "day": "Day 3",
-    "who": "aunt",
-    "category": "Stay",
-    "notes": "Lodging",
-    "address": "10-5 Donggyo-ro 52-gil, Mapo-gu, Seoul, South Korea",
-    "lat": 37.56387611207991, 
-    "lng": 126.92681126931322
-  },
-  {
-    "id": "a3_onion",
-    "name": "Cafe Onion",
-    "day": "Day 3",
-    "who": "aunt",
-    "category": "Cafe",
-    "notes": "Morning cafe",
-    "address": "5 Gyedong-gil, Jongno-gu, Seoul"
-  },
-  {
-    "id": "a3_hanbok",
-    "name": "3355 Hanbok",
-    "day": "Day 3",
-    "who": "aunt",
-    "category": "Other",
-    "notes": "Hanbok rental",
-    "address": "41 Yulgok-ro 1-gil, Jongno-gu, Seoul"
-  },
-  {
-    "id": "a3_gbg",
-    "name": "Gyeongbokgung Palace",
-    "day": "Day 3",
-    "who": "aunt",
-    "category": "Sight",
-    "notes": "Palace visit",
-    "address": "161 Sajik-ro, Jongno-gu, Seoul"
-  },
-  {
-    "id": "a3_tosokchon",
-    "name": "Tosokchon Samgyetang",
-    "day": "Day 3",
-    "who": "aunt",
-    "category": "Food",
-    "notes": "Lunch",
-    "address": "5 Jahamun-ro 5-gil, Jongno-gu, Seoul"
-  },
-  {
-    "id": "a3_seongsu",
-    "name": "Seongsu",
-    "day": "Day 3",
-    "who": "aunt",
-    "category": "Shopping",
-    "notes": "Explore area",
-    "address": "315-61 Seongsu-dong 2(i)-ga, Seongdong-gu, Seoul"
-  },
-  {
-    "id": "a3_grandma",
-    "name": "Grandmother’s Recipe",
-    "day": "Day 3",
-    "who": "aunt",
-    "category": "Food",
-    "notes": "Dinner",
-    "address": "44-12 Seoulsup 2-gil, Seongdong-gu, Seoul"
-  },
-
- 
-  {
-    "id": "m3_airbnb",
-    "name": "AirBNB (Yeonnam-dong)",
-    "day": "Day 3",
-    "who": "me",
-    "category": "Stay",
-    "notes": "Lodging",
-    "address": "10-5 Donggyo-ro 52-gil, Mapo-gu, Seoul, South Korea",
-    "lat": 37.56387611207991, 
-    "lng": 126.92681126931322
-  },
-  {
-    "id": "m3_onion_dotori",
-    "name": "Cafe Onion / Dotori Garden",
-    "day": "Day 3",
-    "who": "me",
-    "category": "Cafe",
-    "notes": "Morning cafe",
-    "address": "5 Gyedong-gil, Jongno-gu, Seoul"
-  },
-  {
-    "id": "m3_hanbok",
-    "name": "3355 Hanbok",
-    "day": "Day 3",
-    "who": "me",
-    "category": "Other",
-    "notes": "Hanbok rental",
-    "address": "41 Yulgok-ro 1-gil, Jongno-gu, Seoul"
-  },
-  {
-    "id": "m3_gbg",
-    "name": "Gyeongbokgung Palace",
-    "day": "Day 3",
-    "who": "me",
-    "category": "Sight",
-    "notes": "Palace visit",
-    "address": "161 Sajik-ro, Jongno-gu, Seoul"
-  },
-  {
-    "id": "m3_tosokchon",
-    "name": "Tosokchon Samgyetang",
-    "day": "Day 3",
-    "who": "me",
-    "category": "Food",
-    "notes": "Lunch",
-    "address": "5 Jahamun-ro 5-gil, Jongno-gu, Seoul"
-  },
-  {
-    "id": "m3_seongsu",
-    "name": "Seongsu",
-    "day": "Day 3",
-    "who": "me",
-    "category": "Shopping",
-    "notes": "Explore area",
-    "address": "315-61 Seongsu-dong 2(i)-ga, Seongdong-gu, Seoul"
-  },
-  {
-    "id": "m3_grandma",
-    "name": "Grandmother’s Recipe",
-    "day": "Day 3",
-    "who": "me",
-    "category": "Food",
-    "notes": "Dinner",
-    "address": "44-12 Seoulsup 2-gil, Seongdong-gu, Seoul"
-  },
-
+   
+    {
+      "id": "m3_airbnb",
+      "name": "AirBNB (Yeonnam-dong)",
+      "day": "Day 3",
+      "who": "me",
+      "category": "Stay",
+      "notes": "Lodging",
+      "address": "10-5 Donggyo-ro 52-gil, Mapo-gu, Seoul, South Korea",
+      "lat": 37.56387611207991, 
+      "lng": 126.92681126931322
+    },
+    {
+      "id": "m3_onion_dotori",
+      "name": "Cafe Onion / Dotori Garden",
+      "day": "Day 3",
+      "who": "me",
+      "category": "Cafe",
+      "notes": "Morning cafe",
+      "address": "5 Gyedong-gil, Jongno-gu, Seoul"
+    },
+    {
+      "id": "m3_hanbok",
+      "name": "3355 Hanbok",
+      "day": "Day 3",
+      "who": "me",
+      "category": "Other",
+      "notes": "Hanbok rental",
+      "address": "41 Yulgok-ro 1-gil, Jongno-gu, Seoul"
+    },
+    {
+      "id": "m3_gbg",
+      "name": "Gyeongbokgung Palace",
+      "day": "Day 3",
+      "who": "me",
+      "category": "Sight",
+      "notes": "Palace visit",
+      "address": "161 Sajik-ro, Jongno-gu, Seoul"
+    },
+    {
+      "id": "m3_tosokchon",
+      "name": "Tosokchon Samgyetang",
+      "day": "Day 3",
+      "who": "me",
+      "category": "Food",
+      "notes": "Lunch",
+      "address": "5 Jahamun-ro 5-gil, Jongno-gu, Seoul"
+    },
+    {
+      "id": "m3_seongsu",
+      "name": "Seongsu",
+      "day": "Day 3",
+      "who": "me",
+      "category": "Shopping",
+      "notes": "Explore area",
+      "address": "315-61 Seongsu-dong 2(i)-ga, Seongdong-gu, Seoul"
+    },
+    {
+      "id": "m3_grandma",
+      "name": "Grandmother’s Recipe",
+      "day": "Day 3",
+      "who": "me",
+      "category": "Food",
+      "notes": "Dinner",
+      "address": "44-12 Seoulsup 2-gil, Seongdong-gu, Seoul"
+    },
   
-  {
-    "id": "a4_airbnb",
-    "name": "AirBNB (Yeonnam-dong)",
-    "day": "Day 4",
-    "who": "aunt",
-    "category": "Stay",
-    "notes": "Lodging",
-    "address": "10-5 Donggyo-ro 52-gil, Mapo-gu, Seoul, South Korea",
-    "lat": 37.56387611207991, 
-    "lng": 126.92681126931322
-  },
-  {
-    "id": "a4_paris",
-    "name": "Paris Baguette Gwanghamun 1945",
-    "day": "Day 4",
-    "who": "aunt",
-    "category": "Cafe",
-    "notes": "Breakfast",
-    "address": "178 Sejong-daero, Jongno-gu, Seoul"
-  },
-  {
-    "id": "a4_namsan",
-    "name": "Namsan Library / N Seoul Tower / Namsan Baekbeom Square",
-    "day": "Day 4",
-    "who": "aunt",
-    "category": "Nature",
-    "notes": "Cherry blossom walk",
-    "address": "Namsan, Seoul, South Korea"
-  },
-  {
-    "id": "a4_kyoja",
-    "name": "Myeongdong Kyoja New Building MJ",
-    "day": "Day 4",
-    "who": "aunt",
-    "category": "Food",
-    "notes": "Lunch",
-    "address": "48 Myeongdong-gil, Jung-gu, Seoul"
-  },
-  {
-    "id": "a4_myeongdong",
-    "name": "Myeongdong",
-    "day": "Day 4",
-    "who": "aunt",
-    "category": "Shopping",
-    "notes": "Shopping",
-    "address": "Myeongdong, Jung-gu, Seoul, South Korea"
-  },
-  {
-    "id": "a4_flower_yard",
-    "name": "Flower Yard Cafe (Madang Cafe)",
-    "day": "Day 4",
-    "who": "aunt",
-    "category": "Cafe",
-    "notes": "Cafe stop",
-    "address": "33-12 Supyo-ro 28-gil, Jongno-gu, Seoul"
-  },
-  {
-    "id": "a4_lotte",
-    "name": "Lotte Mart Zettaplex (Seoul Station)",
-    "day": "Day 4",
-    "who": "aunt",
-    "category": "Shopping",
-    "notes": "Groceries / souvenirs",
-    "address": "405 Hangang-daero, Jung-gu, Seoul"
-  },
-  {
-    "id": "a4_gwangjang",
-    "name": "Gwangjang Market",
-    "day": "Day 4",
-    "who": "aunt",
-    "category": "Food",
-    "notes": "Market",
-    "address": "88 Changgyeonggung-ro, Jongno-gu, Seoul"
-  },
-
+    
+    {
+      "id": "a4_airbnb",
+      "name": "AirBNB (Yeonnam-dong)",
+      "day": "Day 4",
+      "who": "aunt",
+      "category": "Stay",
+      "notes": "Lodging",
+      "address": "10-5 Donggyo-ro 52-gil, Mapo-gu, Seoul, South Korea",
+      "lat": 37.56387611207991, 
+      "lng": 126.92681126931322
+    },
+    {
+      "id": "a4_paris",
+      "name": "Paris Baguette Gwanghamun 1945",
+      "day": "Day 4",
+      "who": "aunt",
+      "category": "Cafe",
+      "notes": "Breakfast",
+      "address": "178 Sejong-daero, Jongno-gu, Seoul"
+    },
+    {
+      "id": "a4_namsan",
+      "name": "Namsan Library / N Seoul Tower / Namsan Baekbeom Square",
+      "day": "Day 4",
+      "who": "aunt",
+      "category": "Nature",
+      "notes": "Cherry blossom walk",
+      "address": "Namsan, Seoul, South Korea"
+    },
+    {
+      "id": "a4_kyoja",
+      "name": "Myeongdong Kyoja New Building MJ",
+      "day": "Day 4",
+      "who": "aunt",
+      "category": "Food",
+      "notes": "Lunch",
+      "address": "48 Myeongdong-gil, Jung-gu, Seoul"
+    },
+    {
+      "id": "a4_myeongdong",
+      "name": "Myeongdong",
+      "day": "Day 4",
+      "who": "aunt",
+      "category": "Shopping",
+      "notes": "Shopping",
+      "address": "Myeongdong, Jung-gu, Seoul, South Korea"
+    },
+    {
+      "id": "a4_flower_yard",
+      "name": "Flower Yard Cafe (Madang Cafe)",
+      "day": "Day 4",
+      "who": "aunt",
+      "category": "Cafe",
+      "notes": "Cafe stop",
+      "address": "33-12 Supyo-ro 28-gil, Jongno-gu, Seoul"
+    },
+    {
+      "id": "a4_lotte",
+      "name": "Lotte Mart Zettaplex (Seoul Station)",
+      "day": "Day 4",
+      "who": "aunt",
+      "category": "Shopping",
+      "notes": "Groceries / souvenirs",
+      "address": "405 Hangang-daero, Jung-gu, Seoul"
+    },
+    {
+      "id": "a4_gwangjang",
+      "name": "Gwangjang Market",
+      "day": "Day 4",
+      "who": "aunt",
+      "category": "Food",
+      "notes": "Market",
+      "address": "88 Changgyeonggung-ro, Jongno-gu, Seoul"
+    },
   
-  {
-    "id": "m4_airbnb",
-    "name": "AirBNB (Yeonnam-dong)",
-    "day": "Day 4",
-    "who": "me",
-    "category": "Stay",
-    "notes": "Lodging",
-    "address": "10-5 Donggyo-ro 52-gil, Mapo-gu, Seoul, South Korea",
-    "lat": 37.56387611207991, 
-    "lng": 126.92681126931322
-  },
-  {
-    "id": "m4_paris",
-    "name": "Paris Baguette Gwanghamun 1945",
-    "day": "Day 4",
-    "who": "me",
-    "category": "Cafe",
-    "notes": "Breakfast",
-    "address": "178 Sejong-daero, Jongno-gu, Seoul"
-  },
-  {
-    "id": "m4_namsan",
-    "name": "Namsan Library / N Seoul Tower / Namsan Baekbeom Square",
-    "day": "Day 4",
-    "who": "me",
-    "category": "Nature",
-    "notes": "Cherry blossom walk",
-    "address": "Namsan, Seoul, South Korea"
-  },
-  {
-    "id": "m4_kyoja",
-    "name": "Myeongdong Kyoja New Building MJ",
-    "day": "Day 4",
-    "who": "me",
-    "category": "Food",
-    "notes": "Lunch",
-    "address": "48 Myeongdong-gil, Jung-gu, Seoul"
-  },
-  {
-    "id": "m4_myeongdong",
-    "name": "Myeongdong",
-    "day": "Day 4",
-    "who": "me",
-    "category": "Shopping",
-    "notes": "Shopping",
-    "address": "Myeongdong, Jung-gu, Seoul, South Korea"
-  },
-  {
-    "id": "m4_cheongsudang",
-    "name": "Cheongsudang Bakery / Nakwon Station",
-    "day": "Day 4",
-    "who": "me",
-    "category": "Cafe",
-    "notes": "Bakery stop",
-    "address": "31-9 Donhwamun-ro 11na-gil, Jongno-gu, Seoul"
-  },
-  {
-    "id": "m4_lotte",
-    "name": "Lotte Mart Zettaplex (Seoul Station)",
-    "day": "Day 4",
-    "who": "me",
-    "category": "Shopping",
-    "notes": "Groceries / souvenirs",
-    "address": "405 Hangang-daero, Jung-gu, Seoul"
-  },
-  {
-    "id": "m4_gwangjang",
-    "name": "Gwangjang Market",
-    "day": "Day 4",
-    "who": "me",
-    "category": "Food",
-    "notes": "Market",
-    "address": "88 Changgyeonggung-ro, Jongno-gu, Seoul"
-  }
-]
+    
+    {
+      "id": "m4_airbnb",
+      "name": "AirBNB (Yeonnam-dong)",
+      "day": "Day 4",
+      "who": "me",
+      "category": "Stay",
+      "notes": "Lodging",
+      "address": "10-5 Donggyo-ro 52-gil, Mapo-gu, Seoul, South Korea",
+      "lat": 37.56387611207991, 
+      "lng": 126.92681126931322
+    },
+    {
+      "id": "m4_paris",
+      "name": "Paris Baguette Gwanghamun 1945",
+      "day": "Day 4",
+      "who": "me",
+      "category": "Cafe",
+      "notes": "Breakfast",
+      "address": "178 Sejong-daero, Jongno-gu, Seoul"
+    },
+    {
+      "id": "m4_namsan",
+      "name": "Namsan Library / N Seoul Tower / Namsan Baekbeom Square",
+      "day": "Day 4",
+      "who": "me",
+      "category": "Nature",
+      "notes": "Cherry blossom walk",
+      "address": "Namsan, Seoul, South Korea"
+    },
+    {
+      "id": "m4_kyoja",
+      "name": "Myeongdong Kyoja New Building MJ",
+      "day": "Day 4",
+      "who": "me",
+      "category": "Food",
+      "notes": "Lunch",
+      "address": "48 Myeongdong-gil, Jung-gu, Seoul"
+    },
+    {
+      "id": "m4_myeongdong",
+      "name": "Myeongdong",
+      "day": "Day 4",
+      "who": "me",
+      "category": "Shopping",
+      "notes": "Shopping",
+      "address": "Myeongdong, Jung-gu, Seoul, South Korea"
+    },
+    {
+      "id": "m4_cheongsudang",
+      "name": "Cheongsudang Bakery / Nakwon Station",
+      "day": "Day 4",
+      "who": "me",
+      "category": "Cafe",
+      "notes": "Bakery stop",
+      "address": "31-9 Donhwamun-ro 11na-gil, Jongno-gu, Seoul"
+    },
+    {
+      "id": "m4_lotte",
+      "name": "Lotte Mart Zettaplex (Seoul Station)",
+      "day": "Day 4",
+      "who": "me",
+      "category": "Shopping",
+      "notes": "Groceries / souvenirs",
+      "address": "405 Hangang-daero, Jung-gu, Seoul"
+    },
+    {
+      "id": "m4_gwangjang",
+      "name": "Gwangjang Market",
+      "day": "Day 4",
+      "who": "me",
+      "category": "Food",
+      "notes": "Market",
+      "address": "88 Changgyeonggung-ro, Jongno-gu, Seoul"
+    }
+  ]
+  
