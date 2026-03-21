@@ -185,13 +185,6 @@
       return `https://map.kakao.com/link/map/${encodeURIComponent(name || "Pinned Place")},${lat},${lng}`;
     }
 
-    // NAVER link added
-    // Uses a web search URL so it can work from a normal website without requiring a NAVER JS API key.
-    function naverMapLink(lat, lng, name, address) {
-      const query = cleanAddress(address || "") || name || `${lat},${lng}`;
-      return `https://map.naver.com/p/search/${encodeURIComponent(query)}`;
-    }
-
     function iconEmoji(emoji, bgColor) {
       return L.divIcon({
         className: "",
@@ -326,7 +319,6 @@
 
       const g = googleMapsLink(coords.lat, coords.lng);
       const k = kakaoMapLink(coords.lat, coords.lng, p.name);
-      const n = naverMapLink(coords.lat, coords.lng, p.name, p.address);
 
       return `
         <div>
@@ -343,8 +335,6 @@
             <a href="${g}" target="_blank" rel="noopener">Open in Google Maps</a>
             &nbsp;|&nbsp;
             <a href="${k}" target="_blank" rel="noopener">Open in KakaoMap</a>
-            &nbsp;|&nbsp;
-            <a href="${n}" target="_blank" rel="noopener">Open in NAVER Map</a>
           </div>
         </div>
       `;
