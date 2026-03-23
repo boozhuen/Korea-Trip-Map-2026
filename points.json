@@ -953,6 +953,17 @@
       "lng": 127.04315011923055
     },
     {
+      "id": "a3_mission",
+      "name": "Secret Mission (Seongsu)",
+      "day": "Day 3",
+      "who": "aunt",
+      "category": "Mission",
+      "notes": "Agency",
+      "address": "315-62 Seongsu-dong 2(i)-ga Seongdong-gu, Seoul",
+      "lat": 37.54358945944598, 
+      "lng": 127.05564886668687
+    },
+    {
       "id": "a3_hausnowhere",
       "name": "Haus Nowhere (Seongsu)",
       "day": "Day 3",
