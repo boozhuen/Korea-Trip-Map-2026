@@ -1529,6 +1529,17 @@
       "lng": 126.98284639166505
     },
     {
+      "id": "m4_drawfit",
+      "name": "Drawfit Milliore (Myeongdong)",
+      "day": "Day 4",
+      "who": "me",
+      "category": "Shopping",
+      "notes": "Clothes",
+      "address": "115 Toegye-ro, Jung District, Seoul, South Korea",
+      "lat": 37.56106221947902, 
+      "lng": 126.98452229591014 
+    },
+    {
       "id": "a4_musinsa",
       "name": "Musinsa Standard (Myeongdong)",
       "day": "Day 4",
