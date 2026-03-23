@@ -274,7 +274,7 @@
     },
     {
       "id": "a1_kyochon",
-      "name": "Kyochon Chicken Yeonnam",
+      "name": "Kyochon Chicken Yeonnam (Dinner Option 1)",
       "day": "Day 1",
       "who": "aunt",
       "category": "Food",
@@ -283,6 +283,29 @@
       "lat": 37.563399136059736, 
       "lng": 126.92082734110106
     },
+    {
+      "id": "a1_hongzuggumi",
+      "name": "Hongs Zzuggumi (Dinner Option 2)",
+      "day": "Day 1",
+      "who": "aunt",
+      "category": "Food",
+      "notes": "Dinner",
+      "address": "146 Eoulmadang-ro, Mapo-gu, Seoul, South Korea",
+      "lat": 37.55617213340494, 
+      "lng": 126.92609317763903
+    },
+    {
+      "id": "a1_dakgalbi",
+      "name": "Jangin Dakgalbi (Dinner Option 3)",
+      "day": "Day 1",
+      "who": "aunt",
+      "category": "Food",
+      "notes": "Dinner",
+      "address": "South Korea, Seoul, Mapo-gu, Eoulmadang-ro, 111-1 1 층",
+      "lat": 37.55492076735395, 
+      "lng": 126.92284556027941
+    },
+
   
    
     {
@@ -1341,7 +1364,7 @@
     },
     {
       "id": "a4_floweryard",
-      "name": "Flower Yard Cafe (Madang Cafe)",
+      "name": "Flower Yard Cafe (Madang Cafe) [Tea Option 1]",
       "day": "Day 4",
       "who": "aunt",
       "category": "Cafe",
@@ -1349,6 +1372,17 @@
       "address": "33-12 Supyo-ro 28-gil, Jongno-gu, Seoul",
       "lat": 37.57367703462829, 
       "lng": 126.99022046968268
+    },
+    {
+      "id": "a4_ikseonchwihyang",
+      "name": "Ikseon Chwihyang [Tea Option 2]",
+      "day": "Day 4",
+      "who": "aunt",
+      "category": "Cafe",
+      "notes": "Tea",
+      "address": "17-32 Supyo-ro 28-gil, Jongno District, Seoul, South Korea",
+      "lat": 37.573562793684644, 
+      "lng": 126.98956777325715
     },
     {
       "id": "a4_lotte",
