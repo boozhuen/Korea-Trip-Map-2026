@@ -728,6 +728,16 @@
         "lat": 37.554915394868914, 
         "lng": 126.92214563583492
     },
+    {
+      "id": "m2_VICXXO",
+      "name": "VICXXO (Hongdae)",
+      "day": "Day 2",
+      "who": "me",
+      "category": "Phone Accessories",
+      "address": "330-23 Seogyo-dong, Mapo-gu, Seoul, South Korea",
+      "lat": 37.55649243883818, 
+      "lng": 126.92709077211401
+    },
   
     
     {
@@ -739,7 +749,7 @@
       "notes": "Lodging",
       "address": "10-5 Donggyo-ro 52-gil, Mapo-gu, Seoul, South Korea",
       "lat": 37.56387611207991, 
-      "lng": 126.92681126931322
+      "lng": 126.92681126931322 
     },
     {
       "id": "a3_onion",
@@ -748,7 +758,31 @@
       "who": "aunt",
       "category": "Cafe",
       "notes": "Morning cafe",
-      "address": "5 Gyedong-gil, Jongno-gu, Seoul"
+      "address": "5 Gyedong-gil, Jongno-gu, Seoul",
+      "lat": 37.57762586179221, 
+      "lng": 126.98655531052641
+    },
+    {
+      "id": "a3_dotori",
+      "name": "Dotori Garden",
+      "day": "Day 3",
+      "who": "aunt",
+      "category": "Cafe",
+      "notes": "Morning cafe",
+      "address": "19-8 Gyedong-gil, Jongno District, Seoul, South Korea",
+      "lat":37.57806900069985, 
+      "lng": 126.98626811140444
+    },
+    {
+      "id": "a3_londonbagelmuseum",
+      "name": "London Bagel Museum Anguk",
+      "day": "Day 3",
+      "who": "aunt",
+      "category": "Cafe",
+      "notes": "Morning cafe",
+      "address": "20 Bukchon-ro 4-gil, Jongno District, Seoul, South Korea",
+      "lat":337.57919234115756, 
+      "lng": 126.98615668252128
     },
     {
       "id": "a3_hanbok",
@@ -757,7 +791,9 @@
       "who": "aunt",
       "category": "Other",
       "notes": "Hanbok rental",
-      "address": "41 Yulgok-ro 1-gil, Jongno-gu, Seoul"
+      "address": "41 Yulgok-ro 1-gil, Jongno-gu, Seoul",
+      "lat": 37.577714192231376, 
+      "lng": 126.98058673139035
     },
     {
       "id": "a3_gbg",
@@ -766,7 +802,9 @@
       "who": "aunt",
       "category": "Sight",
       "notes": "Palace visit",
-      "address": "161 Sajik-ro, Jongno-gu, Seoul"
+      "address": "161 Sajik-ro, Jongno-gu, Seoul",
+      "lat": 37.57962291677594, 
+      "lng": 126.97704329222269
     },
     {
       "id": "a3_tosokchon",
@@ -775,17 +813,11 @@
       "who": "aunt",
       "category": "Food",
       "notes": "Lunch",
-      "address": "5 Jahamun-ro 5-gil, Jongno-gu, Seoul"
+      "address": "5 Jahamun-ro 5-gil, Jongno-gu, Seoul",
+      "lat": 37.57778415909816, 
+      "lng": 126.97158826283606
     },
-    {
-      "id": "a3_seongsu",
-      "name": "Seongsu",
-      "day": "Day 3",
-      "who": "aunt",
-      "category": "Shopping",
-      "notes": "Explore area",
-      "address": "315-61 Seongsu-dong 2(i)-ga, Seongdong-gu, Seoul"
-    },
+    
     {
       "id": "a3_grandma",
       "name": "Grandmother’s Recipe",
@@ -793,7 +825,9 @@
       "who": "aunt",
       "category": "Food",
       "notes": "Dinner",
-      "address": "44-12 Seoulsup 2-gil, Seongdong-gu, Seoul"
+      "address": "44-12 Seoulsup 2-gil, Seongdong-gu, Seoul",
+      "lat": 37.54613448005467, 
+      "lng": 127.04315011923055
     },
   
    
@@ -809,13 +843,37 @@
       "lng": 126.92681126931322
     },
     {
-      "id": "m3_onion_dotori",
-      "name": "Cafe Onion / Dotori Garden",
+      "id": "m3_onion",
+      "name": "Cafe Onion",
       "day": "Day 3",
       "who": "me",
       "category": "Cafe",
       "notes": "Morning cafe",
-      "address": "5 Gyedong-gil, Jongno-gu, Seoul"
+      "address": "5 Gyedong-gil, Jongno-gu, Seoul",
+      "lat": 37.57762586179221, 
+      "lng": 126.98655531052641
+    },
+    {
+      "id": "m3_dotori",
+      "name": "Dotori Garden",
+      "day": "Day 3",
+      "who": "me",
+      "category": "Cafe",
+      "notes": "Morning cafe",
+      "address": "19-8 Gyedong-gil, Jongno District, Seoul, South Korea",
+      "lat":37.57806900069985, 
+      "lng": 126.98626811140444
+    },
+    {
+      "id": "m3_londonbagelmuseum",
+      "name": "London Bagel Museum Anguk",
+      "day": "Day 3",
+      "who": "me",
+      "category": "Cafe",
+      "notes": "Morning cafe",
+      "address": "20 Bukchon-ro 4-gil, Jongno District, Seoul, South Korea",
+      "lat":337.57919234115756, 
+      "lng": 126.98615668252128
     },
     {
       "id": "m3_hanbok",
@@ -824,7 +882,9 @@
       "who": "me",
       "category": "Other",
       "notes": "Hanbok rental",
-      "address": "41 Yulgok-ro 1-gil, Jongno-gu, Seoul"
+      "address": "41 Yulgok-ro 1-gil, Jongno-gu, Seoul",
+      "lat": 37.577714192231376, 
+      "lng": 126.98058673139035
     },
     {
       "id": "m3_gbg",
@@ -833,7 +893,9 @@
       "who": "me",
       "category": "Sight",
       "notes": "Palace visit",
-      "address": "161 Sajik-ro, Jongno-gu, Seoul"
+      "address": "161 Sajik-ro, Jongno-gu, Seoul",
+      "lat": 37.57962291677594, 
+      "lng": 126.97704329222269
     },
     {
       "id": "m3_tosokchon",
@@ -842,16 +904,9 @@
       "who": "me",
       "category": "Food",
       "notes": "Lunch",
-      "address": "5 Jahamun-ro 5-gil, Jongno-gu, Seoul"
-    },
-    {
-      "id": "m3_seongsu",
-      "name": "Seongsu",
-      "day": "Day 3",
-      "who": "me",
-      "category": "Shopping",
-      "notes": "Explore area",
-      "address": "315-61 Seongsu-dong 2(i)-ga, Seongdong-gu, Seoul"
+      "address": "5 Jahamun-ro 5-gil, Jongno-gu, Seoul",
+      "lat": 37.57778415909816, 
+      "lng": 126.97158826283606
     },
     {
       "id": "m3_grandma",
@@ -860,10 +915,354 @@
       "who": "me",
       "category": "Food",
       "notes": "Dinner",
-      "address": "44-12 Seoulsup 2-gil, Seongdong-gu, Seoul"
+      "address": "44-12 Seoulsup 2-gil, Seongdong-gu, Seoul",
+      "lat": 37.54613448005467, 
+      "lng": 127.04315011923055
     },
+    {
+      "id": "a3_hausnowhere",
+      "name": "Haus Nowhere (Seongsu)",
+      "day": "Day 3",
+      "who": "aunt",
+      "category": "Shopping",
+      "notes": "Eyewear",
+      "address": "South Korea, Seoul, HAUS NOWHERE Ttukseom-ro, 433 KR 서울특별시 성동구",
+      "lat": 37.53807123474553, 
+      "lng": 127.05894877145971
+    },
+    {
+      "id": "a3_blueelephant",
+      "name": "Blue Elephant (Seongsu)",
+      "day": "Day 3",
+      "who": "aunt",
+      "category": "Shopping",
+      "notes": "Eyewear",
+      "address": "South Korea, Seoul, Seongdong-gu, Yeonmujang-gil, 13 2층 3층",
+      "lat": 37.54376220158304, 
+      "lng": 127.05115999130778
+    },
+    {
+      "id": "a3_beidelli",
+      "name": "Beidelli (Seongsu)",
+      "day": "Day 3",
+      "who": "aunt",
+      "category": "Shopping",
+      "notes": "Clothes",
+      "address": "South Korea, Seoul, Seongdong-gu, Seongsu-dong 2(i)-ga, Yeonmujang-gil, 103 베이델리 1층",
+      "lat": 37.54095472702123, 
+      "lng": 127.06071648416204
+    },
+    {
+      "id": "a3_thetis",
+      "name": "Atelier Thetis (Seongsu)",
+      "day": "Day 3",
+      "who": "aunt",
+      "category": "Shopping",
+      "notes": "Clothes",
+      "address": "77 Yeonmujang-gil, Seongdong-gu, Seoul, South Korea",
+      "lat": 37.54185281804635, 
+      "lng": 127.05788702494411
+    },
+    {
+      "id": "a3_humanmade",
+      "name": "Human Made (Seongsu)",
+      "day": "Day 3",
+      "who": "aunt",
+      "category": "Shopping",
+      "notes": "Clothes",
+      "address": "1st floor, 39 Seongsui-ro 7-gil, Seongdong-gu, Seoul, South Korea",
+      "lat": 37.54251897205019, 
+      "lng": 127.05327441134423
+    },
+    {
+      "id": "a3_matinkim",
+      "name": "Matin Kim Flagship Store (Seongsu)",
+      "day": "Day 3",
+      "who": "aunt",
+      "category": "Shopping",
+      "notes": "Clothes",
+      "address": "301-16 Seongsu-dong 2(i)-ga, Seongdong-gu, Seoul, South Korea",
+      "lat": 37.54455947204965, 
+      "lng": 127.0513227081272
+    },
+    {
+      "id": "a3_matinkim",
+      "name": "Matin Kim (Seongsu)",
+      "day": "Day 3",
+      "who": "aunt",
+      "category": "Shopping",
+      "notes": "Clothes",
+      "address": "24-33 Achasan-ro 5-gil, Seongdong-gu, Seoul, South Korea",
+      "lat": 37.547351784826034, 
+      "lng": 127.05398107668066
+    },
+    {
+      "id": "a3_standardbread",
+      "name": "Standard Bread (Seongsu)",
+      "day": "Day 3",
+      "who": "aunt",
+      "category": "Cafe",
+      "notes": "Bread Shop",
+      "address": "37 Seongsui-ro 18-gil, Seongdong-gu, Seoul, South Korea",
+      "lat": 37.541681633027494, 
+      "lng": 127.0611408072654
+    },
+    {
+      "id": "a3_jayeondosaltedbakery",
+      "name": "Jayeondo Salted Bakery (Seongsu)",
+      "day": "Day 3",
+      "who": "aunt",
+      "category": "Cafe",
+      "notes": "Bread Shop",
+      "address": "56-1 Yeonmujang-gil, Seongdong-gu, Seoul, South Korea",
+      "lat": 37.54231159422136, 
+      "lng": 127.05545616518246
+    },
+    {
+      "id": "a3_hanjungsun",
+      "name": "Han Jung Sun (Seongsu)",
+      "day": "Day 3",
+      "who": "aunt",
+      "category": "Cafe",
+      "notes": "Mochi",
+      "address": "South Korea, Seoul, Seongdong-gu, Yeonmujang-gil, 43 1 1F",
+      "lat": 37.54285094847383, 
+      "lng": 127.05416296502982
+    },
+    {
+      "id": "a3_secondaire",
+      "name": "Secondaire (Seongsu)",
+      "day": "Day 3",
+      "who": "aunt",
+      "category": "Cafe",
+      "notes": "Bread Spread",
+      "address": "South Korea, Seoul, Seongdong-gu, Yeonmujang-gil, 54 1층",
+      "lat": 37.542382211539696, 
+      "lng": 127.05519200365636
+    },
+    {
+      "id": "a3_hince",
+      "name": "hince (Seongsu)",
+      "day": "Day 3",
+      "who": "aunt",
+      "category": "Makeup",
+      "address": "South Korea, Seoul, Seongdong-gu, Seongsui-ro 7ga-gil, 15 1층",
+      "lat": 37.541559223954344, 
+      "lng": 127.05518713928538
+    },
+    {
+      "id": "a3_oliveyoung",
+      "name": "Olive Young N Seongsu (Seongsu)",
+      "day": "Day 3",
+      "who": "aunt",
+      "category": "Makeup",
+      "address": "13 Yeonmujang 7-gil, Seongdong-gu, Seoul, South Korea",
+      "lat": 37.54411999964677, 
+      "lng": 127.0545550019678
+    },
+    {
+      "id": "a3_VICXXO",
+      "name": "VICXXO (Seongsu)",
+      "day": "Day 3",
+      "who": "aunt",
+      "category": "Phone Accessories",
+      "address": "South Korea, Seoul, Seongdong-gu, Seongsui-ro 7-gil, 20 2층",
+      "lat": 37.5410190851596, 
+      "lng": 127.05466771468751
+    },
+    {
+      "id": "a3_CUEREN",
+      "name": "CUEREN (Seongsu)",
+      "day": "Day 3",
+      "who": "aunt",
+      "category": "Shoes / Accessories",
+      "address": "71 Seongsui-ro, Seongdong-gu, Seoul, South Korea",
+      "lat": 37.54164262558234, 
+      "lng": 127.05579725909573
+    },
+    {
+      "id": "a3_NYUNYUHOUSE",
+      "name": "NYU NYU House (Seongsu)",
+      "day": "Day 3",
+      "who": "aunt",
+      "category": "Shoes / Accessories",
+      "address": "2층, 107번지 315, Seongsu-dong 2(i)-ga, Seongdong-gu, Seoul, South Korea",
+      "lat": 37.54342174513694, 
+      "lng": 127.05658901998717
+    },
+    {
+      "id": "a3_NYUNYU",
+      "name": "NYU NYU (Seongsu)",
+      "day": "Day 3",
+      "who": "aunt",
+      "category": "Shoes / Accessories",
+      "address": "89 2f Yeonmujang-gil, Seongdong-gu, Seoul, South Korea",
+      "lat": 37.54152757533325, 
+      "lng": 127.05930045275531
+    },
+
+    {
+      "id": "m3_beidelli",
+      "name": "Beidelli (Seongsu)",
+      "day": "Day 3",
+      "who": "me",
+      "category": "Shopping",
+      "notes": "Clothes",
+      "address": "South Korea, Seoul, Seongdong-gu, Seongsu-dong 2(i)-ga, Yeonmujang-gil, 103 베이델리 1층",
+      "lat": 37.54095472702123, 
+      "lng": 127.06071648416204
+    },
+    {
+      "id": "m3_thetis",
+      "name": "Atelier Thetis (Seongsu)",
+      "day": "Day 3",
+      "who": "me",
+      "category": "Shopping",
+      "notes": "Clothes",
+      "address": "77 Yeonmujang-gil, Seongdong-gu, Seoul, South Korea",
+      "lat": 37.54185281804635, 
+      "lng": 127.05788702494411
+    },
+    {
+      "id": "m3_humanmade",
+      "name": "Human Made (Seongsu)",
+      "day": "Day 3",
+      "who": "me",
+      "category": "Shopping",
+      "notes": "Clothes",
+      "address": "1st floor, 39 Seongsui-ro 7-gil, Seongdong-gu, Seoul, South Korea",
+      "lat": 37.54251897205019, 
+      "lng": 127.05327441134423
+    },
+    {
+      "id": "m3_matinkim",
+      "name": "Matin Kim Flagship Store (Seongsu)",
+      "day": "Day 3",
+      "who": "me",
+      "category": "Shopping",
+      "notes": "Clothes",
+      "address": "301-16 Seongsu-dong 2(i)-ga, Seongdong-gu, Seoul, South Korea",
+      "lat": 37.54455947204965, 
+      "lng": 127.0513227081272
+    },
+    {
+      "id": "m3_matinkim",
+      "name": "Matin Kim (Seongsu)",
+      "day": "Day 3",
+      "who": "me",
+      "category": "Shopping",
+      "notes": "Clothes",
+      "address": "24-33 Achasan-ro 5-gil, Seongdong-gu, Seoul, South Korea",
+      "lat": 37.547351784826034, 
+      "lng": 127.05398107668066
+    },
+    {
+      "id": "m3_standardbread",
+      "name": "Standard Bread (Seongsu)",
+      "day": "Day 3",
+      "who": "me",
+      "category": "Cafe",
+      "notes": "Bread Shop",
+      "address": "37 Seongsui-ro 18-gil, Seongdong-gu, Seoul, South Korea",
+      "lat": 37.541681633027494, 
+      "lng": 127.0611408072654
+    },
+    {
+      "id": "m3_jayeondosaltedbakery",
+      "name": "Jayeondo Salted Bakery (Seongsu)",
+      "day": "Day 3",
+      "who": "me",
+      "category": "Cafe",
+      "notes": "Bread Shop",
+      "address": "56-1 Yeonmujang-gil, Seongdong-gu, Seoul, South Korea",
+      "lat": 37.54231159422136, 
+      "lng": 127.05545616518246
+    },
+    {
+      "id": "m3_hanjungsun",
+      "name": "Han Jung Sun (Seongsu)",
+      "day": "Day 3",
+      "who": "me",
+      "category": "Cafe",
+      "notes": "Mochi",
+      "address": "South Korea, Seoul, Seongdong-gu, Yeonmujang-gil, 43 1 1F",
+      "lat": 37.54285094847383, 
+      "lng": 127.05416296502982
+    },
+    {
+      "id": "m3_secondaire",
+      "name": "Secondaire (Seongsu)",
+      "day": "Day 3",
+      "who": "me",
+      "category": "Cafe",
+      "notes": "Bread Spread",
+      "address": "South Korea, Seoul, Seongdong-gu, Yeonmujang-gil, 54 1층",
+      "lat": 37.542382211539696, 
+      "lng": 127.05519200365636
+    },
+    {
+      "id": "m3_hince",
+      "name": "hince (Seongsu)",
+      "day": "Day 3",
+      "who": "me",
+      "category": "Makeup",
+      "address": "South Korea, Seoul, Seongdong-gu, Seongsui-ro 7ga-gil, 15 1층",
+      "lat": 37.541559223954344, 
+      "lng": 127.05518713928538
+    },
+    {
+      "id": "m3_oliveyoung",
+      "name": "Olive Young N Seongsu (Seongsu)",
+      "day": "Day 3",
+      "who": "me",
+      "category": "Makeup",
+      "address": "13 Yeonmujang 7-gil, Seongdong-gu, Seoul, South Korea",
+      "lat": 37.54411999964677, 
+      "lng": 127.0545550019678
+    },
+    {
+      "id": "m3_VICXXO",
+      "name": "VICXXO (Seongsu)",
+      "day": "Day 3",
+      "who": "me",
+      "category": "Phone Accessories",
+      "address": "South Korea, Seoul, Seongdong-gu, Seongsui-ro 7-gil, 20 2층",
+      "lat": 37.5410190851596, 
+      "lng": 127.05466771468751
+    },
+    {
+      "id": "m3_CUEREN",
+      "name": "CUEREN (Seongsu)",
+      "day": "Day 3",
+      "who": "me",
+      "category": "Shoes / Accessories",
+      "address": "71 Seongsui-ro, Seongdong-gu, Seoul, South Korea",
+      "lat": 37.54164262558234, 
+      "lng": 127.05579725909573
+    },
+    {
+      "id": "m3_NYUNYUHOUSE",
+      "name": "NYU NYU House (Seongsu)",
+      "day": "Day 3",
+      "who": "me",
+      "category": "Shoes / Accessories",
+      "address": "2층, 107번지 315, Seongsu-dong 2(i)-ga, Seongdong-gu, Seoul, South Korea",
+      "lat": 37.54342174513694, 
+      "lng": 127.05658901998717
+    },
+    {
+      "id": "m3_NYUNYU",
+      "name": "NYU NYU (Seongsu)",
+      "day": "Day 3",
+      "who": "me",
+      "category": "Shoes / Accessories",
+      "address": "89 2f Yeonmujang-gil, Seongdong-gu, Seoul, South Korea",
+      "lat": 37.54152757533325, 
+      "lng": 127.05930045275531
+    },
+
   
-    
+  
     {
       "id": "a4_airbnb",
       "name": "AirBNB (Yeonnam-dong)",
