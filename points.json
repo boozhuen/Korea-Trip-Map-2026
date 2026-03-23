@@ -738,6 +738,16 @@
       "lat": 37.55649243883818, 
       "lng": 126.92709077211401
     },
+    {
+      "id": "m2_Churro",
+      "name": "Churro 101 (Hongdae)",
+      "day": "Day 2",
+      "who": "me",
+      "category": "Cafe",
+      "address": "South Korea, Seoul, Mapo-gu, Eoulmadang-ro, 128 1층",
+      "lat": 37.55568619684574, 
+      "lng": 126.92426521494268
+    },
   
     
     {
@@ -1261,7 +1271,7 @@
       "lng": 127.05930045275531
     },
 
-  
+
   
     {
       "id": "a4_airbnb",
@@ -1281,16 +1291,42 @@
       "who": "aunt",
       "category": "Cafe",
       "notes": "Breakfast",
-      "address": "178 Sejong-daero, Jongno-gu, Seoul"
+      "address": "178 Sejong-daero, Jongno-gu, Seoul",
+      "lat": 37.572163028185095, 
+      "lng": 126.9779543670036
     },
     {
-      "id": "a4_namsan",
-      "name": "Namsan Library / N Seoul Tower / Namsan Baekbeom Square",
+      "id": "a4_namsanlib",
+      "name": "Namsan Library",
       "day": "Day 4",
       "who": "aunt",
       "category": "Nature",
       "notes": "Cherry blossom walk",
-      "address": "Namsan, Seoul, South Korea"
+      "address": "109 Sowol-ro, Yongsan District, Seoul, South Korea",
+      "lat": 37.55266367568264, 
+      "lng": 126.98135454954742
+    },
+    {
+      "id": "a4_namsantower",
+      "name": "N Seoul Tower",
+      "day": "Day 4",
+      "who": "aunt",
+      "category": "Nature",
+      "notes": "Cherry blossom walk",
+      "address": "105 Namsangongwon-gil, Yongsan District, Seoul, South Korea",
+      "lat": 37.55117071092496, 
+      "lng": 126.988222610414
+    },
+    {
+      "id": "a4_namsansquare",
+      "name": "Namsan Baekbeom Square",
+      "day": "Day 4",
+      "who": "aunt",
+      "category": "Nature",
+      "notes": "Cherry blossom walk",
+      "address": "231 Samil-daero, Hoehyeon-dong, Jung District, Seoul, South Korea",
+      "lat": 37.55486473953835, 
+      "lng": 126.97924051642494
     },
     {
       "id": "a4_kyoja",
@@ -1299,25 +1335,20 @@
       "who": "aunt",
       "category": "Food",
       "notes": "Lunch",
-      "address": "48 Myeongdong-gil, Jung-gu, Seoul"
+      "address": "48 Myeongdong-gil, Jung-gu, Seoul",
+      "lat": 37.560983709779094, 
+      "lng": 126.98610320757544
     },
     {
-      "id": "a4_myeongdong",
-      "name": "Myeongdong",
-      "day": "Day 4",
-      "who": "aunt",
-      "category": "Shopping",
-      "notes": "Shopping",
-      "address": "Myeongdong, Jung-gu, Seoul, South Korea"
-    },
-    {
-      "id": "a4_flower_yard",
+      "id": "a4_floweryard",
       "name": "Flower Yard Cafe (Madang Cafe)",
       "day": "Day 4",
       "who": "aunt",
       "category": "Cafe",
-      "notes": "Cafe stop",
-      "address": "33-12 Supyo-ro 28-gil, Jongno-gu, Seoul"
+      "notes": "Tea",
+      "address": "33-12 Supyo-ro 28-gil, Jongno-gu, Seoul",
+      "lat": 37.57367703462829, 
+      "lng": 126.99022046968268
     },
     {
       "id": "a4_lotte",
@@ -1326,7 +1357,9 @@
       "who": "aunt",
       "category": "Shopping",
       "notes": "Groceries / souvenirs",
-      "address": "405 Hangang-daero, Jung-gu, Seoul"
+      "address": "405 Hangang-daero, Jung-gu, Seoul",
+      "lat": 37.55582097248403, 
+      "lng": 126.9704851091205
     },
     {
       "id": "a4_gwangjang",
@@ -1335,7 +1368,9 @@
       "who": "aunt",
       "category": "Food",
       "notes": "Market",
-      "address": "88 Changgyeonggung-ro, Jongno-gu, Seoul"
+      "address": "88 Changgyeonggung-ro, Jongno-gu, Seoul",
+      "lat": 37.57004542637552, 
+      "lng": 126.99960153542138
     },
   
     
@@ -1357,16 +1392,42 @@
       "who": "me",
       "category": "Cafe",
       "notes": "Breakfast",
-      "address": "178 Sejong-daero, Jongno-gu, Seoul"
+      "address": "178 Sejong-daero, Jongno-gu, Seoul",
+      "lat": 37.572163028185095, 
+      "lng": 126.9779543670036
     },
     {
-      "id": "m4_namsan",
-      "name": "Namsan Library / N Seoul Tower / Namsan Baekbeom Square",
+      "id": "m4_namsanlib",
+      "name": "Namsan Library",
       "day": "Day 4",
       "who": "me",
       "category": "Nature",
       "notes": "Cherry blossom walk",
-      "address": "Namsan, Seoul, South Korea"
+      "address": "109 Sowol-ro, Yongsan District, Seoul, South Korea",
+      "lat": 37.55266367568264, 
+      "lng": 126.98135454954742
+    },
+    {
+      "id": "m4_namsantower",
+      "name": "N Seoul Tower",
+      "day": "Day 4",
+      "who": "me",
+      "category": "Nature",
+      "notes": "Cherry blossom walk",
+      "address": "105 Namsangongwon-gil, Yongsan District, Seoul, South Korea",
+      "lat": 37.55117071092496, 
+      "lng": 126.988222610414
+    },
+    {
+      "id": "m4_namsansquare",
+      "name": "Namsan Baekbeom Square",
+      "day": "Day 4",
+      "who": "me",
+      "category": "Nature",
+      "notes": "Cherry blossom walk",
+      "address": "231 Samil-daero, Hoehyeon-dong, Jung District, Seoul, South Korea",
+      "lat": 37.55486473953835, 
+      "lng": 126.97924051642494
     },
     {
       "id": "m4_kyoja",
@@ -1375,25 +1436,42 @@
       "who": "me",
       "category": "Food",
       "notes": "Lunch",
-      "address": "48 Myeongdong-gil, Jung-gu, Seoul"
-    },
-    {
-      "id": "m4_myeongdong",
-      "name": "Myeongdong",
-      "day": "Day 4",
-      "who": "me",
-      "category": "Shopping",
-      "notes": "Shopping",
-      "address": "Myeongdong, Jung-gu, Seoul, South Korea"
+      "address": "48 Myeongdong-gil, Jung-gu, Seoul",
+      "lat": 37.560983709779094, 
+      "lng": 126.98610320757544
     },
     {
       "id": "m4_cheongsudang",
-      "name": "Cheongsudang Bakery / Nakwon Station",
+      "name": "Cheongsudang Bakery",
       "day": "Day 4",
       "who": "me",
       "category": "Cafe",
-      "notes": "Bakery stop",
-      "address": "31-9 Donhwamun-ro 11na-gil, Jongno-gu, Seoul"
+      "notes": "Tea",
+      "address": "31-9 Donhwamun-ro 11na-gil, Jongno-gu, Seoul",
+      "lat": 37.57388312787948, 
+      "lng": 126.98976175283391
+    },
+    {
+      "id": "m4_nakwon",
+      "name": "Nakwon",
+      "day": "Day 4",
+      "who": "me",
+      "category": "Cafe",
+      "notes": "Tea",
+      "address": "33-5 Supyo-ro 28-gil, Jongno District, Seoul, South Korea",
+      "lat": 37.57336756424486, 
+      "lng": 126.9900688267366
+    },
+    {
+      "id": "m4_rainreport",
+      "name": "Rain Report Rainbow",
+      "day": "Day 4",
+      "who": "me",
+      "category": "Cafe",
+      "notes": "Tea",
+      "address": "33-7 Supyo-ro 28-gil, Jongno District, Seoul, South Korea",
+      "lat": 37.57344699438347, 
+      "lng": 126.99006594723879 
     },
     {
       "id": "m4_lotte",
@@ -1402,7 +1480,9 @@
       "who": "me",
       "category": "Shopping",
       "notes": "Groceries / souvenirs",
-      "address": "405 Hangang-daero, Jung-gu, Seoul"
+      "address": "405 Hangang-daero, Jung-gu, Seoul",
+      "lat": 37.55582097248403, 
+      "lng": 126.9704851091205
     },
     {
       "id": "m4_gwangjang",
@@ -1411,7 +1491,229 @@
       "who": "me",
       "category": "Food",
       "notes": "Market",
-      "address": "88 Changgyeonggung-ro, Jongno-gu, Seoul"
+      "address": "88 Changgyeonggung-ro, Jongno-gu, Seoul",
+      "lat": 37.57004542637552, 
+      "lng": 126.99960153542138
+    },
+    {
+      "id": "m4_starbucks",
+      "name": "Starbucks",
+      "day": "Day 4",
+      "who": "me",
+      "category": "Food",
+      "notes": "Market",
+      "address": "88 Changgyeonggung-ro, Jongno District, Seoul, South Korea",
+      "lat": 37.570150714731895, 
+      "lng": 127.00042629634777
+    },
+    {
+      "id": "a4_northface",
+      "name": "THE NORTH FACE (Myeongdong)",
+      "day": "Day 4",
+      "who": "aunt",
+      "category": "Shopping",
+      "notes": "Clothes",
+      "address": "1-2 Namsan-dong 2(i)-ga, Jung District, Seoul, South Korea",
+      "lat": 37.56063709565468, 
+      "lng": 126.98597017897855
+    },
+    {
+      "id": "m4_musinsa",
+      "name": "Musinsa Standard (Myeongdong)",
+      "day": "Day 4",
+      "who": "me",
+      "category": "Shopping",
+      "notes": "Clothes",
+      "address": "90 Namdaemun-ro, Jung District, Seoul, South Korea",
+      "lat": 37.56510967667082, 
+      "lng": 126.98284639166505
+    },
+    {
+      "id": "a4_musinsa",
+      "name": "Musinsa Standard (Myeongdong)",
+      "day": "Day 4",
+      "who": "aunt",
+      "category": "Shopping",
+      "notes": "Clothes",
+      "address": "90 Namdaemun-ro, Jung District, Seoul, South Korea",
+      "lat": 37.56510967667082, 
+      "lng": 126.98284639166505
+    },
+    {
+      "id": "m4_juuneedu",
+      "name": "Juuneedu (Myeongdong)",
+      "day": "Day 4",
+      "who": "me",
+      "category": "Shopping",
+      "notes": "Pyjamas",
+      "address": "2 Myeongdong 6-gil, Jung District, Seoul, South Korea",
+      "lat": 37.5632025379996, 
+      "lng": 126.9840919684169
+    },
+    {
+      "id": "m4_barnett",
+      "name": "The Barnett (Myeongdong)",
+      "day": "Day 4",
+      "who": "me",
+      "category": "Shopping",
+      "notes": "Clothes",
+      "address": "168-24 Noksapyeong-daero, Yongsan District, Seoul, South Korea",
+      "lat": 37.53337505619047, 
+      "lng": 126.99008183508845
+    },
+    {
+      "id": "m4_dparks",
+      "name": "THE DPARKS SHOP (Myeongdong)",
+      "day": "Day 4",
+      "who": "me",
+      "category": "Shopping",
+      "notes": "Phone Accessories",
+      "address": "31 Myeongdong 10-gil, Jung District, Seoul, South Korea",
+      "lat": 37.56245453490453, 
+      "lng": 126.98564251228916
+    },
+    {
+      "id": "a4_dparks",
+      "name": "THE DPARKS SHOP (Myeongdong)",
+      "day": "Day 4",
+      "who": "aunt",
+      "category": "Shopping",
+      "notes": "Phone Accessories",
+      "address": "31 Myeongdong 10-gil, Jung District, Seoul, South Korea",
+      "lat": 37.56245453490453, 
+      "lng": 126.98564251228916
+    },
+    {
+      "id": "m4_hetras",
+      "name": "hetras (Myeongdong)",
+      "day": "Day 4",
+      "who": "me",
+      "category": "Shopping",
+      "notes": "Fragrance",
+      "address": "10 Myeongdong 6-gil, Jung District, Seoul, South Korea",
+      "lat": 37.56287334848866, 
+      "lng": 126.98414222664371
+    },
+    {
+      "id": "a4_hetras",
+      "name": "hetras (Myeongdong)",
+      "day": "Day 4",
+      "who": "aunt",
+      "category": "Shopping",
+      "notes": "Fragrance",
+      "address": "10 Myeongdong 6-gil, Jung District, Seoul, South Korea",
+      "lat": 37.56287334848866, 
+      "lng": 126.98414222664371
+    },
+    {
+      "id": "m4_oliveyoung",
+      "name": "Olive Young (Myeongdong)",
+      "day": "Day 4",
+      "who": "me",
+      "category": "Shopping",
+      "notes": "Makeup",
+      "address": "18 Myeongdong 8na-gil, Jung District, Seoul, South Korea",
+      "lat": 37.561571163607994, 
+      "lng": 126.98400132089046
+    },
+    {
+      "id": "a4_oliveyoung",
+      "name": "Olive Young (Myeongdong)",
+      "day": "Day 4",
+      "who": "aunt",
+      "category": "Shopping",
+      "notes": "Makeup",
+      "address": "18 Myeongdong 8na-gil, Jung District, Seoul, South Korea",
+      "lat": 37.561571163607994, 
+      "lng": 126.98400132089046
+    },
+    {
+      "id": "m4_tirtir",
+      "name": "Olive Young (Myeongdong)",
+      "day": "Day 4",
+      "who": "me",
+      "category": "Shopping",
+      "notes": "Makeup",
+      "address": "３３−２ Myeong-dong 2(i)-ga, Jung District, Seoul, South Korea",
+      "lat": 37.56369785079888, 
+      "lng": 126.98463974748366
+    },
+    {
+      "id": "a4_tirtir",
+      "name": "tirtir (Myeongdong)",
+      "day": "Day 4",
+      "who": "aunt",
+      "category": "Shopping",
+      "notes": "Makeup",
+      "address": "３３−２ Myeong-dong 2(i)-ga, Jung District, Seoul, South Korea",
+      "lat": 37.56369785079888, 
+      "lng": 126.98463974748366
+    },
+    {
+      "id": "m4_linefriends",
+      "name": "Line Friends Square (Myeongdong)",
+      "day": "Day 4",
+      "who": "me",
+      "category": "Shopping",
+      "notes": "BTS",
+      "address": "43 Myeongdong-gil, Jung District, Seoul, South Korea",
+      "lat": 37.56384440248669, 
+      "lng": 126.98459754759008
+    },
+    {
+      "id": "m4_shinsegae",
+      "name": "Shinsegae Department Store Main Store (Myeongdong)",
+      "day": "Day 4",
+      "who": "me",
+      "category": "Shopping",
+      "notes": "Department Store",
+      "address": "63 Sogong-ro, Jung District, Seoul, South Korea",
+      "lat": 37.56093079422587, 
+      "lng": 126.98113851050653
+    },
+    {
+      "id": "m4_shinsegae",
+      "name": "Shinsegae Duty Free (Myeongdong)",
+      "day": "Day 4",
+      "who": "me",
+      "category": "Shopping",
+      "notes": "Department Store",
+      "address": "77 Toegye-ro, Jung District, Seoul, South Korea",
+      "lat": 37.560306474302145, 
+      "lng": 126.9806566395397
+    },
+    {
+      "id": "a4_shinsegae",
+      "name": "Shinsegae Department Store Main Store (Myeongdong)",
+      "day": "Day 4",
+      "who": "aunt",
+      "category": "Shopping",
+      "notes": "Department Store",
+      "address": "63 Sogong-ro, Jung District, Seoul, South Korea",
+      "lat": 37.56093079422587, 
+      "lng": 126.98113851050653
+    },
+    {
+      "id": "a4_shinsegae",
+      "name": "Shinsegae Duty Free (Myeongdong)",
+      "day": "Day 4",
+      "who": "aunt",
+      "category": "Shopping",
+      "notes": "Department Store",
+      "address": "77 Toegye-ro, Jung District, Seoul, South Korea",
+      "lat": 37.560306474302145, 
+      "lng": 126.9806566395397
+    },
+    {
+      "id": "m4_kyochon",
+      "name": "Kyochon Pilbang",
+      "day": "Day 4",
+      "who": "me",
+      "category": "Food",
+      "notes": "Supper",
+      "address": "127 Bogwang-ro, Yongsan District, Seoul, South Korea",
+      "lat": 37.53407953069896, 
+      "lng": 126.99385291070193
     }
   ]
   
